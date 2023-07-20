@@ -17,7 +17,7 @@ val Mulish = FontFamily(
     Font(R.font.mulish_semi_bold, FontWeight.SemiBold)
 )
 
-val Typography = Typography()
+val TypographyUiKit = Typography()
 
 val Header01 = TextStyle(
     fontSize = 32.sp,
