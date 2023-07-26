@@ -1,5 +1,6 @@
 package com.afoxplus.yalistoadmin
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -10,6 +11,8 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import com.afoxplus.uikitcompose.ui.theme.UikitComposeTheme
+import com.afoxplus.yalistoadmin.ui.home.HomeActivity
 import com.afoxplus.yalistoadmin.ui.login.LoginScreen
 import com.afoxplus.yalistoadmin.ui.theme.AppyalistoadminandroidTheme
 
@@ -23,7 +26,11 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    LoginScreen()
+                    LoginScreen() {
+                        val intent = Intent(this@MainActivity, HomeActivity::class.java)
+                        startActivity(intent)
+                        finish()
+                    }
                 }
             }
         }

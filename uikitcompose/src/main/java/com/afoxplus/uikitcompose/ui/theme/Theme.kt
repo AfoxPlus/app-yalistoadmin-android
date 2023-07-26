@@ -1,4 +1,3 @@
-/*
 package com.afoxplus.uikitcompose.ui.theme
 
 import android.app.Activity
@@ -12,13 +11,13 @@ import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.platform.LocalView
 import androidx.core.view.WindowCompat
 
-private val DarkColorScheme = darkColorScheme(
+val DarkColorSchemeUiKit = darkColorScheme(
     primary = Dark01,
     secondary = Green01,
     tertiary = Pink02
 )
 
-private val LightColorScheme = lightColorScheme(
+ val LightColorSchemeUiKit = lightColorScheme(
     primary = Dark01,
     secondary = Green01,
     tertiary = Pink02
@@ -31,22 +30,22 @@ fun UikitComposeTheme(
     content: @Composable () -> Unit
 ) {
     val colorScheme = when {
-        darkTheme -> DarkColorScheme
-        else -> LightColorScheme
+        darkTheme -> DarkColorSchemeUiKit
+        else -> LightColorSchemeUiKit
     }
-    val view = LocalView.current
+    /*val view = LocalView.current
     if (!view.isInEditMode) {
         SideEffect {
             val window = (view.context as Activity).window
             window.statusBarColor = colorScheme.primary.toArgb()
             WindowCompat.getInsetsController(window, view).isAppearanceLightStatusBars = darkTheme
         }
-    }
+    }*/
 
     MaterialTheme(
         colorScheme = colorScheme,
-        typography = Typography,
-        shapes = Shapes,
+        typography = TypographyUiKit,
+        //shapes = Shapes,
         content = content
     )
-}*/
+}
