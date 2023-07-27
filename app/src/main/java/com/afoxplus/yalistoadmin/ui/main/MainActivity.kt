@@ -1,4 +1,4 @@
-package com.afoxplus.yalistoadmin
+package com.afoxplus.yalistoadmin.ui.main
 
 import android.content.Intent
 import android.os.Bundle
@@ -11,7 +11,6 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import com.afoxplus.uikitcompose.ui.theme.UikitComposeTheme
 import com.afoxplus.yalistoadmin.ui.home.HomeActivity
 import com.afoxplus.yalistoadmin.ui.login.LoginScreen
 import com.afoxplus.yalistoadmin.ui.theme.AppyalistoadminandroidTheme
