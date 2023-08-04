@@ -1,4 +1,4 @@
-package com.afoxplus.yalistoadmin.ui.main
+package com.afoxplus.yalistoadmin.ui.login
 
 import android.content.Intent
 import android.os.Bundle
@@ -10,9 +10,8 @@ import androidx.compose.material3.Surface
 import androidx.compose.ui.Modifier
 import com.afoxplus.uikitcompose.ui.theme.UiKitComposeTheme
 import com.afoxplus.yalistoadmin.ui.home.HomeActivity
-import com.afoxplus.yalistoadmin.ui.login.LoginScreen
 
-class MainActivity : ComponentActivity() {
+class LoginActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
@@ -23,7 +22,7 @@ class MainActivity : ComponentActivity() {
                     color = MaterialTheme.colorScheme.background
                 ) {
                     LoginScreen() {
-                        val intent = Intent(this@MainActivity, HomeActivity::class.java)
+                        val intent = Intent(this@LoginActivity, HomeActivity::class.java)
                         startActivity(intent)
                         finish()
                     }
