@@ -137,5 +137,6 @@ dependencies {
 
     // Business
     implementation(project(":uikitcompose"))
+    implementation("com.afoxplus.android:network:1.2.4")
 
 }
