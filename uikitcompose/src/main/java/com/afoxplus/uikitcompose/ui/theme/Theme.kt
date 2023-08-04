@@ -14,38 +14,38 @@ import androidx.core.view.WindowCompat
 val DarkColorSchemeUiKit = darkColorScheme(
     primary = Dark01,
     secondary = Green01,
-    tertiary = Pink02
+    tertiary = Pink02,
+    background = Light06
 )
 
- val LightColorSchemeUiKit = lightColorScheme(
+val LightColorSchemeUiKit = lightColorScheme(
     primary = Dark01,
     secondary = Green01,
-    tertiary = Pink02
+    tertiary = Pink02,
+    background = Light06
 )
 
 @Composable
-fun UikitComposeTheme(
+fun UiKitComposeTheme(
     darkTheme: Boolean = isSystemInDarkTheme(),
-    dynamicColor: Boolean = true,
     content: @Composable () -> Unit
 ) {
     val colorScheme = when {
         darkTheme -> DarkColorSchemeUiKit
         else -> LightColorSchemeUiKit
     }
-    /*val view = LocalView.current
+    val view = LocalView.current
     if (!view.isInEditMode) {
         SideEffect {
             val window = (view.context as Activity).window
             window.statusBarColor = colorScheme.primary.toArgb()
             WindowCompat.getInsetsController(window, view).isAppearanceLightStatusBars = darkTheme
         }
-    }*/
+    }
 
     MaterialTheme(
         colorScheme = colorScheme,
         typography = TypographyUiKit,
-        //shapes = Shapes,
         content = content
     )
 }

@@ -1,4 +1,4 @@
-package com.afoxplus.uikitdemo
+package com.afoxplus.uikitdemo.ui
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -13,24 +13,23 @@ import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.afoxplus.uikitcompose.ui.theme.UiKitComposeTheme
 import com.afoxplus.uikitdemo.ScreenNames.ROUTE_COLOR
 import com.afoxplus.uikitdemo.ScreenNames.ROUTE_MAIN
 import com.afoxplus.uikitdemo.ScreenNames.ROUTE_TEXT
 import com.afoxplus.uikitdemo.demos.ColorScreen
 import com.afoxplus.uikitdemo.demos.TextScreen
-import com.afoxplus.uikitdemo.ui.theme.AppyalistoadminandroidTheme
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            AppyalistoadminandroidTheme {
+            UiKitComposeTheme {
                 // A surface container using the 'background' color from the theme
                 Surface(
                     modifier = Modifier.fillMaxSize(),
@@ -59,9 +58,11 @@ class MainActivity : ComponentActivity() {
 
 @Composable
 fun MainScreen(navController: NavController) {
-    Column(modifier = Modifier
-        .fillMaxSize()
-        .padding(16.dp)) {
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+            .padding(16.dp)
+    ) {
         Button(
             modifier = Modifier.fillMaxWidth(),
             onClick = { navController.navigate(ROUTE_TEXT) }
@@ -75,10 +76,4 @@ fun MainScreen(navController: NavController) {
             Text(text = ROUTE_COLOR.uppercase())
         }
     }
-}
-
-@Preview(showBackground = true)
-@Composable
-fun GreetingPreview() {
-    AppyalistoadminandroidTheme {}
 }

@@ -25,8 +25,8 @@ import com.afoxplus.uikitcompose.ui.theme.Header05
 import com.afoxplus.uikitcompose.ui.theme.Light03
 import com.afoxplus.uikitcompose.ui.theme.Paragraph01
 import com.afoxplus.uikitcompose.ui.theme.Paragraph02
+import com.afoxplus.uikitcompose.ui.theme.UiKitComposeTheme
 import com.afoxplus.yalistoadmin.R
-import com.afoxplus.yalistoadmin.ui.theme.AppyalistoadminandroidTheme
 
 @Composable
 fun OrderDetailItem(
@@ -111,25 +111,27 @@ fun OrderDetailTotalItem(modifier: Modifier = Modifier, total: String, paymentMe
 
 @Preview(showBackground = true)
 @Composable
-fun OrderDetailItemPreview() = AppyalistoadminandroidTheme {
-    Column {
-        OrderDetailItem(
-            title = "Jarra chicha morada",
-            description = "Refrescante chicha morada 1 litro",
-            price = "S/ 20.50",
-            quantity = "Cant: 1",
-            total = "S/ 20.50"
-        )
-        Divider(modifier = Modifier.height(1.dp), color = Light03)
-        OrderDetailItem(
-            title = "Jarra de limonada fresca",
-            description = "Refrescante limonada 1 litro",
-            price = "S/ 20.50",
-            quantity = "Cant: 2",
-            total = "S/ 51.00"
-        )
-        Divider(modifier = Modifier.height(1.dp), color = Light03)
-        OrderDetailTotalItem(total = "S/ 50.30", paymentMethod = "Efectivo")
-    }
+fun OrderDetailItemPreview() {
+    UiKitComposeTheme {
+        Column {
+            OrderDetailItem(
+                title = "Jarra chicha morada",
+                description = "Refrescante chicha morada 1 litro",
+                price = "S/ 20.50",
+                quantity = "Cant: 1",
+                total = "S/ 20.50"
+            )
+            Divider(modifier = Modifier.height(1.dp), color = Light03)
+            OrderDetailItem(
+                title = "Jarra de limonada fresca",
+                description = "Refrescante limonada 1 litro",
+                price = "S/ 20.50",
+                quantity = "Cant: 2",
+                total = "S/ 51.00"
+            )
+            Divider(modifier = Modifier.height(1.dp), color = Light03)
+            OrderDetailTotalItem(total = "S/ 50.30", paymentMethod = "Efectivo")
+        }
 
+    }
 }

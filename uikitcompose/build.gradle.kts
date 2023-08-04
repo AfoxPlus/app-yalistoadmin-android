@@ -38,13 +38,21 @@ android {
 
     kotlinOptions.jvmTarget = JavaVersion.VERSION_17.toString()
 
+    buildFeatures {
+        compose = true
+    }
+
+    composeOptions {
+        kotlinCompilerExtensionVersion = "1.4.8"
+    }
+
+    packaging {
+        resources.excludes.add("/META-INF/{AL2.0,LGPL2.1}")
+    }
 }
 
 dependencies {
     implementation("androidx.core:core-ktx:1.10.1")
-    /*implementation("androidx.appcompat:appcompat:1.6.1")
-    implementation("com.google.android.material:material:1.9.0")
-    implementation("androidx.constraintlayout:constraintlayout:2.1.4")*/
 
     // Compose
     implementation("androidx.activity:activity-compose:1.7.2")
