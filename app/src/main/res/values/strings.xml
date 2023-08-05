@@ -3,4 +3,8 @@
 
     <string name="order_status_total_label">Total:</string>
     <string name="order_status_payment_method_label">Método de pago:</string>
+    <string name="login_card_title">YaListo - Administrador</string>
+    <string name="login_card_subtitle">Gestiona tus pedidos</string>
+    <string name="login_card_input_title">Identificador del establecimiento</string>
+    <string name="ingresar">Ingresar</string>
 </resources>

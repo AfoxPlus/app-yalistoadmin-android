@@ -66,6 +66,7 @@ android {
 
     buildFeatures {
         compose = true
+        buildConfig = true
     }
 
     composeOptions {
@@ -138,5 +139,6 @@ dependencies {
     // Business
     implementation(project(":uikitcompose"))
     implementation("com.afoxplus.android:network:1.2.4")
+    implementation("com.afoxplus.android:uikit:5.3.4")
 
 }
