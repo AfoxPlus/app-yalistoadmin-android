@@ -37,6 +37,7 @@ import com.afoxplus.yalistoadmin.R
 @Composable
 fun LoginCardComponent(
     modifier: Modifier = Modifier,
+    enabled: Boolean,
     focusManager: FocusManager,
     onLogin: (key: String) -> Unit
 ) {
@@ -95,6 +96,7 @@ fun LoginCardComponent(
                 Spacer(modifier = Modifier.height(32.dp))
                 ButtonYaListoComponent(
                     text = stringResource(id = R.string.ingresar),
+                    enabled = enabled,
                     onClick = {
                         focusManager.clearFocus()
                         onLogin(inputText.text)
@@ -109,5 +111,8 @@ fun LoginCardComponent(
 @Composable
 fun LoginCardComponentPreview() {
     val focusManager = LocalFocusManager.current
-    LoginCardComponent(focusManager = focusManager, onLogin = {})
+    Column {
+        LoginCardComponent(focusManager = focusManager, enabled = true, onLogin = {})
+        LoginCardComponent(focusManager = focusManager, enabled = false, onLogin = {})
+    }
 }

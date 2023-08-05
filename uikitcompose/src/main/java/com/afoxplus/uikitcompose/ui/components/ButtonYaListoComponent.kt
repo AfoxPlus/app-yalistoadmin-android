@@ -1,5 +1,6 @@
 package com.afoxplus.uikitcompose.ui.components
 
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -20,8 +21,9 @@ import com.afoxplus.uikitcompose.ui.theme.Orange01
 
 @Composable
 fun ButtonYaListoComponent(
-    text: String,
     modifier: Modifier = Modifier,
+    text: String,
+    enabled: Boolean = true,
     colors: ButtonColors = ButtonDefaults.buttonColors(containerColor = Orange01),
     shape: Shape = RoundedCornerShape(15.dp),
     onClick: () -> Unit
@@ -30,6 +32,7 @@ fun ButtonYaListoComponent(
     Button(
         modifier = modifier
             .fillMaxWidth(),
+        enabled = enabled,
         onClick = {
             onClick()
         },
@@ -52,5 +55,17 @@ fun ButtonYaListoComponent(
 @Preview
 @Composable
 fun ButtonYaListoComponentPreview() {
-    ButtonYaListoComponent(text = "Ingresar", modifier = Modifier.fillMaxWidth(), onClick = {})
+    Column {
+        ButtonYaListoComponent(
+            modifier = Modifier.fillMaxWidth(),
+            text = "Ingresar",
+            enabled = true,
+            onClick = {})
+
+        ButtonYaListoComponent(
+            modifier = Modifier.fillMaxWidth(),
+            text = "Ingresar",
+            enabled = false,
+            onClick = {})
+    }
 }

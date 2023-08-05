@@ -4,7 +4,6 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.activity.viewModels
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
@@ -16,8 +15,6 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class LoginActivity : ComponentActivity() {
 
-    private val loginViewModel by viewModels<LoginViewModel>()
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
@@ -27,10 +24,6 @@ class LoginActivity : ComponentActivity() {
                     color = MaterialTheme.colorScheme.background
                 ) {
                     LoginScreen(
-                        loginViewModel = loginViewModel,
-                        onLogin = { key ->
-                            loginViewModel.auth(key = key)
-                        },
                         onNavigateTo = {
                             val intent = Intent(this@LoginActivity, HomeActivity::class.java)
                             startActivity(intent)

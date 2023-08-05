@@ -18,7 +18,7 @@ import androidx.compose.ui.tooling.preview.Preview
 
 @Composable
 fun TextFieldYaListoComponent(
-    modifier: Modifier,
+    modifier: Modifier = Modifier,
     placeholder: String = "",
     singleLine: Boolean = true,
     colors: TextFieldColors = TextFieldDefaults.colors(
@@ -52,7 +52,7 @@ fun TextFieldYaListoComponentPreview() {
 
     TextFieldYaListoComponent(
         modifier = Modifier.fillMaxWidth(),
-        placeholder="Helouda",
+        placeholder = "Helouda",
         onValueChange = { inputText = it }
     )
 }
