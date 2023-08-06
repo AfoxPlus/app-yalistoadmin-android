@@ -10,22 +10,26 @@ import androidx.compose.material3.Surface
 import androidx.compose.ui.Modifier
 import com.afoxplus.uikitcompose.ui.theme.UiKitComposeTheme
 import com.afoxplus.yalistoadmin.ui.home.HomeActivity
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class LoginActivity : ComponentActivity() {
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
             UiKitComposeTheme {
-                // A surface container using the 'background' color from the theme
                 Surface(
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    LoginScreen() {
-                        val intent = Intent(this@LoginActivity, HomeActivity::class.java)
-                        startActivity(intent)
-                        finish()
-                    }
+                    LoginScreen(
+                        onNavigateTo = {
+                            val intent = Intent(this@LoginActivity, HomeActivity::class.java)
+                            startActivity(intent)
+                            finish()
+                        }
+                    )
                 }
             }
         }

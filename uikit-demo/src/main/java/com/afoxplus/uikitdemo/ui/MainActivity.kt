@@ -19,10 +19,14 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.afoxplus.uikitcompose.ui.theme.UiKitComposeTheme
+import com.afoxplus.uikitdemo.ScreenNames.ROUTE_BUTTON
 import com.afoxplus.uikitdemo.ScreenNames.ROUTE_COLOR
+import com.afoxplus.uikitdemo.ScreenNames.ROUTE_INPUT
 import com.afoxplus.uikitdemo.ScreenNames.ROUTE_MAIN
 import com.afoxplus.uikitdemo.ScreenNames.ROUTE_TEXT
+import com.afoxplus.uikitdemo.demos.ButtonScreen
 import com.afoxplus.uikitdemo.demos.ColorScreen
+import com.afoxplus.uikitdemo.demos.InputScreen
 import com.afoxplus.uikitdemo.demos.TextScreen
 
 class MainActivity : ComponentActivity() {
@@ -49,6 +53,12 @@ class MainActivity : ComponentActivity() {
                         composable(route = ROUTE_COLOR) {
                             ColorScreen()
                         }
+                        composable(route = ROUTE_BUTTON) {
+                            ButtonScreen()
+                        }
+                        composable(route = ROUTE_INPUT) {
+                            InputScreen()
+                        }
                     }
                 }
             }
@@ -74,6 +84,18 @@ fun MainScreen(navController: NavController) {
             onClick = { navController.navigate(ROUTE_COLOR) }
         ) {
             Text(text = ROUTE_COLOR.uppercase())
+        }
+        Button(
+            modifier = Modifier.fillMaxWidth(),
+            onClick = { navController.navigate(ROUTE_BUTTON) }
+        ) {
+            Text(text = ROUTE_BUTTON.uppercase())
+        }
+        Button(
+            modifier = Modifier.fillMaxWidth(),
+            onClick = { navController.navigate(ROUTE_INPUT) }
+        ) {
+            Text(text = ROUTE_INPUT.uppercase())
         }
     }
 }
