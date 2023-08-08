@@ -10,7 +10,7 @@ import com.afoxplus.yalistoadmin.domain.usecase.params.AuthParams
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -21,10 +21,10 @@ class LoginViewModel @Inject constructor(
 ) : ViewModel() {
 
     private val _isLoading = MutableStateFlow(false)
-    var isLoading: StateFlow<Boolean> = _isLoading
+    var isLoading = _isLoading.asStateFlow()
 
-    private var _navigateTo = MutableStateFlow(false)
-    var navigateTo: StateFlow<Boolean> = _navigateTo
+    private var _isNavigate = MutableStateFlow(false)
+    var isNavigate = _isNavigate.asStateFlow()
 
     lateinit var authEntity: AuthEntity
 
@@ -41,7 +41,7 @@ class LoginViewModel @Inject constructor(
 
                     is ResultState.Success -> {
                         _isLoading.value = false
-                        _navigateTo.value = true
+                        _isNavigate.value = true
                         authEntity = result.data
                     }
                 }

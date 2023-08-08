@@ -111,6 +111,7 @@ dependencies {
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.6.1")
     implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.6.1")
     implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.6.1")
+    implementation("androidx.lifecycle:lifecycle-runtime-compose:2.6.1")
 
     // Retrofit
     implementation("com.squareup.retrofit2:retrofit:2.9.0")
@@ -122,6 +123,9 @@ dependencies {
     kapt("com.google.dagger:hilt-android-compiler:2.46.1")
     implementation("androidx.hilt:hilt-navigation-compose:1.0.0")
     kapt("androidx.hilt:hilt-compiler:1.0.0")
+
+    // WorkManager
+    implementation("androidx.work:work-runtime-ktx:2.8.1")
 
     // Palette
     implementation("androidx.palette:palette:1.0.0")

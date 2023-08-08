@@ -1,6 +1,5 @@
 package com.afoxplus.yalistoadmin.ui.main
 
-import android.content.Intent
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -14,7 +13,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.afoxplus.uikitcompose.ui.theme.UiKitComposeTheme
 import com.afoxplus.yalistoadmin.commons.utils.Screen
-import com.afoxplus.yalistoadmin.ui.home.HomeActivity
+import com.afoxplus.yalistoadmin.ui.home.HomeScreen
 import com.afoxplus.yalistoadmin.ui.login.LoginScreen
 import com.afoxplus.yalistoadmin.ui.splash.SplashScreen
 import dagger.hilt.android.AndroidEntryPoint
@@ -30,10 +29,7 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    Navigation(onFinish = {
-                        finish()
-                        startActivity(Intent(this@MainActivity, HomeActivity::class.java))
-                    })
+                    NavigationMainActivity()
                 }
             }
         }
@@ -41,7 +37,7 @@ class MainActivity : ComponentActivity() {
 }
 
 @Composable
-fun Navigation(onFinish: () -> Unit) {
+fun NavigationMainActivity() {
 
     val navController = rememberNavController()
 
@@ -52,14 +48,18 @@ fun Navigation(onFinish: () -> Unit) {
         composable(Screen.SplashScreen.route) {
             SplashScreen(navigateTo = {
                 navController.popBackStack()
-                navController.navigate("login_screen") {
-
-                }
+                navController.navigate(Screen.LoginScreen.route)
             })
         }
         composable(Screen.LoginScreen.route) {
             LoginScreen(navigateTo = {
-                onFinish()
+                navController.popBackStack()
+                navController.navigate(Screen.HomeScreen.route)
+            })
+        }
+        composable(Screen.HomeScreen.route) {
+            HomeScreen(navigateTo = {
+
             })
         }
     }
