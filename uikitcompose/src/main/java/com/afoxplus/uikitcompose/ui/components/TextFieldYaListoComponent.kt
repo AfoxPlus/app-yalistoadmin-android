@@ -29,7 +29,7 @@ fun TextFieldYaListoComponent(
 ) {
 
     var inputText by rememberSaveable(stateSaver = TextFieldValue.Saver) {
-        mutableStateOf(TextFieldValue("4AF8D1"))
+        mutableStateOf(TextFieldValue(""))
     }
 
     TextField(
