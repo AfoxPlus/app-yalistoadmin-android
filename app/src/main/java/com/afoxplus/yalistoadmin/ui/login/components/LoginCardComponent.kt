@@ -42,7 +42,7 @@ fun LoginCardComponent(
     onLogin: (key: String) -> Unit
 ) {
 
-    var inputText by remember { mutableStateOf(TextFieldValue("")) }
+    var inputText by remember { mutableStateOf(TextFieldValue("4AF8D1")) }
 
     Row(
         modifier = modifier,

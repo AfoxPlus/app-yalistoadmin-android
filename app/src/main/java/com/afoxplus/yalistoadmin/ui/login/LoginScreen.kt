@@ -5,8 +5,8 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalFocusManager
@@ -18,39 +18,39 @@ import com.afoxplus.yalistoadmin.ui.login.components.LoginLogoComponent
 
 @Composable
 fun LoginScreen(
-    loginViewModel: LoginViewModel = hiltViewModel(),
-    onNavigateTo: () -> Unit
+    navigateTo: () -> Unit,
+    loginViewModel: LoginViewModel = hiltViewModel()
 ) {
 
     val focusManager = LocalFocusManager.current
 
-    val isLoading by remember { loginViewModel.isLoading }
-    val navigate by remember { loginViewModel.navigateTo }
-
-    Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .background(Light06)
-            .noRippleClickable { focusManager.clearFocus() }
-    ) {
-        LoginLogoComponent(
-            modifier = Modifier
-                .fillMaxWidth()
-                .weight(1f)
-        )
-        LoginCardComponent(
-            modifier = Modifier
-                .fillMaxWidth()
-                .align(Alignment.Start),
-            enabled = !isLoading,
-            focusManager = focusManager,
-            onLogin = { key ->
-                loginViewModel.auth(key = key)
-            }
-        )
-    }
+    val isLoading by loginViewModel.isLoading.collectAsState()
+    val navigate by loginViewModel.navigateTo.collectAsState()
 
     if (navigate) {
-        onNavigateTo()
+        navigateTo()
+    } else {
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .background(Light06)
+                .noRippleClickable { focusManager.clearFocus() }
+        ) {
+            LoginLogoComponent(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .weight(1f)
+            )
+            LoginCardComponent(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .align(Alignment.Start),
+                enabled = !isLoading,
+                focusManager = focusManager,
+                onLogin = { key ->
+                    loginViewModel.auth(key = key)
+                }
+            )
+        }
     }
 }
