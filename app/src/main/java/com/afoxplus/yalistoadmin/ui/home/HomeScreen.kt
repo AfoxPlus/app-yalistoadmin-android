@@ -24,7 +24,7 @@ import com.afoxplus.uikitcompose.ui.theme.Paragraph02
 
 @Composable
 fun HomeScreen(
-    modifier: Modifier = Modifier
+    navigateTo: () -> Unit
 ) {
     val restaurant = RestaurantEntity(
         image = "https://cdn.designcrowd.com/blog/2016/January/fine-dining-and-restaurant-logos/4_450.png",
@@ -32,12 +32,13 @@ fun HomeScreen(
         description = "Establecimiento"
     )
     InfoBusinessComponent(restaurantEntity = restaurant)
+
 }
 
 @Preview
 @Composable
 fun HomeScreenPreview() {
-    HomeScreen()
+    //HomeScreen()
 }
 
 @Composable

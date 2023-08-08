@@ -1,5 +1,6 @@
-package com.afoxplus.yalistoadmin.ui.home
+package com.afoxplus.yalistoadmin.ui.main
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -13,10 +14,14 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.afoxplus.uikitcompose.ui.theme.UiKitComposeTheme
 import com.afoxplus.yalistoadmin.commons.utils.Screen
+import com.afoxplus.yalistoadmin.ui.home.HomeActivity
+import com.afoxplus.yalistoadmin.ui.login.LoginScreen
+import com.afoxplus.yalistoadmin.ui.splash.SplashScreen
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class HomeActivity : ComponentActivity() {
+class MainActivity : ComponentActivity() {
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
@@ -25,7 +30,10 @@ class HomeActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    NavigationHome()
+                    Navigation(onFinish = {
+                        finish()
+                        startActivity(Intent(this@MainActivity, HomeActivity::class.java))
+                    })
                 }
             }
         }
@@ -33,13 +41,25 @@ class HomeActivity : ComponentActivity() {
 }
 
 @Composable
-fun NavigationHome() {
+fun Navigation(onFinish: () -> Unit) {
+
     val navController = rememberNavController()
 
-    NavHost(navController = navController, startDestination = Screen.HomeScreen.route) {
-        composable(Screen.HomeScreen.route) {
-            HomeScreen(navigateTo = {
+    NavHost(
+        navController = navController,
+        startDestination = Screen.SplashScreen.route
+    ) {
+        composable(Screen.SplashScreen.route) {
+            SplashScreen(navigateTo = {
+                navController.popBackStack()
+                navController.navigate("login_screen") {
 
+                }
+            })
+        }
+        composable(Screen.LoginScreen.route) {
+            LoginScreen(navigateTo = {
+                onFinish()
             })
         }
     }
