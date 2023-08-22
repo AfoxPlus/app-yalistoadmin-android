@@ -35,5 +35,4 @@ internal object AdminModule {
     fun providesGlobalRepository(globalRepository: GlobalRepositorySource): GlobalRepository {
         return globalRepository
     }
-
 }

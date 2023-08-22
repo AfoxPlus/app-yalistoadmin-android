@@ -25,19 +25,21 @@ fun SplashScreen(
     viewModel: SplashViewModel = hiltViewModel(),
     navigateTo: () -> Unit
 ) {
-
     val scale: Animatable<Float, AnimationVector1D> = remember { Animatable(0f) }
 
     val isNavigate by viewModel.isNavigate.collectAsStateWithLifecycle()
 
     LaunchedEffect(key1 = true) {
         viewModel.states()
-        scale.animateTo(targetValue = 1f, animationSpec = tween(
-            durationMillis = 500,
-            easing = {
-                OvershootInterpolator(2f).getInterpolation(it)
-            }
-        ))
+        scale.animateTo(
+            targetValue = 1f,
+            animationSpec = tween(
+                durationMillis = 500,
+                easing = {
+                    OvershootInterpolator(2f).getInterpolation(it)
+                }
+            )
+        )
     }
 
     LaunchedEffect(key1 = isNavigate) {
@@ -53,7 +55,6 @@ fun SplashScreen(
             modifier = Modifier.scale(scale.value)
         )
     }
-
 }
 
 @Preview(showBackground = true)

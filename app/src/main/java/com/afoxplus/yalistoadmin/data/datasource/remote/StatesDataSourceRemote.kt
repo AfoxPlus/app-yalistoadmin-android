@@ -18,5 +18,4 @@ class StatesDataSourceRemote @Inject constructor(
         }
         return ResultState.Success(response)
     }
-
 }

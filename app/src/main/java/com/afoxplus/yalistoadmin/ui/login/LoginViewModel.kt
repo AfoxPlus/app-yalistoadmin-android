@@ -8,11 +8,12 @@ import com.afoxplus.yalistoadmin.domain.entity.AuthEntity
 import com.afoxplus.yalistoadmin.domain.usecase.GetAuthUseCase
 import com.afoxplus.yalistoadmin.domain.usecase.params.AuthParams
 import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
-import javax.inject.Inject
 
 @HiltViewModel
 class LoginViewModel @Inject constructor(
@@ -20,11 +21,11 @@ class LoginViewModel @Inject constructor(
     private val dispatcher: UIKitCoroutineDispatcher
 ) : ViewModel() {
 
-    private val _isLoading = MutableStateFlow(false)
-    var isLoading = _isLoading.asStateFlow()
+    private val _isLoading: MutableStateFlow<Boolean> = MutableStateFlow(false)
+    var isLoading: StateFlow<Boolean> = _isLoading.asStateFlow()
 
-    private var _isNavigate = MutableStateFlow(false)
-    var isNavigate = _isNavigate.asStateFlow()
+    private var _isNavigate: MutableStateFlow<Boolean> = MutableStateFlow(false)
+    var isNavigate: StateFlow<Boolean> = _isNavigate.asStateFlow()
 
     lateinit var authEntity: AuthEntity
 
@@ -33,8 +34,7 @@ class LoginViewModel @Inject constructor(
             try {
                 _isLoading.value = true
                 val params = AuthParams(key = key)
-                val result = getAuthUseCase.auth(params)
-                when (result) {
+                when (val result = getAuthUseCase.auth(params)) {
                     is ResultState.Error -> {
                         _isLoading.value = false
                     }

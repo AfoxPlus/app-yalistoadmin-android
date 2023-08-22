@@ -22,5 +22,4 @@ abstract class DataSourceModule {
     abstract fun bindsStatesDataSource(
         dataSourceRemote: StatesDataSourceRemote
     ): StatesDataSource
-
 }

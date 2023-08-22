@@ -18,7 +18,6 @@ abstract class RepositoryModule {
         authRepositoryData: AuthRepositoryData
     ): AuthRepository
 
-
     @Binds
     abstract fun bindsStatesRepository(
         statesRepositoryData: StatesRepositoryData

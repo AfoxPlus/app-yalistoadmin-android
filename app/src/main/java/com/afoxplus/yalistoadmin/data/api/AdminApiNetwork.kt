@@ -22,7 +22,6 @@ interface AdminApiRestaurantNetwork {
     suspend fun auth(
         @Body authRequestModel: AuthRequestModel
     ): Response<BaseResponse<AuthResponseModel>>
-
 }
 
 @ServiceClient(type = UrlProvider.Type.API_ORDERS)
@@ -34,7 +33,6 @@ interface AdminApiOrdersNetwork {
         const val PATH_SEND_STATE = "send_state"
     }
 
-    @GET("orders/${PATH_STATES}")
+    @GET("orders/$PATH_STATES")
     suspend fun states(): Response<BaseResponse<List<StatesResponseModel>>>
-
 }

@@ -12,5 +12,4 @@ class StatesRepositoryData @Inject constructor(
     override suspend fun states(): ResultState<List<StatesEntity>> {
         return dataSource.states()
     }
-
 }

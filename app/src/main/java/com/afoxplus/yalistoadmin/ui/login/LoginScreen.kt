@@ -22,7 +22,6 @@ fun LoginScreen(
     loginViewModel: LoginViewModel = hiltViewModel(),
     navigateTo: () -> Unit
 ) {
-
     val focusManager = LocalFocusManager.current
 
     val isLoading by loginViewModel.isLoading.collectAsStateWithLifecycle()
@@ -56,5 +55,4 @@ fun LoginScreen(
             }
         )
     }
-
 }

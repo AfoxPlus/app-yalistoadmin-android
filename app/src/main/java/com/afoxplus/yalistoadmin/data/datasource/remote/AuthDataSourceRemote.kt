@@ -21,5 +21,4 @@ class AuthDataSourceRemote @Inject constructor(
         }
         return ResultState.Success(response)
     }
-
 }

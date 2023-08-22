@@ -5,11 +5,11 @@ import androidx.lifecycle.viewModelScope
 import com.afoxplus.uikit.di.UIKitCoroutineDispatcher
 import com.afoxplus.yalistoadmin.domain.usecase.GetStatesUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
-import javax.inject.Inject
 
 @HiltViewModel
 class SplashViewModel @Inject constructor(
@@ -19,6 +19,7 @@ class SplashViewModel @Inject constructor(
 
     private val _isNavigate = MutableStateFlow(false)
     val isNavigate = _isNavigate.asStateFlow()
+
     fun states(): Job {
         return viewModelScope.launch(dispatcher.getIODispatcher()) {
             try {
@@ -29,5 +30,4 @@ class SplashViewModel @Inject constructor(
             }
         }
     }
-
 }
