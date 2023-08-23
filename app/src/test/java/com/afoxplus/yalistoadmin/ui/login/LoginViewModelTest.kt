@@ -9,7 +9,6 @@ import com.afoxplus.yalistoadmin.domain.usecase.params.AuthParams
 import com.afoxplus.yalistoadmin.utils.TestCoroutineRule
 import com.afoxplus.yalistoadmin.utils.UIKitCoroutineDispatcherTest
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.test.runBlockingTest
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
@@ -61,8 +60,8 @@ class LoginViewModelTest {
             verify(mockUseCase).auth(mockParams)
             assert(!sutViewModel.isLoading.value)
             assert(sutViewModel.isNavigate.value)
-            assert(sutViewModel.authEntity == mockReturn.data)
-            assert(sutViewModel.authEntity.code == mockReturn.data.code)
+            assert(sutViewModel.authEntity == (mockReturn.data as AuthEntity))
+            assert(sutViewModel.authEntity.code == (mockReturn.data as AuthEntity).code)
         }
     }
 
