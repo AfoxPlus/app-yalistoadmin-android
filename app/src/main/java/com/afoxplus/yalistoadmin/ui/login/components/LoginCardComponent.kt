@@ -41,7 +41,6 @@ fun LoginCardComponent(
     focusManager: FocusManager,
     onLogin: (key: String) -> Unit
 ) {
-
     var inputText by remember { mutableStateOf(TextFieldValue("")) }
 
     Row(

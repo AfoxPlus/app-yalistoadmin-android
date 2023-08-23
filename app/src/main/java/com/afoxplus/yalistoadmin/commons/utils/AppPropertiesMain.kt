@@ -1,8 +1,8 @@
 package com.afoxplus.yalistoadmin.commons.utils
 
 import com.afoxplus.network.global.AppProperties
-import com.afoxplus.yalistoadmin.BuildConfig
 import com.afoxplus.yalisto.repositories.GlobalRepository
+import com.afoxplus.yalistoadmin.BuildConfig
 import javax.inject.Inject
 
 class AppPropertiesMain @Inject constructor(
@@ -19,8 +19,11 @@ class AppPropertiesMain @Inject constructor(
             val osVersion = android.os.Build.VERSION.SDK
 
             deviceData = String.format(
-                "%s|%s|%s|%s", manufacturer, model,
-                myVersion, osVersion
+                "%s|%s|%s|%s",
+                manufacturer,
+                model,
+                myVersion,
+                osVersion
             )
         } catch (ex: Exception) {
             ex.printStackTrace()

@@ -1,8 +1,7 @@
 package com.afoxplus.yalistoadmin.domain.entity
 
-data class AuthEntity(
+data class StatesEntity(
+    val id: String,
     val code: String,
-    val urlImageLogo: String,
-    val key: String,
     val name: String
 )

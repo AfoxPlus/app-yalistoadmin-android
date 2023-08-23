@@ -29,7 +29,6 @@ class GlobalPreference @Inject constructor(@ApplicationContext context: Context)
                 objectOut?.writeObject(objectToWrite)
                 fileOut.fd.sync()
             }
-
         } catch (e: IOException) {
             e.printStackTrace()
         } finally {

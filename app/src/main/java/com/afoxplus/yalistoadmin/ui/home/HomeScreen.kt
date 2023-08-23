@@ -32,13 +32,12 @@ fun HomeScreen(
         description = "Establecimiento"
     )
     InfoBusinessComponent(restaurantEntity = restaurant)
-
 }
 
 @Preview
 @Composable
 fun HomeScreenPreview() {
-    //HomeScreen()
+    // HomeScreen()
 }
 
 @Composable
@@ -49,7 +48,6 @@ fun InfoBusinessComponent(restaurantEntity: RestaurantEntity) {
             .padding(16.dp),
         horizontalArrangement = Arrangement.Center
     ) {
-
         AsyncImage(
             modifier = Modifier
                 .width(80.dp)
@@ -73,7 +71,6 @@ fun InfoBusinessComponent(restaurantEntity: RestaurantEntity) {
             Spacer(modifier = Modifier.height(4.dp))
             Text(text = restaurantEntity.name, style = Header05SemiBold, color = Dark01)
         }
-
     }
 }
 

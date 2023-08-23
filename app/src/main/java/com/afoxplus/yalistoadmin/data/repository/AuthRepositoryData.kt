@@ -14,5 +14,4 @@ class AuthRepositoryData @Inject constructor(
     override suspend fun auth(params: AuthParams): ResultState<AuthEntity> {
         return dataSource.auth(params)
     }
-
 }

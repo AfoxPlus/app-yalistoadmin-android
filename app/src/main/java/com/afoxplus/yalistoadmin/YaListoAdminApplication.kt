@@ -11,5 +11,4 @@ class YaListoAdminApplication : Application() {
         super.onCreate()
         Timber.plant(Timber.DebugTree())
     }
-
 }

@@ -132,6 +132,5 @@ fun OrderDetailItemPreview() {
             Divider(modifier = Modifier.height(1.dp), color = Light03)
             OrderDetailTotalItem(total = "S/ 50.30", paymentMethod = "Efectivo")
         }
-
     }
 }
