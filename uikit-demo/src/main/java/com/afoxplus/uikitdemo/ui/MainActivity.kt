@@ -20,11 +20,13 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.afoxplus.uikitcompose.ui.theme.UiKitComposeTheme
 import com.afoxplus.uikitdemo.ScreenNames.ROUTE_BUTTON
+import com.afoxplus.uikitdemo.ScreenNames.ROUTE_CARD_ORDER_TYPE
 import com.afoxplus.uikitdemo.ScreenNames.ROUTE_COLOR
 import com.afoxplus.uikitdemo.ScreenNames.ROUTE_INPUT
 import com.afoxplus.uikitdemo.ScreenNames.ROUTE_MAIN
 import com.afoxplus.uikitdemo.ScreenNames.ROUTE_TEXT
 import com.afoxplus.uikitdemo.demos.ButtonScreen
+import com.afoxplus.uikitdemo.demos.CardOrderTypeScreen
 import com.afoxplus.uikitdemo.demos.ColorScreen
 import com.afoxplus.uikitdemo.demos.InputScreen
 import com.afoxplus.uikitdemo.demos.TextScreen
@@ -58,6 +60,9 @@ class MainActivity : ComponentActivity() {
                         }
                         composable(route = ROUTE_INPUT) {
                             InputScreen()
+                        }
+                        composable(route = ROUTE_CARD_ORDER_TYPE) {
+                            CardOrderTypeScreen()
                         }
                     }
                 }
@@ -96,6 +101,12 @@ fun MainScreen(navController: NavController) {
             onClick = { navController.navigate(ROUTE_INPUT) }
         ) {
             Text(text = ROUTE_INPUT.uppercase())
+        }
+        Button(
+            modifier = Modifier.fillMaxWidth(),
+            onClick = { navController.navigate(ROUTE_CARD_ORDER_TYPE) }
+        ) {
+            Text(text = ROUTE_CARD_ORDER_TYPE.uppercase())
         }
     }
 }
