@@ -1,4 +1,4 @@
-package com.afoxplus.yalistoadmin.data.model.response
+package com.afoxplus.yalistoadmin.data.datasource.remote.model.response
 
 import com.afoxplus.yalistoadmin.domain.entity.AuthEntity
 import com.google.gson.annotations.SerializedName

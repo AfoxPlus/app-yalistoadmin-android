@@ -1,7 +1,7 @@
 package com.afoxplus.yalistoadmin.di.module
 
-import com.afoxplus.yalistoadmin.data.datasource.AuthDataSource
-import com.afoxplus.yalistoadmin.data.datasource.StatesDataSource
+import com.afoxplus.yalistoadmin.data.datasource.AuthRemote
+import com.afoxplus.yalistoadmin.data.datasource.StatesRemote
 import com.afoxplus.yalistoadmin.data.datasource.remote.AuthDataSourceRemote
 import com.afoxplus.yalistoadmin.data.datasource.remote.StatesDataSourceRemote
 import dagger.Binds
@@ -11,15 +11,15 @@ import dagger.hilt.components.SingletonComponent
 
 @Module
 @InstallIn(SingletonComponent::class)
-abstract class DataSourceModule {
+abstract class DataSourceRemoteModule {
 
     @Binds
-    abstract fun bindsAuthDataSource(
+    abstract fun bindsAuthRemote(
         dataSourceRemote: AuthDataSourceRemote
-    ): AuthDataSource
+    ): AuthRemote
 
     @Binds
-    abstract fun bindsStatesDataSource(
+    abstract fun bindsStatesRemote(
         dataSourceRemote: StatesDataSourceRemote
-    ): StatesDataSource
+    ): StatesRemote
 }

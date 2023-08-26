@@ -1,8 +1,8 @@
 package com.afoxplus.yalistoadmin.commons.utils
 
 import com.afoxplus.network.global.AppProperties
-import com.afoxplus.yalisto.repositories.GlobalRepository
 import com.afoxplus.yalistoadmin.BuildConfig
+import com.afoxplus.yalistoadmin.data.repository.global.GlobalRepository
 import javax.inject.Inject
 
 class AppPropertiesMain @Inject constructor(

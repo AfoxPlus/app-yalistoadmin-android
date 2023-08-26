@@ -28,6 +28,12 @@ android {
         vectorDrawables {
             useSupportLibrary = true
         }
+
+        kapt {
+            arguments {
+                arg("room.schemaLocation", "$projectDir/schemas")
+            }
+        }
     }
 
     buildTypes {
@@ -123,7 +129,7 @@ dependencies {
     testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.7.3")
     testImplementation("androidx.arch.core:core-testing:2.2.0")
     testImplementation("org.mockito:mockito-core:5.3.1")
-    testImplementation("org.mockito.kotlin:mockito-kotlin:5.0.0")
+    testImplementation("org.mockito.kotlin:mockito-kotlin:5.1.0")
     testImplementation("org.mockito:mockito-inline:5.2.0")
 
     // Coroutines
@@ -147,8 +153,10 @@ dependencies {
     implementation("androidx.hilt:hilt-navigation-compose:1.0.0")
     kapt("androidx.hilt:hilt-compiler:1.0.0")
 
-    // Palette
-    implementation("androidx.palette:palette:1.0.0")
+    // Room
+    implementation("androidx.room:room-runtime:2.5.2")
+    kapt("androidx.room:room-compiler:2.5.2")
+    implementation("androidx.room:room-ktx:2.5.2")
 
     // Timber
     implementation("com.jakewharton.timber:timber:5.0.1")
@@ -157,11 +165,11 @@ dependencies {
     implementation("io.coil-kt:coil-compose:2.4.0")
 
     // Chucker
-    debugImplementation("com.github.chuckerteam.chucker:library:3.5.2")
-    releaseImplementation("com.github.chuckerteam.chucker:library-no-op:3.5.2")
+    debugImplementation("com.github.chuckerteam.chucker:library:4.0.0")
+    releaseImplementation("com.github.chuckerteam.chucker:library-no-op:4.0.0")
 
     // Business
     implementation(project(":uikitcompose"))
-    implementation("com.afoxplus.android:network:1.2.4")
+    implementation("com.afoxplus.android:network:1.2.5")
     implementation("com.afoxplus.android:uikit:5.3.9")
 }

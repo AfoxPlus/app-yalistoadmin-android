@@ -1,15 +1,33 @@
 package com.afoxplus.yalistoadmin.data.repository
 
 import com.afoxplus.yalistoadmin.commons.utils.ResultState
-import com.afoxplus.yalistoadmin.data.datasource.StatesDataSource
+import com.afoxplus.yalistoadmin.data.datasource.StatesLocal
+import com.afoxplus.yalistoadmin.data.datasource.StatesRemote
 import com.afoxplus.yalistoadmin.domain.entity.StatesEntity
 import com.afoxplus.yalistoadmin.domain.repository.StatesRepository
 import javax.inject.Inject
 
 class StatesRepositoryData @Inject constructor(
-    private val dataSource: StatesDataSource
+    private val dataSourceRemote: StatesRemote,
+    private val dataSourceLocal: StatesLocal
 ) : StatesRepository {
-    override suspend fun states(): ResultState<List<StatesEntity>> {
-        return dataSource.states()
+    override suspend fun getStates(): ResultState<List<StatesEntity>> {
+        return when (val response = dataSourceLocal.getStates()) {
+            is ResultState.Error -> {
+                ResultState.Error(response.exception)
+            }
+
+            is ResultState.Success -> {
+                return if (response.data.isEmpty()) {
+                    dataSourceRemote.getStates()
+                } else {
+                    ResultState.Success(response.data)
+                }
+            }
+        }
+    }
+
+    override suspend fun saveStates(statesEntity: List<StatesEntity>): ResultState<Unit> {
+        return dataSourceLocal.saveStates(statesEntity)
     }
 }
