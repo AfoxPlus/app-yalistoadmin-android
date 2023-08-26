@@ -34,5 +34,5 @@ interface AdminApiOrdersNetwork {
     }
 
     @GET("orders/$PATH_STATES")
-    suspend fun states(): Response<BaseResponse<List<StatesResponseModel>>>
+    suspend fun getStates(): Response<BaseResponse<List<StatesResponseModel>>>
 }
