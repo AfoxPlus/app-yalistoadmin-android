@@ -4,6 +4,7 @@ import com.afoxplus.yalistoadmin.commons.utils.ResultState
 import com.afoxplus.yalistoadmin.data.datasource.StatesLocal
 import com.afoxplus.yalistoadmin.data.datasource.StatesRemote
 import com.afoxplus.yalistoadmin.domain.entity.StatesEntity
+import com.afoxplus.yalistoadmin.mock.data.listStatesEntity
 import com.afoxplus.yalistoadmin.utils.TestCoroutineRule
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import org.junit.Assert
@@ -58,35 +59,8 @@ class StatesRepositoryDataTest {
     fun `GIVEN getStates local is NOT empty WHEN call getState function THEN return data from local`() {
         testCoroutineRule.runBlockingTest {
             // GIVEN
-            val response: ResultState.Success<List<StatesEntity>> = ResultState.Success(
-                arrayListOf(
-                    StatesEntity(
-                        id = "64a4d7b39ee9ab69359e2c3b",
-                        code = "DONE",
-                        name = "Finalizado"
-                    ),
-                    StatesEntity(
-                        id = "64a4d7b39ee9ab69359e2c3c",
-                        code = "REJECTED",
-                        name = "Rechazado"
-                    ),
-                    StatesEntity(
-                        id = "64a4d7b39ee9ab69359e2c38",
-                        code = "TODO",
-                        name = "Pendiente"
-                    ),
-                    StatesEntity(
-                        id = "64a4d7b39ee9ab69359e2c39",
-                        code = "PROGRESS",
-                        name = "Proceso"
-                    ),
-                    StatesEntity(
-                        id = "64a4d7b39ee9ab69359e2c3a",
-                        code = "DELIVERY",
-                        name = "En camino"
-                    )
-                )
-            )
+            val response: ResultState.Success<List<StatesEntity>> =
+                ResultState.Success(listStatesEntity)
             whenever(mockDataSourceLocal.getStates()).thenReturn(response)
 
             // WHEN
@@ -122,33 +96,7 @@ class StatesRepositoryDataTest {
         testCoroutineRule.runBlockingTest {
             // GIVEN
             val response: ResultState<Unit> = ResultState.Success(Unit)
-            val mockListStatesEntity: List<StatesEntity> = arrayListOf(
-                StatesEntity(
-                    id = "64a4d7b39ee9ab69359e2c3b",
-                    code = "DONE",
-                    name = "Finalizado"
-                ),
-                StatesEntity(
-                    id = "64a4d7b39ee9ab69359e2c3c",
-                    code = "REJECTED",
-                    name = "Rechazado"
-                ),
-                StatesEntity(
-                    id = "64a4d7b39ee9ab69359e2c38",
-                    code = "TODO",
-                    name = "Pendiente"
-                ),
-                StatesEntity(
-                    id = "64a4d7b39ee9ab69359e2c39",
-                    code = "PROGRESS",
-                    name = "Proceso"
-                ),
-                StatesEntity(
-                    id = "64a4d7b39ee9ab69359e2c3a",
-                    code = "DELIVERY",
-                    name = "En camino"
-                )
-            )
+            val mockListStatesEntity: List<StatesEntity> = listStatesEntity
             whenever(mockDataSourceLocal.saveStates(mockListStatesEntity)).thenReturn(response)
 
             // WHEN
