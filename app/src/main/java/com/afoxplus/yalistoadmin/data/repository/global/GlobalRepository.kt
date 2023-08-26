@@ -1,4 +1,4 @@
-package com.afoxplus.yalisto.repositories
+package com.afoxplus.yalistoadmin.data.repository.global
 
 import java.util.UUID
 import javax.inject.Inject

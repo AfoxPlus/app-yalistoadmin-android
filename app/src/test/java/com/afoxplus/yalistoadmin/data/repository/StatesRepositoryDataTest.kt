@@ -1,8 +1,8 @@
 package com.afoxplus.yalistoadmin.data.repository
 
 import com.afoxplus.yalistoadmin.commons.utils.ResultState
-import com.afoxplus.yalistoadmin.data.datasource.StatesDataSourceLocal
-import com.afoxplus.yalistoadmin.data.datasource.StatesDataSourceRemote
+import com.afoxplus.yalistoadmin.data.datasource.StatesLocal
+import com.afoxplus.yalistoadmin.data.datasource.StatesRemote
 import com.afoxplus.yalistoadmin.domain.entity.StatesEntity
 import com.afoxplus.yalistoadmin.utils.TestCoroutineRule
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -20,9 +20,9 @@ class StatesRepositoryDataTest {
     @get:Rule
     val testCoroutineRule = TestCoroutineRule()
 
-    private val mockDataSourceRemote: StatesDataSourceRemote = mock()
+    private val mockDataSourceRemote: StatesRemote = mock()
 
-    private val mockDataSourceLocal: StatesDataSourceLocal = mock()
+    private val mockDataSourceLocal: StatesLocal = mock()
 
     private lateinit var sutRepositoryData: StatesRepositoryData
 
@@ -60,9 +60,31 @@ class StatesRepositoryDataTest {
             // GIVEN
             val response: ResultState.Success<List<StatesEntity>> = ResultState.Success(
                 arrayListOf(
-                    StatesEntity(id = "Marcello", code = "Eva", name = "Tommi"),
-                    StatesEntity(id = "Kerwin", code = "Alexandre", name = "Lakeia"),
-                    StatesEntity(id = "Angelica", code = "Vance", name = "Franky")
+                    StatesEntity(
+                        id = "64a4d7b39ee9ab69359e2c3b",
+                        code = "DONE",
+                        name = "Finalizado"
+                    ),
+                    StatesEntity(
+                        id = "64a4d7b39ee9ab69359e2c3c",
+                        code = "REJECTED",
+                        name = "Rechazado"
+                    ),
+                    StatesEntity(
+                        id = "64a4d7b39ee9ab69359e2c38",
+                        code = "TODO",
+                        name = "Pendiente"
+                    ),
+                    StatesEntity(
+                        id = "64a4d7b39ee9ab69359e2c39",
+                        code = "PROGRESS",
+                        name = "Proceso"
+                    ),
+                    StatesEntity(
+                        id = "64a4d7b39ee9ab69359e2c3a",
+                        code = "DELIVERY",
+                        name = "En camino"
+                    )
                 )
             )
             whenever(mockDataSourceLocal.getStates()).thenReturn(response)
@@ -101,9 +123,31 @@ class StatesRepositoryDataTest {
             // GIVEN
             val response: ResultState<Unit> = ResultState.Success(Unit)
             val mockListStatesEntity: List<StatesEntity> = arrayListOf(
-                StatesEntity(id = "Marcello", code = "Eva", name = "Tommi"),
-                StatesEntity(id = "Kerwin", code = "Alexandre", name = "Lakeia"),
-                StatesEntity(id = "Angelica", code = "Vance", name = "Franky")
+                StatesEntity(
+                    id = "64a4d7b39ee9ab69359e2c3b",
+                    code = "DONE",
+                    name = "Finalizado"
+                ),
+                StatesEntity(
+                    id = "64a4d7b39ee9ab69359e2c3c",
+                    code = "REJECTED",
+                    name = "Rechazado"
+                ),
+                StatesEntity(
+                    id = "64a4d7b39ee9ab69359e2c38",
+                    code = "TODO",
+                    name = "Pendiente"
+                ),
+                StatesEntity(
+                    id = "64a4d7b39ee9ab69359e2c39",
+                    code = "PROGRESS",
+                    name = "Proceso"
+                ),
+                StatesEntity(
+                    id = "64a4d7b39ee9ab69359e2c3a",
+                    code = "DELIVERY",
+                    name = "En camino"
+                )
             )
             whenever(mockDataSourceLocal.saveStates(mockListStatesEntity)).thenReturn(response)
 

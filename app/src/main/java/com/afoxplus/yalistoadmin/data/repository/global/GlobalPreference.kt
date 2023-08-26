@@ -1,4 +1,4 @@
-package com.afoxplus.yalisto.repositories
+package com.afoxplus.yalistoadmin.data.repository.global
 
 import android.app.Activity
 import android.content.Context

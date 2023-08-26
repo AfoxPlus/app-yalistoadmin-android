@@ -3,8 +3,6 @@ package com.afoxplus.yalistoadmin.di.module
 import android.content.Context
 import androidx.room.Room
 import com.afoxplus.yalistoadmin.commons.constants.ConstantsDB.DB_NAME
-import com.afoxplus.yalistoadmin.data.datasource.StatesDataSourceLocal
-import com.afoxplus.yalistoadmin.data.datasource.local.db.SaveStatesDataSourceRemoteLocal
 import com.afoxplus.yalistoadmin.data.datasource.local.db.YaListoAdminDB
 import com.afoxplus.yalistoadmin.data.datasource.local.db.dao.StatesDAO
 import dagger.Module
@@ -25,10 +23,5 @@ class DBModule {
     @Provides
     fun providesStatesDAO(yaListoAdminDB: YaListoAdminDB): StatesDAO {
         return yaListoAdminDB.statesDAO()
-    }
-
-    @Provides
-    fun providesStatesDataSourceLocal(statesDAO: StatesDAO): StatesDataSourceLocal {
-        return SaveStatesDataSourceRemoteLocal(statesDAO)
     }
 }
