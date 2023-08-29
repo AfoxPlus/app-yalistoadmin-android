@@ -3,8 +3,10 @@ package com.afoxplus.uikitdemo.demos
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -32,33 +34,110 @@ import com.afoxplus.uikitcompose.ui.theme.Red01
 
 @Composable
 fun ColorScreen() {
-    Column {
-        BoxColorComponent(name = "Dark01", backgroundColor = Dark01, colorText = Color.White)
-        BoxColorComponent(name = "Dark02", backgroundColor = Dark02, colorText = Color.White)
-        BoxColorComponent(name = "Dark03", backgroundColor = Dark03, colorText = Color.White)
-        BoxColorComponent(name = "Dark04", backgroundColor = Dark04, colorText = Color.White)
-        BoxColorComponent(name = "Dark05", backgroundColor = Dark05, colorText = Color.White)
-
-        BoxColorComponent(name = "Light01", backgroundColor = Light01, colorText = Color.Black)
-        BoxColorComponent(name = "Light02", backgroundColor = Light02, colorText = Color.Black)
-        BoxColorComponent(name = "Light03", backgroundColor = Light03, colorText = Color.Black)
-        BoxColorComponent(name = "Light04", backgroundColor = Light04, colorText = Color.Black)
-        BoxColorComponent(name = "Light05", backgroundColor = Light05, colorText = Color.Black)
-
-        BoxColorComponent(name = "Red01", backgroundColor = Red01, colorText = Color.White)
-        BoxColorComponent(name = "Green01", backgroundColor = Green01, colorText = Color.White)
-        BoxColorComponent(name = "Orange01", backgroundColor = Orange01, colorText = Color.White)
-        BoxColorComponent(name = "Pink01", backgroundColor = Pink01, colorText = Color.White)
-        BoxColorComponent(name = "Pink02", backgroundColor = Pink02, colorText = Color.White)
-        BoxColorComponent(name = "Gray01", backgroundColor = Gray01, colorText = Color.White)
+    Column(modifier = Modifier.fillMaxSize()) {
+        val colors = arrayListOf<ColorVO>(
+            ColorVO(
+                name = "Dark01",
+                backgroundColor = Dark01,
+                textColor = Color.White
+            ),
+            ColorVO(
+                name = "Dark02",
+                backgroundColor = Dark02,
+                textColor = Color.White
+            ),
+            ColorVO(
+                name = "Dark03",
+                backgroundColor = Dark03,
+                textColor = Color.White
+            ),
+            ColorVO(
+                name = "Dark04",
+                backgroundColor = Dark04,
+                textColor = Color.White
+            ),
+            ColorVO(
+                name = "Dark05",
+                backgroundColor = Dark05,
+                textColor = Color.White
+            ),
+            ColorVO(
+                name = "Light01",
+                backgroundColor = Light01,
+                textColor = Color.Black
+            ),
+            ColorVO(
+                name = "Light02",
+                backgroundColor = Light02,
+                textColor = Color.Black
+            ),
+            ColorVO(
+                name = "Light03",
+                backgroundColor = Light03,
+                textColor = Color.Black
+            ),
+            ColorVO(
+                name = "Light04",
+                backgroundColor = Light04,
+                textColor = Color.Black
+            ),
+            ColorVO(
+                name = "Light05",
+                backgroundColor = Light05,
+                textColor = Color.Black
+            ),
+            ColorVO(
+                name = "Red01", backgroundColor = Red01, textColor = Color.White
+            ),
+            ColorVO(
+                name = "Green01",
+                backgroundColor = Green01,
+                textColor = Color.White
+            ),
+            ColorVO(
+                name = "Orange01",
+                backgroundColor = Orange01,
+                textColor = Color.White
+            ),
+            ColorVO(
+                name = "Pink01",
+                backgroundColor = Pink01,
+                textColor = Color.White
+            ),
+            ColorVO(
+                name = "Pink02",
+                backgroundColor = Pink02,
+                textColor = Color.White
+            ),
+            ColorVO(
+                name = "Gray01",
+                backgroundColor = Gray01,
+                textColor = Color.White
+            )
+        )
+        LazyColumn() {
+            items(colors.size) {
+                BoxColorComponent(
+                    name = colors[it].name,
+                    backgroundColor = colors[it].backgroundColor,
+                    textColor = colors[it].textColor
+                )
+            }
+        }
     }
 }
+
+data class ColorVO(
+    val name: String,
+    val backgroundColor: Color,
+    val textColor: Color
+)
 
 @Composable
 fun BoxColorComponent(
     name: String,
     backgroundColor: Color,
-    colorText: Color
+    textColor: Color
 ) {
     Box(
         modifier = Modifier
@@ -69,7 +148,7 @@ fun BoxColorComponent(
     ) {
         Text(
             text = name,
-            color = colorText,
+            color = textColor,
             style = Paragraph02
         )
     }
