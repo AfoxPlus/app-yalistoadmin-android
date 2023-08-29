@@ -1,6 +1,6 @@
 package com.afoxplus.yalistoadmin.data.datasource.remote.model.response
 
-import com.afoxplus.yalistoadmin.domain.entity.StatesEntity
+import com.afoxplus.yalistoadmin.domain.entities.States
 import com.google.gson.annotations.SerializedName
 
 data class StatesResponseModel(
@@ -12,8 +12,8 @@ data class StatesResponseModel(
     val name: String
 )
 
-fun StatesResponseModel.toEntity(): StatesEntity {
-    return StatesEntity(
+fun StatesResponseModel.toEntity(): States {
+    return States(
         id = id,
         code = code,
         name = name

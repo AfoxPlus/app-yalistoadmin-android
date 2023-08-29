@@ -1,6 +1,6 @@
-package com.afoxplus.yalistoadmin.domain.entity
+package com.afoxplus.yalistoadmin.domain.entities
 
-data class AuthEntity(
+data class Auth(
     val code: String,
     val urlImageLogo: String,
     val key: String,

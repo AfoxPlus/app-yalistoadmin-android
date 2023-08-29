@@ -3,7 +3,7 @@ package com.afoxplus.yalistoadmin.data.repository
 import com.afoxplus.yalistoadmin.commons.utils.ResultState
 import com.afoxplus.yalistoadmin.data.datasource.StatesLocal
 import com.afoxplus.yalistoadmin.data.datasource.StatesRemote
-import com.afoxplus.yalistoadmin.domain.entity.StatesEntity
+import com.afoxplus.yalistoadmin.domain.entities.States
 import com.afoxplus.yalistoadmin.domain.repository.StatesRepository
 import javax.inject.Inject
 
@@ -11,7 +11,7 @@ class StatesRepositoryData @Inject constructor(
     private val dataSourceRemote: StatesRemote,
     private val dataSourceLocal: StatesLocal
 ) : StatesRepository {
-    override suspend fun getStates(): ResultState<List<StatesEntity>> {
+    override suspend fun getStates(): ResultState<List<States>> {
         return when (val response = dataSourceLocal.getStates()) {
             is ResultState.Error -> {
                 ResultState.Error(response.exception)
@@ -27,7 +27,7 @@ class StatesRepositoryData @Inject constructor(
         }
     }
 
-    override suspend fun saveStates(statesEntity: List<StatesEntity>): ResultState<Unit> {
-        return dataSourceLocal.saveStates(statesEntity)
+    override suspend fun saveStates(states: List<States>): ResultState<Unit> {
+        return dataSourceLocal.saveStates(states)
     }
 }

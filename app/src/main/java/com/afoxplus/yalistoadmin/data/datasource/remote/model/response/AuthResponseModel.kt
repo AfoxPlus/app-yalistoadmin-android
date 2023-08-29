@@ -1,6 +1,6 @@
 package com.afoxplus.yalistoadmin.data.datasource.remote.model.response
 
-import com.afoxplus.yalistoadmin.domain.entity.AuthEntity
+import com.afoxplus.yalistoadmin.domain.entities.Auth
 import com.google.gson.annotations.SerializedName
 
 data class AuthResponseModel(
@@ -14,8 +14,8 @@ data class AuthResponseModel(
     val name: String
 )
 
-fun AuthResponseModel.toEntity(): AuthEntity {
-    return AuthEntity(
+fun AuthResponseModel.toEntity(): Auth {
+    return Auth(
         code = code,
         urlImageLogo = urlImageLogo,
         key = key,

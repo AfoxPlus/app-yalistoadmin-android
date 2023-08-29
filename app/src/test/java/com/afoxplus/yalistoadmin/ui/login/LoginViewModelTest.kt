@@ -3,7 +3,7 @@ package com.afoxplus.yalistoadmin.ui.login
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import com.afoxplus.uikit.di.UIKitCoroutineDispatcher
 import com.afoxplus.yalistoadmin.commons.utils.ResultState
-import com.afoxplus.yalistoadmin.domain.entity.AuthEntity
+import com.afoxplus.yalistoadmin.domain.entities.Auth
 import com.afoxplus.yalistoadmin.domain.usecase.GetAuthUseCase
 import com.afoxplus.yalistoadmin.domain.usecase.params.AuthParams
 import com.afoxplus.yalistoadmin.utils.TestCoroutineRule
@@ -44,7 +44,7 @@ class LoginViewModelTest {
             val mockKey = ""
             val mockParams = AuthParams(mockKey)
             val mockReturn = ResultState.Success(
-                AuthEntity(
+                Auth(
                     code = "Roberta",
                     urlImageLogo = "Mesha",
                     key = "Jesus",
@@ -60,8 +60,8 @@ class LoginViewModelTest {
             verify(mockUseCase).auth(mockParams)
             assert(!sutViewModel.isLoading.value)
             assert(sutViewModel.isNavigate.value)
-            assert(sutViewModel.authEntity == (mockReturn.data as AuthEntity))
-            assert(sutViewModel.authEntity.code == (mockReturn.data as AuthEntity).code)
+            assert(sutViewModel.auth == (mockReturn.data as Auth))
+            assert(sutViewModel.auth.code == (mockReturn.data as Auth).code)
         }
     }
 
@@ -71,7 +71,7 @@ class LoginViewModelTest {
             // GIVEN
             val mockKey = ""
             val mockParams = AuthParams(mockKey)
-            val mockReturn = ResultState.Error<AuthEntity>(Exception("Helouda"))
+            val mockReturn = ResultState.Error<Auth>(Exception("Helouda"))
             whenever(mockUseCase.auth(mockParams)).doReturn(mockReturn)
 
             // WHEN

@@ -26,11 +26,12 @@ import com.afoxplus.uikitcompose.ui.theme.Red01
 
 @Composable
 fun CardOrderTypeComponent(
+    modifier: Modifier,
     orderTypeVO: OrderTypeVO,
     orderType: OrderType
 ) {
     Box(
-        modifier = Modifier
+        modifier = modifier
             .fillMaxWidth()
             .height(48.dp)
             .background(color = orderType.backgroundColor, RoundedCornerShape(4.dp))
@@ -77,14 +78,17 @@ fun CardOrderTypeComponent(
 fun CardOrderTypeComponentPreview() {
     Column {
         CardOrderTypeComponent(
+            modifier = Modifier.fillMaxWidth(),
             orderTypeVO = OrderTypeVO("Mesa", "01"),
             orderType = OrderType.Table()
         )
         CardOrderTypeComponent(
+            modifier = Modifier.fillMaxWidth(),
             orderTypeVO = OrderTypeVO("Delivery"),
             orderType = OrderType.Delivery()
         )
         CardOrderTypeComponent(
+            modifier = Modifier.fillMaxWidth(),
             orderTypeVO = OrderTypeVO("Total", "S/ 999.80"),
             orderType = OrderType.Amount()
         )

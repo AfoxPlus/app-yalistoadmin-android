@@ -3,8 +3,8 @@ package com.afoxplus.yalistoadmin.data.repository
 import com.afoxplus.yalistoadmin.commons.utils.ResultState
 import com.afoxplus.yalistoadmin.data.datasource.StatesLocal
 import com.afoxplus.yalistoadmin.data.datasource.StatesRemote
-import com.afoxplus.yalistoadmin.domain.entity.StatesEntity
-import com.afoxplus.yalistoadmin.mock.data.listStatesEntity
+import com.afoxplus.yalistoadmin.domain.entities.States
+import com.afoxplus.yalistoadmin.mock.data.listStates
 import com.afoxplus.yalistoadmin.utils.TestCoroutineRule
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import org.junit.Assert
@@ -39,12 +39,12 @@ class StatesRepositoryDataTest {
     fun `GIVEN getStates local is empty WHEN call getState function THEN call getStates from remote`() {
         testCoroutineRule.runBlockingTest {
             // GIVEN
-            val response: ResultState.Success<List<StatesEntity>> = ResultState.Success(emptyList())
+            val response: ResultState.Success<List<States>> = ResultState.Success(emptyList())
             whenever(mockDataSourceLocal.getStates()).thenReturn(response)
             whenever(mockDataSourceRemote.getStates()).thenReturn(response)
 
             // WHEN
-            val result: ResultState<List<StatesEntity>> = sutRepositoryData.getStates()
+            val result: ResultState<List<States>> = sutRepositoryData.getStates()
 
             // THEN
             Assert.assertNotNull(result)
@@ -59,12 +59,12 @@ class StatesRepositoryDataTest {
     fun `GIVEN getStates local is NOT empty WHEN call getState function THEN return data from local`() {
         testCoroutineRule.runBlockingTest {
             // GIVEN
-            val response: ResultState.Success<List<StatesEntity>> =
-                ResultState.Success(listStatesEntity)
+            val response: ResultState.Success<List<States>> =
+                ResultState.Success(listStates)
             whenever(mockDataSourceLocal.getStates()).thenReturn(response)
 
             // WHEN
-            val result: ResultState<List<StatesEntity>> = sutRepositoryData.getStates()
+            val result: ResultState<List<States>> = sutRepositoryData.getStates()
 
             // THEN
             Assert.assertNotNull(result)
@@ -78,11 +78,11 @@ class StatesRepositoryDataTest {
     fun `GIVEN getStates local returns Error WHEN call getState function THEN return Error`() {
         testCoroutineRule.runBlockingTest {
             // GIVEN
-            val response: ResultState<List<StatesEntity>> = ResultState.Error(Exception("Error"))
+            val response: ResultState<List<States>> = ResultState.Error(Exception("Error"))
             whenever(mockDataSourceLocal.getStates()).thenReturn(response)
 
             // WHEN
-            val result: ResultState<List<StatesEntity>> = sutRepositoryData.getStates()
+            val result: ResultState<List<States>> = sutRepositoryData.getStates()
 
             // THEN
             Assert.assertNotNull(result)
@@ -96,16 +96,16 @@ class StatesRepositoryDataTest {
         testCoroutineRule.runBlockingTest {
             // GIVEN
             val response: ResultState<Unit> = ResultState.Success(Unit)
-            val mockListStatesEntity: List<StatesEntity> = listStatesEntity
-            whenever(mockDataSourceLocal.saveStates(mockListStatesEntity)).thenReturn(response)
+            val mockListStates: List<States> = listStates
+            whenever(mockDataSourceLocal.saveStates(mockListStates)).thenReturn(response)
 
             // WHEN
-            val result: ResultState<Unit> = sutRepositoryData.saveStates(mockListStatesEntity)
+            val result: ResultState<Unit> = sutRepositoryData.saveStates(mockListStates)
 
             // THEN
             Assert.assertNotNull(result)
             Assert.assertTrue(result is ResultState.Success)
-            verify(mockDataSourceLocal).saveStates(mockListStatesEntity)
+            verify(mockDataSourceLocal).saveStates(mockListStates)
         }
     }
 }
