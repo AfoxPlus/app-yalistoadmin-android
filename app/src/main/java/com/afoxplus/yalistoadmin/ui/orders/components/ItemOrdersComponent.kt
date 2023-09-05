@@ -1,4 +1,4 @@
-package com.afoxplus.yalistoadmin.ui.home.components
+package com.afoxplus.yalistoadmin.ui.orders.components
 
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.background
@@ -21,6 +21,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.PathEffect
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -36,10 +37,15 @@ import com.afoxplus.uikitcompose.ui.theme.Light01
 import com.afoxplus.uikitcompose.ui.theme.Light03
 import com.afoxplus.uikitcompose.ui.theme.Paragraph01SemiBold
 import com.afoxplus.uikitcompose.ui.theme.Paragraph02
+import com.afoxplus.yalistoadmin.R
+import com.afoxplus.yalistoadmin.domain.entities.Client
+import com.afoxplus.yalistoadmin.domain.entities.Order
+import com.afoxplus.yalistoadmin.domain.entities.Product
 
 @Composable
 fun ItemOrderComponent(
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    order: Order
 ) {
     Box(
         modifier = modifier
@@ -57,20 +63,30 @@ fun ItemOrderComponent(
                     .fillMaxWidth()
                     .weight(2f)
             ) {
-                Text(text = "Cliente:", color = Dark04, style = Paragraph02)
+                Text(
+                    text = stringResource(id = R.string.order_status_client),
+                    color = Dark04,
+                    style = Paragraph02
+                )
                 Spacer(modifier = Modifier.height(3.dp))
-                Text(text = "Juan Carlos del Rio", color = Dark01, style = Paragraph01SemiBold)
+                Text(text = order.client.name, color = Dark01, style = Paragraph01SemiBold)
                 Spacer(modifier = Modifier.height(8.dp))
                 Row(modifier = Modifier.fillMaxWidth()) {
                     CardOrderTypeComponent(
                         modifier = Modifier.weight(1.5f),
-                        orderTypeVO = OrderTypeVO("Mesa", description = "01"),
-                        orderType = OrderType.Table()
+                        orderTypeVO = OrderTypeVO(
+                            order.orderType.title,
+                            description = order.orderType.description
+                        ),
+                        orderType = if (order.orderType.code == "DELI") OrderType.Delivery() else OrderType.Table()
                     )
                     Spacer(modifier = Modifier.width(5.dp))
                     CardOrderTypeComponent(
                         modifier = Modifier.weight(3f),
-                        orderTypeVO = OrderTypeVO("Total", description = "S/ 999.80"),
+                        orderTypeVO = OrderTypeVO(
+                            stringResource(id = R.string.order_status_total),
+                            description = order.total
+                        ),
                         orderType = OrderType.Amount()
                     )
                 }
@@ -110,7 +126,7 @@ fun ItemOrderComponent(
                 ) {
                     Text(
                         modifier = Modifier.fillMaxWidth(),
-                        text = "Pendiente",
+                        text = order.state,
                         color = Light01,
                         style = Paragraph02,
                         textAlign = TextAlign.Center
@@ -122,7 +138,10 @@ fun ItemOrderComponent(
                     Text(
                         modifier = Modifier
                             .fillMaxWidth(),
-                        text = "ID: #000451",
+                        text = String.format(
+                            stringResource(id = R.string.order_status_id),
+                            order.number
+                        ),
                         color = Dark04,
                         style = Header04Bold,
                         textAlign = TextAlign.End
@@ -137,6 +156,38 @@ fun ItemOrderComponent(
 @Composable
 fun ItemOrderComponentPreview() {
     Column {
-        ItemOrderComponent()
+        ItemOrderComponent(
+            order = Order(
+                id = "64a4f0e9f03e52399e481854",
+                number = "#000001",
+                date = "04 Jul 2023, 11:26 PM",
+                state = "Proceso",
+                stateCode = "PROGRESS",
+                restaurant = "Kitchen",
+                orderType = com.afoxplus.yalistoadmin.domain.entities.OrderType(
+                    code = "SALON",
+                    title = "SALON",
+                    description = "06"
+                ),
+                total = "S/ 66.80",
+                client = Client(
+                    name = "Prueba",
+                    cel = "966998544",
+                    addressReference = "Simbal, calle j4 puerta 250"
+                ),
+                detail = listOf(
+                    Product(
+                        productId = "61a5a68c0c327b1d087ccdb3",
+                        title = "Pescado",
+                        description = "Pescado frito",
+                        productType = "",
+                        unitPrice = "S/ 18.20",
+                        quantity = 2,
+                        subTotal = "S/ 36.40",
+                        subDetail = arrayListOf()
+                    )
+                )
+            )
+        )
     }
 }

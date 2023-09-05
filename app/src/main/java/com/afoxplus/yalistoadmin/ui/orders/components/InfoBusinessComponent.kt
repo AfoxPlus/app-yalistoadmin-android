@@ -1,4 +1,4 @@
-package com.afoxplus.yalistoadmin.ui.home.components
+package com.afoxplus.yalistoadmin.ui.orders.components
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -20,7 +20,7 @@ import com.afoxplus.uikitcompose.ui.theme.Dark01
 import com.afoxplus.uikitcompose.ui.theme.Dark05
 import com.afoxplus.uikitcompose.ui.theme.Header05SemiBold
 import com.afoxplus.uikitcompose.ui.theme.Paragraph02
-import com.afoxplus.yalistoadmin.ui.home.RestaurantEntity
+import com.afoxplus.yalistoadmin.ui.orders.RestaurantEntity
 
 @Composable
 fun InfoBusinessComponent(restaurantEntity: RestaurantEntity) {

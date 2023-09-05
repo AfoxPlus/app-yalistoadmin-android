@@ -1,8 +1,10 @@
 package com.afoxplus.yalistoadmin.di.module
 
 import com.afoxplus.yalistoadmin.data.repository.AuthRepositoryData
+import com.afoxplus.yalistoadmin.data.repository.OrderStatusRepositoryData
 import com.afoxplus.yalistoadmin.data.repository.StatesRepositoryData
 import com.afoxplus.yalistoadmin.domain.repository.AuthRepository
+import com.afoxplus.yalistoadmin.domain.repository.OrderStatusRepository
 import com.afoxplus.yalistoadmin.domain.repository.StatesRepository
 import dagger.Binds
 import dagger.Module
@@ -15,11 +17,16 @@ abstract class RepositoryModule {
 
     @Binds
     abstract fun bindsAuthRepository(
-        authRepositoryData: AuthRepositoryData
+        repositoryData: AuthRepositoryData
     ): AuthRepository
 
     @Binds
     abstract fun bindsStatesRepository(
-        statesRepositoryData: StatesRepositoryData
+        repositoryData: StatesRepositoryData
     ): StatesRepository
+
+    @Binds
+    abstract fun bindsOrderStatusRepository(
+        repositoryData: OrderStatusRepositoryData
+    ): OrderStatusRepository
 }
