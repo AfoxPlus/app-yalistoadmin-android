@@ -14,7 +14,7 @@ import retrofit2.http.Header
 import retrofit2.http.POST
 
 @ServiceClient(type = UrlProvider.Type.API_RESTAURANTS)
-interface AdminApiRestaurantNetwork {
+fun interface AdminApiRestaurantNetwork {
 
     companion object {
         const val PATH_AUTH = "auth"
@@ -39,5 +39,7 @@ interface AdminApiOrdersNetwork {
     suspend fun getStates(): Response<BaseResponse<List<StatesResponseModel>>>
 
     @GET("orders/$PATH_STATUS")
-    suspend fun getOrderStatus(@Header("restaurant_code") code: String): Response<BaseResponse<List<OrderResponseModel>>>
+    suspend fun getOrderStatus(
+        @Header("restaurant_code") code: String
+    ): Response<BaseResponse<List<OrderResponseModel>>>
 }

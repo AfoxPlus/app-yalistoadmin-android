@@ -117,7 +117,7 @@ fun OrderDetailItemPreview() {
             OrderDetailItem(
                 title = "Jarra chicha morada",
                 description = "Refrescante chicha morada 1 litro",
-                price = "S/ 20.50",
+                price = "S/ 25.50",
                 quantity = "Cant: 1",
                 total = "S/ 20.50"
             )

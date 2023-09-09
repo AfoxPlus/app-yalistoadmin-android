@@ -5,6 +5,7 @@ import com.afoxplus.uikit.di.UIKitCoroutineDispatcher
 import com.afoxplus.yalistoadmin.commons.utils.ResultState
 import com.afoxplus.yalistoadmin.domain.entities.Auth
 import com.afoxplus.yalistoadmin.domain.usecase.GetAuthUseCase
+import com.afoxplus.yalistoadmin.domain.usecase.SaveAuthUseCase
 import com.afoxplus.yalistoadmin.domain.usecase.params.AuthParams
 import com.afoxplus.yalistoadmin.utils.TestCoroutineRule
 import com.afoxplus.yalistoadmin.utils.UIKitCoroutineDispatcherTest
@@ -22,6 +23,8 @@ class LoginViewModelTest {
 
     private val mockUseCase: GetAuthUseCase = mock()
 
+    private val mockSaveAuthUseCase: SaveAuthUseCase = mock()
+
     private val mockDispatcher: UIKitCoroutineDispatcher = UIKitCoroutineDispatcherTest()
 
     private lateinit var sutViewModel: LoginViewModel
@@ -34,7 +37,11 @@ class LoginViewModelTest {
 
     @Before
     fun setup() {
-        sutViewModel = LoginViewModel(mockUseCase, mockDispatcher)
+        sutViewModel = LoginViewModel(
+            getAuthUseCase = mockUseCase,
+            saveAuthUseCase = mockSaveAuthUseCase,
+            dispatcher = mockDispatcher
+        )
     }
 
     @Test
@@ -60,8 +67,6 @@ class LoginViewModelTest {
             verify(mockUseCase).auth(mockParams)
             assert(!sutViewModel.isLoading.value)
             assert(sutViewModel.isNavigate.value)
-            assert(sutViewModel.auth == (mockReturn.data as Auth))
-            assert(sutViewModel.auth.code == (mockReturn.data as Auth).code)
         }
     }
 

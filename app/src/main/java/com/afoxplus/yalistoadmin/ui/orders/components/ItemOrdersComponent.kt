@@ -2,6 +2,7 @@ package com.afoxplus.yalistoadmin.ui.orders.components
 
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -45,17 +46,21 @@ import com.afoxplus.yalistoadmin.domain.entities.Product
 @Composable
 fun ItemOrderComponent(
     modifier: Modifier = Modifier,
-    order: Order
+    order: Order,
+    onClick: (Order) -> Unit
 ) {
     Box(
         modifier = modifier
             .fillMaxWidth()
             .background(color = Light03, shape = RoundedCornerShape(8.dp))
-            .padding(12.dp)
+            .clickable {
+                onClick(order)
+            }
     ) {
         Row(
             modifier = Modifier
                 .fillMaxWidth()
+                .padding(12.dp)
                 .height(IntrinsicSize.Min)
         ) {
             Column(
@@ -188,6 +193,6 @@ fun ItemOrderComponentPreview() {
                     )
                 )
             )
-        )
+        ) {}
     }
 }

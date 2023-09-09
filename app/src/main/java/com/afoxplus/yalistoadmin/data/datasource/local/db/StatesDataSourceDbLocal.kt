@@ -1,16 +1,16 @@
 package com.afoxplus.yalistoadmin.data.datasource.local.db
 
 import com.afoxplus.yalistoadmin.commons.utils.ResultState
-import com.afoxplus.yalistoadmin.data.datasource.StatesLocal
+import com.afoxplus.yalistoadmin.data.datasource.StatesDbLocal
 import com.afoxplus.yalistoadmin.data.datasource.local.db.dao.StatesDAO
 import com.afoxplus.yalistoadmin.data.datasource.local.db.model.toDB
 import com.afoxplus.yalistoadmin.data.datasource.local.db.model.toEntity
 import com.afoxplus.yalistoadmin.domain.entities.States
 import javax.inject.Inject
 
-class StatesDataSourceLocal @Inject constructor(
+class StatesDataSourceDbLocal @Inject constructor(
     private val statesDAO: StatesDAO
-) : StatesLocal {
+) : StatesDbLocal {
     override suspend fun saveStates(states: List<States>): ResultState<Unit> {
         val response = try {
             statesDAO.saveStates(states.map { it.toDB() })

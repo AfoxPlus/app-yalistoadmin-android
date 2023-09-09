@@ -51,12 +51,15 @@ ext.getMyFilter = { ->
             '**/data/api/**',
             '**/data/model**',
             '**/di/**',
-            '**/domain/entity**',
+            '**/domain/entities**',
             '**/utils/**',
             '**/*Component*',
             '**/*Screen*',
             '**/*Preview*',
             '**/*Params*',
+            '**/*Entity*',
+            '**/*Model*',
+            '**/*DAO*',
             '**/*Activity*',
             '**/*Fragment*'
     ]

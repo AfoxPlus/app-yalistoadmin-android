@@ -16,7 +16,8 @@ import com.afoxplus.yalistoadmin.domain.entities.Order
 @Composable
 fun OrdersComponent(
     orders: List<Order>,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    onClick: (Order) -> Unit
 ) {
     LazyColumn(
         modifier = modifier
@@ -28,7 +29,10 @@ fun OrdersComponent(
         items(orders.size) {
             ItemOrderComponent(
                 modifier = Modifier.fillMaxWidth(),
-                order = orders[it]
+                order = orders[it],
+                onClick = { order ->
+                    onClick(order)
+                }
             )
         }
     }
@@ -37,5 +41,5 @@ fun OrdersComponent(
 @Preview(showSystemUi = true)
 @Composable
 fun OrdersComponentPreview() {
-    OrdersComponent(orders = arrayListOf())
+    OrdersComponent(orders = arrayListOf()) {}
 }

@@ -6,4 +6,6 @@ import com.afoxplus.yalistoadmin.domain.usecase.params.AuthParams
 
 interface AuthRepository {
     suspend fun auth(params: AuthParams): ResultState<Auth>
+    suspend fun getAuth(): Auth
+    suspend fun saveAuth(auth: Auth)
 }

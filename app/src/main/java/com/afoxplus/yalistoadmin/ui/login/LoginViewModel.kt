@@ -4,8 +4,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.afoxplus.uikit.di.UIKitCoroutineDispatcher
 import com.afoxplus.yalistoadmin.commons.utils.ResultState
-import com.afoxplus.yalistoadmin.domain.entities.Auth
 import com.afoxplus.yalistoadmin.domain.usecase.GetAuthUseCase
+import com.afoxplus.yalistoadmin.domain.usecase.SaveAuthUseCase
 import com.afoxplus.yalistoadmin.domain.usecase.params.AuthParams
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
@@ -18,6 +18,7 @@ import kotlinx.coroutines.launch
 @HiltViewModel
 class LoginViewModel @Inject constructor(
     private val getAuthUseCase: GetAuthUseCase,
+    private val saveAuthUseCase: SaveAuthUseCase,
     private val dispatcher: UIKitCoroutineDispatcher
 ) : ViewModel() {
 
@@ -26,8 +27,6 @@ class LoginViewModel @Inject constructor(
 
     private var _isNavigate: MutableStateFlow<Boolean> = MutableStateFlow(false)
     var isNavigate: StateFlow<Boolean> = _isNavigate.asStateFlow()
-
-    lateinit var auth: Auth
 
     fun auth(key: String): Job {
         return viewModelScope.launch(dispatcher.getIODispatcher()) {
@@ -42,10 +41,9 @@ class LoginViewModel @Inject constructor(
                     is ResultState.Success -> {
                         _isLoading.value = false
                         _isNavigate.value = true
-                        auth = result.data
+                        saveAuthUseCase.saveAuth(auth = result.data)
                     }
                 }
-                _isLoading.value = false
             } catch (e: Exception) {
                 _isLoading.value = false
             }
