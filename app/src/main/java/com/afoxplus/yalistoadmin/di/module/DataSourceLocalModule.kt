@@ -1,7 +1,9 @@
 package com.afoxplus.yalistoadmin.di.module
 
-import com.afoxplus.yalistoadmin.data.datasource.StatesLocal
-import com.afoxplus.yalistoadmin.data.datasource.local.db.StatesDataSourceLocal
+import com.afoxplus.yalistoadmin.data.datasource.AuthPreferencesLocal
+import com.afoxplus.yalistoadmin.data.datasource.StatesDbLocal
+import com.afoxplus.yalistoadmin.data.datasource.local.db.StatesDataSourceDbLocal
+import com.afoxplus.yalistoadmin.data.datasource.local.preferences.AuthPreferencesDataSourcePreferences
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
@@ -13,6 +15,11 @@ abstract class DataSourceLocalModule {
 
     @Binds
     abstract fun bindsStatesLocal(
-        dataSourceLocal: StatesDataSourceLocal
-    ): StatesLocal
+        dataSourceLocal: StatesDataSourceDbLocal
+    ): StatesDbLocal
+
+    @Binds
+    abstract fun bindsAuthPreferencesLocal(
+        dataSourceLocal: AuthPreferencesDataSourcePreferences
+    ): AuthPreferencesLocal
 }

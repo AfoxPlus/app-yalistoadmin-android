@@ -1,4 +1,4 @@
-package com.afoxplus.yalistoadmin.ui.home.components
+package com.afoxplus.yalistoadmin.ui.orders.components
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -20,10 +20,10 @@ import com.afoxplus.uikitcompose.ui.theme.Dark01
 import com.afoxplus.uikitcompose.ui.theme.Dark05
 import com.afoxplus.uikitcompose.ui.theme.Header05SemiBold
 import com.afoxplus.uikitcompose.ui.theme.Paragraph02
-import com.afoxplus.yalistoadmin.ui.home.RestaurantEntity
+import com.afoxplus.yalistoadmin.domain.entities.Restaurant
 
 @Composable
-fun InfoBusinessComponent(restaurantEntity: RestaurantEntity) {
+fun InfoBusinessComponent(restaurant: Restaurant) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
@@ -39,8 +39,8 @@ fun InfoBusinessComponent(restaurantEntity: RestaurantEntity) {
                     shape = RoundedCornerShape(8.dp),
                     clip = true
                 ),
-            model = restaurantEntity.image,
-            contentDescription = restaurantEntity.name,
+            model = restaurant.image,
+            contentDescription = restaurant.name,
             contentScale = ContentScale.FillBounds
         )
 
@@ -49,9 +49,9 @@ fun InfoBusinessComponent(restaurantEntity: RestaurantEntity) {
                 .fillMaxWidth()
                 .padding(18.dp)
         ) {
-            Text(text = restaurantEntity.description, style = Paragraph02, color = Dark05)
+            Text(text = restaurant.description, style = Paragraph02, color = Dark05)
             Spacer(modifier = Modifier.height(4.dp))
-            Text(text = restaurantEntity.name, style = Header05SemiBold, color = Dark01)
+            Text(text = restaurant.name, style = Header05SemiBold, color = Dark01)
         }
     }
 }

@@ -1,7 +1,7 @@
 package com.afoxplus.yalistoadmin.data.repository
 
 import com.afoxplus.yalistoadmin.commons.utils.ResultState
-import com.afoxplus.yalistoadmin.data.datasource.StatesLocal
+import com.afoxplus.yalistoadmin.data.datasource.StatesDbLocal
 import com.afoxplus.yalistoadmin.data.datasource.StatesRemote
 import com.afoxplus.yalistoadmin.domain.entities.States
 import com.afoxplus.yalistoadmin.domain.repository.StatesRepository
@@ -9,7 +9,7 @@ import javax.inject.Inject
 
 class StatesRepositoryData @Inject constructor(
     private val dataSourceRemote: StatesRemote,
-    private val dataSourceLocal: StatesLocal
+    private val dataSourceLocal: StatesDbLocal
 ) : StatesRepository {
     override suspend fun getStates(): ResultState<List<States>> {
         return when (val response = dataSourceLocal.getStates()) {

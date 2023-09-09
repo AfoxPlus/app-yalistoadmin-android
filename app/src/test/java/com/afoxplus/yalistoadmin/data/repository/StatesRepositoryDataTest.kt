@@ -1,7 +1,7 @@
 package com.afoxplus.yalistoadmin.data.repository
 
 import com.afoxplus.yalistoadmin.commons.utils.ResultState
-import com.afoxplus.yalistoadmin.data.datasource.StatesLocal
+import com.afoxplus.yalistoadmin.data.datasource.StatesDbLocal
 import com.afoxplus.yalistoadmin.data.datasource.StatesRemote
 import com.afoxplus.yalistoadmin.domain.entities.States
 import com.afoxplus.yalistoadmin.mock.data.listStates
@@ -23,7 +23,7 @@ class StatesRepositoryDataTest {
 
     private val mockDataSourceRemote: StatesRemote = mock()
 
-    private val mockDataSourceLocal: StatesLocal = mock()
+    private val mockDataSourceLocal: StatesDbLocal = mock()
 
     private lateinit var sutRepositoryData: StatesRepositoryData
 

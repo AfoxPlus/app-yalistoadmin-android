@@ -12,4 +12,8 @@ class GetAuthUseCase @Inject constructor(
     suspend fun auth(params: AuthParams): ResultState<Auth> {
         return repository.auth(params)
     }
+
+    suspend fun authPreferences(): Auth {
+        return repository.getAuth()
+    }
 }

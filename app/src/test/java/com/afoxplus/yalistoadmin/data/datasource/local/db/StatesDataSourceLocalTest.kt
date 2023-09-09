@@ -23,11 +23,11 @@ class StatesDataSourceLocalTest {
 
     private val mockDAO: StatesDAO = mock()
 
-    private lateinit var sutDataSource: StatesDataSourceLocal
+    private lateinit var sutDataSource: StatesDataSourceDbLocal
 
     @Before
     fun setup() {
-        sutDataSource = StatesDataSourceLocal(statesDAO = mockDAO)
+        sutDataSource = StatesDataSourceDbLocal(statesDAO = mockDAO)
     }
 
     @Test

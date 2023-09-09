@@ -2,7 +2,7 @@ package com.afoxplus.yalistoadmin.di.module
 
 import android.content.Context
 import androidx.room.Room
-import com.afoxplus.yalistoadmin.commons.constants.ConstantsDB.DB_NAME
+import com.afoxplus.yalistoadmin.commons.constants.ConstantsDI.DI_DB_NAME
 import com.afoxplus.yalistoadmin.data.datasource.local.db.YaListoAdminDB
 import com.afoxplus.yalistoadmin.data.datasource.local.db.dao.StatesDAO
 import dagger.Module
@@ -17,7 +17,7 @@ class DBModule {
 
     @Provides
     fun providesYaListoAdminDB(@ApplicationContext context: Context): YaListoAdminDB {
-        return Room.databaseBuilder(context, YaListoAdminDB::class.java, DB_NAME).build()
+        return Room.databaseBuilder(context, YaListoAdminDB::class.java, DI_DB_NAME).build()
     }
 
     @Provides
