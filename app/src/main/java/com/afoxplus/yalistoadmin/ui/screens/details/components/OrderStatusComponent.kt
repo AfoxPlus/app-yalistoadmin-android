@@ -1,5 +1,6 @@
 package com.afoxplus.yalistoadmin.ui.screens.details.components
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -8,6 +9,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Divider
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -18,24 +20,23 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.afoxplus.uikitcompose.ui.theme.Dark02
-import com.afoxplus.uikitcompose.ui.theme.Dark04
+import com.afoxplus.uikitcompose.ui.theme.Dark03
 import com.afoxplus.uikitcompose.ui.theme.Dark05
 import com.afoxplus.uikitcompose.ui.theme.Header02Bold
 import com.afoxplus.uikitcompose.ui.theme.Header05
+import com.afoxplus.uikitcompose.ui.theme.Light01
 import com.afoxplus.uikitcompose.ui.theme.Light03
 import com.afoxplus.uikitcompose.ui.theme.Paragraph01
+import com.afoxplus.uikitcompose.ui.theme.Paragraph01Bold
 import com.afoxplus.uikitcompose.ui.theme.Paragraph02
 import com.afoxplus.uikitcompose.ui.theme.UiKitComposeTheme
 import com.afoxplus.yalistoadmin.R
+import com.afoxplus.yalistoadmin.domain.entities.Product
 
 @Composable
 fun OrderDetailItem(
     modifier: Modifier = Modifier,
-    title: String,
-    description: String,
-    price: String,
-    quantity: String,
-    total: String
+    product: Product
 ) {
     Column(
         modifier = modifier
@@ -44,34 +45,52 @@ fun OrderDetailItem(
         verticalArrangement = Arrangement.spacedBy(2.dp, Alignment.Top),
         horizontalAlignment = Alignment.Start
     ) {
+        if (product.isMenu()) {
+            Column(
+                modifier = Modifier
+                    .background(color = Dark03, shape = RoundedCornerShape(4.dp))
+                    .padding(4.dp)
+            ) {
+                Text(
+                    text = product.productType ?: "Menu",
+                    color = Light01,
+                    style = Paragraph02,
+                    textAlign = TextAlign.Center
+                )
+            }
+        }
         Text(
-            text = title,
+            text = product.title,
             color = Dark02,
             style = Header05
         )
-        Text(
-            text = description,
-            color = Dark04,
-            style = Paragraph01
-        )
         Row(modifier = Modifier.fillMaxWidth()) {
             Text(
-                text = price,
+                text = product.unitPrice ?: "",
                 color = Dark02,
                 style = Paragraph01
             )
             Spacer(modifier = Modifier.width(8.dp))
             Text(
-                text = quantity,
+                text = stringResource(
+                    R.string.order_quantity,
+                    product.quantity.toString()
+                ),
                 color = Dark02,
                 style = Paragraph01
             )
             Text(
                 modifier = Modifier.weight(1f),
-                text = total,
+                text = product.subTotal ?: "",
                 color = Dark02,
                 textAlign = TextAlign.End,
-                style = Paragraph01
+                style = Paragraph01Bold
+            )
+        }
+        if (product.isMenu()) {
+            OrderAppetizersComponent(
+                modifier = modifier.padding(0.dp, 4.dp, 0.dp, 0.dp),
+                list = product.subDetail
             )
         }
     }
@@ -115,19 +134,50 @@ fun OrderDetailItemPreview() {
     UiKitComposeTheme {
         Column {
             OrderDetailItem(
-                title = "Jarra chicha morada",
-                description = "Refrescante chicha morada 1 litro",
-                price = "S/ 25.50",
-                quantity = "Cant: 1",
-                total = "S/ 20.50"
+                product = Product(
+                    productId = "02",
+                    title = "Ají de gallina",
+                    quantity = 2,
+                    description = "",
+                    unitPrice = "S/ 20.00",
+                    productType = "Menu",
+                    subTotal = "S/ 40.00",
+                    subDetail = listOf(
+                        Product(
+                            productId = "02",
+                            title = "Papa a la huancaina",
+                            quantity = 1,
+                            description = "",
+                            unitPrice = "",
+                            productType = "",
+                            subTotal = "",
+                            subDetail = arrayListOf()
+                        ),
+                        Product(
+                            productId = "03",
+                            title = "Ensalada cocida",
+                            quantity = 1,
+                            description = "",
+                            unitPrice = "",
+                            productType = "",
+                            subTotal = "",
+                            subDetail = arrayListOf()
+                        )
+                    )
+                )
             )
             Divider(modifier = Modifier.height(1.dp), color = Light03)
             OrderDetailItem(
-                title = "Jarra de limonada fresca",
-                description = "Refrescante limonada 1 litro",
-                price = "S/ 20.50",
-                quantity = "Cant: 2",
-                total = "S/ 51.00"
+                product = Product(
+                    productId = "02",
+                    title = "Lomo saltado",
+                    quantity = 2,
+                    description = "",
+                    unitPrice = "S/. 30.00",
+                    productType = "",
+                    subTotal = "S/. 60.00",
+                    subDetail = listOf()
+                )
             )
             Divider(modifier = Modifier.height(1.dp), color = Light03)
             OrderDetailTotalItem(total = "S/ 50.30", paymentMethod = "Efectivo")

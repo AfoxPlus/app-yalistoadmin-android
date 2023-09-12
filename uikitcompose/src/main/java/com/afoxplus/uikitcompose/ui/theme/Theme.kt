@@ -13,15 +13,25 @@ import androidx.core.view.WindowCompat
 
 val DarkColorSchemeUiKit = darkColorScheme(
     primary = Dark01,
+<<<<<<< HEAD
     secondary = Dark02,
     tertiary = Dark03,
+=======
+    secondary = Green01,
+    tertiary = Pink02,
+>>>>>>> 259a727 (add order detail views)
     background = Light01
 )
 
 val LightColorSchemeUiKit = lightColorScheme(
     primary = Dark01,
+<<<<<<< HEAD
     secondary = Dark02,
     tertiary = Dark03,
+=======
+    secondary = Green01,
+    tertiary = Pink02,
+>>>>>>> 259a727 (add order detail views)
     background = Light01
 )
 

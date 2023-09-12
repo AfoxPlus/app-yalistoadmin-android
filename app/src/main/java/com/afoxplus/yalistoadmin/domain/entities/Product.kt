@@ -14,5 +14,7 @@ data class Product(
     val productType: String?,
     val unitPrice: String?,
     val subTotal: String?,
-    val subDetail: List<Product>
-) : Parcelable
+    val subDetail: List<Product> = arrayListOf()
+) : Parcelable {
+    fun isMenu(): Boolean = productType == "Menu"
+}
