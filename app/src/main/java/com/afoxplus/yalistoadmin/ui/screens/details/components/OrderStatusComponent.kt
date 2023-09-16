@@ -10,6 +10,8 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Divider
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -41,6 +43,7 @@ fun OrderDetailItem(
     Column(
         modifier = modifier
             .fillMaxWidth()
+            .background(Light01)
             .padding(horizontal = 16.dp, vertical = 8.dp),
         verticalArrangement = Arrangement.spacedBy(2.dp, Alignment.Top),
         horizontalAlignment = Alignment.Start
@@ -52,7 +55,7 @@ fun OrderDetailItem(
                     .padding(4.dp)
             ) {
                 Text(
-                    text = product.productType ?: "Menu",
+                    text = product.productType ?: stringResource(R.string.order_menu),
                     color = Light01,
                     style = Paragraph02,
                     textAlign = TextAlign.Center
@@ -89,7 +92,8 @@ fun OrderDetailItem(
         }
         if (product.isMenu()) {
             OrderAppetizersComponent(
-                modifier = modifier.padding(0.dp, 4.dp, 0.dp, 0.dp),
+                modifier = modifier
+                    .padding(0.dp, 4.dp, 0.dp, 0.dp),
                 list = product.subDetail
             )
         }
@@ -98,33 +102,40 @@ fun OrderDetailItem(
 
 @Composable
 fun OrderDetailTotalItem(modifier: Modifier = Modifier, total: String, paymentMethod: String) {
-    Column(
+    Card(
         modifier = modifier
-            .fillMaxWidth()
-            .padding(horizontal = 16.dp, vertical = 8.dp),
-        verticalArrangement = Arrangement.Top,
-        horizontalAlignment = Alignment.End
+            .fillMaxWidth(),
+        shape = RoundedCornerShape(bottomStart = 4.dp, bottomEnd = 4.dp),
+        colors = CardDefaults.cardColors(containerColor = Light01)
     ) {
-        Text(
-            text = stringResource(id = R.string.order_status_total_label),
-            color = Dark02,
-            style = Paragraph01
-        )
-        Text(
-            text = total,
-            color = Dark02,
-            style = Header02Bold
-        )
-        Text(
-            text = stringResource(id = R.string.order_status_payment_method_label),
-            color = Dark02,
-            style = Paragraph01
-        )
-        Text(
-            text = paymentMethod,
-            color = Dark05,
-            style = Paragraph02
-        )
+        Column(
+            modifier = modifier
+                .fillMaxWidth()
+                .padding(horizontal = 16.dp, vertical = 22.dp),
+            verticalArrangement = Arrangement.Top,
+            horizontalAlignment = Alignment.End
+        ) {
+            Text(
+                text = stringResource(id = R.string.order_status_total_label),
+                color = Dark02,
+                style = Paragraph01
+            )
+            Text(
+                text = total,
+                color = Dark02,
+                style = Header02Bold
+            )
+            Text(
+                text = stringResource(id = R.string.order_status_payment_method_label),
+                color = Dark02,
+                style = Paragraph01
+            )
+            Text(
+                text = paymentMethod,
+                color = Dark05,
+                style = Paragraph02
+            )
+        }
     }
 }
 

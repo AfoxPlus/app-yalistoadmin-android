@@ -175,6 +175,7 @@ fun ItemOrderComponentPreview() {
                     description = "06"
                 ),
                 total = "S/ 66.80",
+                paymentMethod = "Efectivo",
                 client = Client(
                     name = "Prueba",
                     cel = "966998544",

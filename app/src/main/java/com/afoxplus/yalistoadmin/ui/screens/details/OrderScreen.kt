@@ -1,195 +1,149 @@
 package com.afoxplus.yalistoadmin.ui.screens.details
 
-import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxHeight
-import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.rememberScrollState
+import androidx.compose.material3.Divider
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import androidx.constraintlayout.compose.ConstraintLayout
+import androidx.constraintlayout.compose.Dimension
 import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.navigation.NavController
 import com.afoxplus.uikitcompose.ui.components.ButtonOutlineYaListoComponent
 import com.afoxplus.uikitcompose.ui.components.ButtonYaListoComponent
 import com.afoxplus.uikitcompose.ui.components.ToolbarComponent
 import com.afoxplus.uikitcompose.ui.theme.Dark05
 import com.afoxplus.uikitcompose.ui.theme.Header05SemiBold
 import com.afoxplus.uikitcompose.ui.theme.Light01
+import com.afoxplus.uikitcompose.ui.theme.Light03
 import com.afoxplus.uikitcompose.ui.theme.Light04
-import com.afoxplus.uikitcompose.ui.theme.Light06
-import com.afoxplus.yalistoadmin.ui.screens.details.components.OrderDetailComponent
+import com.afoxplus.yalistoadmin.R
+import com.afoxplus.yalistoadmin.ui.screens.details.components.OrderDetailItem
+import com.afoxplus.yalistoadmin.ui.screens.details.components.OrderDetailTotalItem
+import com.afoxplus.yalistoadmin.ui.screens.details.components.OrderTypeComponent
 import com.afoxplus.yalistoadmin.ui.screens.details.components.OrderWhatsappContactComponent
-import com.afoxplus.yalistoadmin.domain.entities.Client
-import com.afoxplus.yalistoadmin.domain.entities.Order
-import com.afoxplus.yalistoadmin.domain.entities.Product
 
-@OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun OrderStatusScreen(
     orderViewModel: OrderViewModel = hiltViewModel(),
-    navController: NavController
+    navigateBack: () -> Unit
 ) {
-    // val order = navController.currentBackStackEntry?.savedStateHandle?.get<Order>(ORDER) ?: return
-    val order = Order(
-        id = "64a4f0e9f03e52399e481854",
-        number = "#000001",
-        date = "04 Jul 2023, 11:26 PM",
-        state = "Proceso",
-        stateCode = "PROGRESS",
-        restaurant = "Kitchen",
-        orderType = com.afoxplus.yalistoadmin.domain.entities.OrderType(
-            code = "SALON",
-            title = "SALON",
-            description = "06"
-        ),
-        total = "S/ 66.80",
-        client = Client(
-            name = "Prueba",
-            cel = "966998544",
-            addressReference = "Simbal, calle j4 puerta 250"
-        ),
-        detail = listOf(
-            Product(
-                productId = "61a5a68c0c327b1d087ccdb3",
-                title = "Pescado",
-                description = "Pescado frito",
-                productType = "",
-                unitPrice = "S/ 18.20",
-                quantity = 2,
-                subTotal = "S/ 36.40",
-                subDetail = arrayListOf()
-            ),
-            Product(
-                productId = "61a5a68c0c327b1d087ccdb3",
-                title = "Pescado",
-                description = "Pescado frito",
-                productType = "",
-                unitPrice = "S/ 18.20",
-                quantity = 2,
-                subTotal = "S/ 36.40",
-                subDetail = listOf()
-            ),
-            Product(
-                productId = "02",
-                title = "Ají de gallina",
-                quantity = 2,
-                description = "",
-                unitPrice = "S/. 25.00",
-                productType = "Menu",
-                subTotal = "S/. 50.00",
-                subDetail = listOf(
-                    Product(
-                        productId = "02",
-                        title = "Papa a la huancaina",
-                        quantity = 1,
-                        description = "",
-                        unitPrice = "",
-                        productType = "",
-                        subTotal = "",
-                        subDetail = arrayListOf()
-                    ),
-                    Product(
-                        productId = "03",
-                        title = "Ensalada cocida",
-                        quantity = 1,
-                        description = "",
-                        unitPrice = "",
-                        productType = "",
-                        subTotal = "",
-                        subDetail = arrayListOf()
-                    )
-                )
-            )
-        )
-    )
-
-    val scrollState = rememberScrollState()
-    Column(
+    val order = orderViewModel.orderState ?: return
+    ConstraintLayout(
         modifier = Modifier
-            .background(color = Light04)
-            .fillMaxHeight()
+            .fillMaxSize()
+            .background(Light04)
     ) {
-        Column(
-            modifier = Modifier
-                .fillMaxWidth()
-                .weight(1f)
-        ) {
-            ToolbarComponent(
-                modifier = Modifier.background(color = Light01),
-                title = "Client",
-                description = order.client.name
-            )
+        val (toolbar, contentBox, footer) = createRefs()
 
-            LazyColumn(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .height(500.dp)
-                    .background(Light06)
-                    // .verticalScroll(scrollState)
-                    .padding(horizontal = 16.dp, vertical = 12.dp)
-            ) {
-                stickyHeader {
-                    OrderWhatsappContactComponent(
-                        phoneNumber = order.client.cel,
-                        description = order.client.addressReference
-                    )
-                }
-                item {
-                    OrderDetailComponent(
-                        modifier = Modifier
-                            .padding(horizontal = 0.dp, vertical = 8.dp),
-                        order = order
-                    )
-                }
-            }
-            Spacer(modifier = Modifier.height(4.dp))
-        }
-        Column(
+        ToolbarComponent(
             modifier = Modifier
-                .fillMaxWidth()
+                .background(color = Light01)
+                .constrainAs(toolbar) {
+                    top.linkTo(parent.top)
+                    start.linkTo(parent.start)
+                    end.linkTo(parent.end)
+                },
+            title = "Client",
+            description = order.client.name
         ) {
-            Row(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .height(35.dp)
-                    .background(color = Dark05),
-                horizontalArrangement = Arrangement.spacedBy(10.dp, Alignment.CenterHorizontally),
-                verticalAlignment = Alignment.CenterVertically
-            ) {
-                Text(
-                    modifier = Modifier
-                        .fillMaxWidth(),
-                    text = order.state,
-                    textAlign = TextAlign.Center,
-                    color = Light01,
-                    style = Header05SemiBold
+            navigateBack()
+        }
+
+        LazyColumn(
+            modifier = Modifier
+                .constrainAs(contentBox) {
+                    top.linkTo(toolbar.bottom)
+                    start.linkTo(parent.start, margin = 16.dp)
+                    end.linkTo(parent.end, margin = 16.dp)
+                    bottom.linkTo(footer.top)
+                    height = Dimension.fillToConstraints
+                    width = Dimension.fillToConstraints
+                }
+        ) {
+            item {
+                Spacer(modifier = Modifier.height(12.dp))
+                OrderWhatsappContactComponent(
+                    phoneNumber = order.client.cel,
+                    description = order.client.addressReference
                 )
             }
-            Column(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(horizontal = 16.dp, vertical = 24.dp),
-                verticalArrangement = Arrangement.spacedBy(12.dp, Alignment.CenterVertically),
-                horizontalAlignment = Alignment.Start
-            ) {
-                ButtonYaListoComponent(text = "Modificar estado") {
-                }
+            item {
+                Spacer(modifier = Modifier.height(8.dp))
+                OrderTypeComponent(
+                    orderId = order.number,
+                    orderDate = order.date,
+                    orderType = order.orderType
+                )
+            }
+            items(order.detail.size) {
+                OrderDetailItem(product = order.detail[it])
+                Divider(modifier = Modifier.height(1.dp), color = Light03)
+            }
 
-                ButtonOutlineYaListoComponent(
-                    text = "Imprimir"
-                ) {
+            item {
+                OrderDetailTotalItem(total = order.total, paymentMethod = order.paymentMethod)
+                Spacer(modifier = Modifier.height(12.dp))
+            }
+        }
+
+        ConstraintLayout(
+            modifier = Modifier
+                .background(Light01)
+                .constrainAs(footer) {
+                    bottom.linkTo(parent.bottom)
+                    start.linkTo(parent.start)
+                    end.linkTo(parent.end)
+                    width = Dimension.fillToConstraints
                 }
+        ) {
+            val (textState, buttonUpdate, buttonPrint) = createRefs()
+            Text(
+                modifier = Modifier
+                    .height(35.dp)
+                    .background(Dark05)
+                    .wrapContentHeight(align = Alignment.CenterVertically)
+                    .constrainAs(textState) {
+                        top.linkTo(parent.top)
+                        start.linkTo(parent.start)
+                        end.linkTo(parent.end)
+                        width = Dimension.fillToConstraints
+                    },
+                text = order.state,
+                textAlign = TextAlign.Center,
+                color = Light01,
+                style = Header05SemiBold
+            )
+
+            ButtonYaListoComponent(
+                modifier = Modifier.constrainAs(buttonUpdate) {
+                    top.linkTo(textState.bottom, margin = 16.dp)
+                    start.linkTo(parent.start, margin = 16.dp)
+                    end.linkTo(parent.end, margin = 16.dp)
+                    width = Dimension.fillToConstraints
+                },
+                text = stringResource(id = R.string.order_update_state)
+            ) {
+            }
+
+            ButtonOutlineYaListoComponent(
+                modifier = Modifier.constrainAs(buttonPrint) {
+                    top.linkTo(buttonUpdate.bottom, margin = 12.dp)
+                    start.linkTo(parent.start, margin = 16.dp)
+                    end.linkTo(parent.end, margin = 16.dp)
+                    bottom.linkTo(parent.bottom, margin = 16.dp)
+                    width = Dimension.fillToConstraints
+                },
+                text = stringResource(id = R.string.order_print)
+            ) {
             }
         }
     }
