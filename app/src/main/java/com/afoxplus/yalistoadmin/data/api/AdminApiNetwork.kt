@@ -5,6 +5,7 @@ import com.afoxplus.network.api.UrlProvider
 import com.afoxplus.network.response.BaseResponse
 import com.afoxplus.yalistoadmin.data.datasource.remote.model.request.AuthRequestModel
 import com.afoxplus.yalistoadmin.data.datasource.remote.model.request.ProductUpdateRequestModel
+import com.afoxplus.yalistoadmin.data.datasource.remote.model.request.OrderStateRequestModel
 import com.afoxplus.yalistoadmin.data.datasource.remote.model.response.AuthResponseModel
 import com.afoxplus.yalistoadmin.data.datasource.remote.model.response.OrderResponseModel
 import com.afoxplus.yalistoadmin.data.datasource.remote.model.response.ProductSearchResponseModel
@@ -45,6 +46,11 @@ interface AdminApiOrdersNetwork {
     @GET("orders/$PATH_STATUS")
     suspend fun getOrderStatus(
         @Header("restaurant_code") code: String
+    ): Response<BaseResponse<List<OrderResponseModel>>>
+
+    @GET("orders/$PATH_SEND_STATE")
+    suspend fun sendOrderState(
+        @Body orderStateRequest: OrderStateRequestModel
     ): Response<BaseResponse<List<OrderResponseModel>>>
 }
 

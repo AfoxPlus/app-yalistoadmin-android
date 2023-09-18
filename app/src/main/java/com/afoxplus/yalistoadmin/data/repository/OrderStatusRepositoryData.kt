@@ -13,4 +13,8 @@ class OrderStatusRepositoryData @Inject constructor(
     override suspend fun getStatus(params: RestaurantParams): ResultState<List<Order>> {
         return dataSource.getStatus(params)
     }
+
+    override suspend fun updateState(order: Order, state: String): ResultState<Unit> {
+        return dataSource.updateState(order, state)
+    }
 }

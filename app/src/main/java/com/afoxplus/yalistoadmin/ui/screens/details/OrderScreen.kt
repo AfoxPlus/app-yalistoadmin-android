@@ -9,6 +9,7 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.Divider
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
@@ -36,7 +37,7 @@ fun OrderStatusScreen(
     orderViewModel: OrderViewModel = hiltViewModel(),
     navigateBack: () -> Unit
 ) {
-    val order = orderViewModel.orderState ?: return
+    val order = orderViewModel.orderState.collectAsState().value ?: return
     ConstraintLayout(
         modifier = Modifier
             .fillMaxSize()
@@ -132,6 +133,7 @@ fun OrderStatusScreen(
                 },
                 text = stringResource(id = R.string.order_update_state)
             ) {
+                orderViewModel.sendOrderState("state")
             }
 
             ButtonOutlineYaListoComponent(
