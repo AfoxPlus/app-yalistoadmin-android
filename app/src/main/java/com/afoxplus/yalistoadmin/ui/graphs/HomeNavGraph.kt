@@ -37,7 +37,7 @@ fun HomeNavGraph(navController: NavHostController, modifier: Modifier = Modifier
         }
         composable(route = BottomBarScreen.Sales.route) {
             // TODO: Replace with SalesScreen
-            ScreenContent(name = BottomBarScreen.Products.title, onClick = {})
+            ScreenContent(name = BottomBarScreen.Sales.title, onClick = {})
         }
         homeDetailsNavGraph(navController)
     }
@@ -49,6 +49,8 @@ fun NavGraphBuilder.homeDetailsNavGraph(navController: NavHostController) {
         startDestination = HomeDetailsScreenRouter.OrderDetail.route
     ) {
         composable(route = HomeDetailsScreenRouter.OrderDetail.route) {
+            // Get SharedViewModel from NavBackStackEntry
+            // val viewModel = it.sharedViewModel<OrdersStatusViewModel>(navController = navController)
             OrderStatusScreen()
         }
     }

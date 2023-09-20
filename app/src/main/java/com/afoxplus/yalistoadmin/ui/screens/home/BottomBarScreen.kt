@@ -1,31 +1,28 @@
 package com.afoxplus.yalistoadmin.ui.screens.home
 
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Hardware
-import androidx.compose.material.icons.filled.Home
-import androidx.compose.material.icons.filled.Settings
-import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.annotation.DrawableRes
+import com.afoxplus.yalistoadmin.R
 
 sealed class BottomBarScreen(
     val route: String,
     val title: String,
-    val icon: ImageVector
+    @DrawableRes val icon: Int
 ) {
     object Orders : BottomBarScreen(
         route = "ORDERS",
-        title = "ORDERS",
-        icon = Icons.Default.Home
+        title = "Pedidos",
+        icon = R.drawable.ic_order_item
     )
 
     object Products : BottomBarScreen(
         route = "PRODUCTS",
-        title = "PRODUCTS",
-        icon = Icons.Default.Hardware
+        title = "Productos",
+        icon = R.drawable.ic_products_item
     )
 
     object Sales : BottomBarScreen(
         route = "SALES",
-        title = "SALES",
-        icon = Icons.Default.Settings
+        title = "Ventas",
+        icon = R.drawable.ic_sales_item
     )
 }
