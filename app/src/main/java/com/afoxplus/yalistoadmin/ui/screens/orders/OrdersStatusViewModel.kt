@@ -1,12 +1,14 @@
-package com.afoxplus.yalistoadmin.ui.login
+package com.afoxplus.yalistoadmin.ui.screens.orders
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.afoxplus.uikit.di.UIKitCoroutineDispatcher
 import com.afoxplus.yalistoadmin.commons.utils.ResultState
+import com.afoxplus.yalistoadmin.domain.entities.Auth
+import com.afoxplus.yalistoadmin.domain.entities.Order
 import com.afoxplus.yalistoadmin.domain.usecase.GetAuthUseCase
-import com.afoxplus.yalistoadmin.domain.usecase.SaveAuthUseCase
-import com.afoxplus.yalistoadmin.domain.usecase.params.AuthParams
+import com.afoxplus.yalistoadmin.domain.usecase.GetOrderStatusUseCase
+import com.afoxplus.yalistoadmin.domain.usecase.params.RestaurantParams
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 import kotlinx.coroutines.Job
@@ -16,32 +18,37 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 
 @HiltViewModel
-class LoginViewModel @Inject constructor(
+class OrdersStatusViewModel @Inject constructor(
+    private val getOrderStatusUseCase: GetOrderStatusUseCase,
     private val getAuthUseCase: GetAuthUseCase,
-    private val saveAuthUseCase: SaveAuthUseCase,
     private val dispatcher: UIKitCoroutineDispatcher
 ) : ViewModel() {
 
     private val _isLoading: MutableStateFlow<Boolean> = MutableStateFlow(false)
     var isLoading: StateFlow<Boolean> = _isLoading.asStateFlow()
 
-    private var _isNavigate: MutableStateFlow<Boolean> = MutableStateFlow(false)
-    var isNavigate: StateFlow<Boolean> = _isNavigate.asStateFlow()
+    private val _order: MutableStateFlow<List<Order>> = MutableStateFlow(arrayListOf())
+    val order: StateFlow<List<Order>> = _order.asStateFlow()
 
-    fun auth(key: String): Job {
+    private val _auth: MutableStateFlow<Auth> = MutableStateFlow(Auth("", "", "", ""))
+    val auth: StateFlow<Auth> = _auth.asStateFlow()
+
+    fun getAuth(): Job {
+        return viewModelScope.launch(dispatcher.getIODispatcher()) {
+            _auth.value = getAuthUseCase.authPreferences()
+        }
+    }
+
+    fun getStatus(restaurantCode: String): Job {
         return viewModelScope.launch(dispatcher.getIODispatcher()) {
             try {
-                _isLoading.value = true
-                val params = AuthParams(key = key)
-                when (val result = getAuthUseCase.auth(params)) {
+                when (val result = getOrderStatusUseCase.getStatus(RestaurantParams(code = restaurantCode))) {
                     is ResultState.Error -> {
                         _isLoading.value = false
                     }
 
                     is ResultState.Success -> {
-                        _isLoading.value = false
-                        _isNavigate.value = true
-                        saveAuthUseCase.saveAuth(auth = result.data)
+                        _order.value = result.data
                     }
                 }
             } catch (e: Exception) {

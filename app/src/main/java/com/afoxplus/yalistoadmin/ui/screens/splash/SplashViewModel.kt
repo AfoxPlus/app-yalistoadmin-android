@@ -1,4 +1,4 @@
-package com.afoxplus.yalistoadmin.ui.splash
+package com.afoxplus.yalistoadmin.ui.screens.splash
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope

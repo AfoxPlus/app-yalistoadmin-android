@@ -1,4 +1,4 @@
-package com.afoxplus.yalistoadmin.ui.login.components
+package com.afoxplus.yalistoadmin.ui.screens.login.components
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column

@@ -1,0 +1,105 @@
+package com.afoxplus.yalistoadmin.ui.screens.home
+
+import androidx.compose.foundation.layout.ExperimentalLayoutApi
+import androidx.compose.foundation.layout.RowScope
+import androidx.compose.foundation.layout.WindowInsets
+import androidx.compose.foundation.layout.consumeWindowInsets
+import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.Icon
+import androidx.compose.material3.NavigationBar
+import androidx.compose.material3.NavigationBarItem
+import androidx.compose.material3.NavigationBarItemDefaults
+import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Text
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.unit.dp
+import androidx.navigation.NavDestination
+import androidx.navigation.NavDestination.Companion.hierarchy
+import androidx.navigation.NavGraph.Companion.findStartDestination
+import androidx.navigation.NavHostController
+import androidx.navigation.compose.currentBackStackEntryAsState
+import androidx.navigation.compose.rememberNavController
+import com.afoxplus.uikitcompose.ui.theme.Light04
+import com.afoxplus.yalistoadmin.ui.graphs.HomeNavGraph
+
+@OptIn(ExperimentalLayoutApi::class)
+@Composable
+fun HomeScreen(
+    navController: NavHostController = rememberNavController()
+) {
+    Scaffold(
+        bottomBar = { BottomBar(navController = navController) },
+        contentWindowInsets = WindowInsets(
+            left = 0.dp,
+            top = 0.dp,
+            right = 0.dp,
+            bottom = 0.dp
+        )
+    ) { innerPadding ->
+        HomeNavGraph(
+            navController = navController,
+            modifier = Modifier
+                .padding(paddingValues = innerPadding)
+                .consumeWindowInsets(paddingValues = innerPadding)
+        )
+    }
+}
+
+@Composable
+fun BottomBar(navController: NavHostController, modifier: Modifier = Modifier) {
+    val screens = listOf(
+        BottomBarScreen.Orders,
+        BottomBarScreen.Products,
+        BottomBarScreen.Sales
+    )
+    val navBackStackEntry by navController.currentBackStackEntryAsState()
+    val currentDestination = navBackStackEntry?.destination
+
+    val bottomBarDestination = screens.any { it.route == currentDestination?.route }
+    if (bottomBarDestination) {
+        NavigationBar(modifier = modifier, containerColor = Light04) {
+            screens.forEach { screen ->
+                AddItem(
+                    screen = screen,
+                    currentDestination = currentDestination,
+                    navController = navController
+                )
+            }
+        }
+    }
+}
+
+@Composable
+fun RowScope.AddItem(
+    screen: BottomBarScreen,
+    currentDestination: NavDestination?,
+    navController: NavHostController
+) {
+    NavigationBarItem(
+        label = {
+            Text(text = screen.title)
+        },
+        icon = {
+            Icon(
+                imageVector = screen.icon,
+                contentDescription = "Navigation Icon"
+            )
+        },
+        selected = currentDestination?.hierarchy?.any {
+            it.route == screen.route
+        } == true,
+        colors = NavigationBarItemDefaults.colors(
+            unselectedTextColor = Color.Gray,
+            selectedTextColor = Color.White
+        ),
+        onClick = {
+            navController.navigate(screen.route) {
+                popUpTo(navController.graph.findStartDestination().id)
+                launchSingleTop = true
+            }
+        }
+    )
+}

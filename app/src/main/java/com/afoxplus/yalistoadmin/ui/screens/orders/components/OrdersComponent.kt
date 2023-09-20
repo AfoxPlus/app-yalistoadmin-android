@@ -1,4 +1,4 @@
-package com.afoxplus.yalistoadmin.ui.orders.components
+package com.afoxplus.yalistoadmin.ui.screens.orders.components
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
