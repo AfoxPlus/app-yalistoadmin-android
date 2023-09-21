@@ -1,4 +1,4 @@
-package com.afoxplus.yalistoadmin.ui.order
+package com.afoxplus.yalistoadmin.ui.screens.details
 
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable

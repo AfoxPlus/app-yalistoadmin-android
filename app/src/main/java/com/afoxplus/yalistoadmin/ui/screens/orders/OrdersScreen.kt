@@ -1,21 +1,20 @@
-package com.afoxplus.yalistoadmin.ui.orders
+package com.afoxplus.yalistoadmin.ui.screens.orders
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.afoxplus.yalistoadmin.R
 import com.afoxplus.yalistoadmin.domain.entities.Order
 import com.afoxplus.yalistoadmin.domain.entities.Restaurant
-import com.afoxplus.yalistoadmin.ui.orders.components.InfoBusinessComponent
-import com.afoxplus.yalistoadmin.ui.orders.components.OrdersComponent
+import com.afoxplus.yalistoadmin.ui.screens.orders.components.InfoBusinessComponent
+import com.afoxplus.yalistoadmin.ui.screens.orders.components.OrdersComponent
 
 @Composable
-fun HomeScreen(
+fun OrderScreen(
     viewModel: OrdersStatusViewModel = hiltViewModel(),
     navigateTo: (Order) -> Unit
 ) {
@@ -42,10 +41,4 @@ fun HomeScreen(
         )
         OrdersComponent(orders = orders, onClick = { navigateTo(it) })
     }
-}
-
-@Preview(showSystemUi = true)
-@Composable
-fun HomeScreenPreview() {
-    HomeScreen {}
 }

@@ -1,4 +1,4 @@
-package com.afoxplus.yalistoadmin.ui.splash
+package com.afoxplus.yalistoadmin.ui.screens.splash
 
 import android.view.animation.OvershootInterpolator
 import androidx.compose.animation.core.Animatable

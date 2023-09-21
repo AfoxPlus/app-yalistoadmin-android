@@ -1,4 +1,4 @@
-package com.afoxplus.yalistoadmin
+package com.afoxplus.yalistoadmin.ui.main
 
 import android.app.Application
 import dagger.hilt.android.HiltAndroidApp

@@ -1,4 +1,4 @@
-package com.afoxplus.yalistoadmin.ui.login
+package com.afoxplus.yalistoadmin.ui.screens.login
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
@@ -14,8 +14,8 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.afoxplus.uikitcompose.ui.theme.Light06
 import com.afoxplus.yalistoadmin.commons.extensions.noRippleClickable
-import com.afoxplus.yalistoadmin.ui.login.components.LoginCardComponent
-import com.afoxplus.yalistoadmin.ui.login.components.LoginLogoComponent
+import com.afoxplus.yalistoadmin.ui.screens.login.components.LoginCardComponent
+import com.afoxplus.yalistoadmin.ui.screens.login.components.LoginLogoComponent
 
 @Composable
 fun LoginScreen(
