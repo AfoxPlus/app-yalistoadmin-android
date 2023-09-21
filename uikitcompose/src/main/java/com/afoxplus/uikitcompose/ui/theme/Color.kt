@@ -24,3 +24,5 @@ val Gray01 = Color(0xFFC7C7C7)
 
 val Blue01 = Color(0xFF1F8AEC)
 val Blue02 = Color(0xFF5DA9EF)
+
+val Yellow02 = Color(0xFFFFF6D9)

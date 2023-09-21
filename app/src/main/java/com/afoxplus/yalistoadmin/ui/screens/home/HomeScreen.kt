@@ -15,7 +15,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.navigation.NavDestination
 import androidx.navigation.NavDestination.Companion.hierarchy
 import androidx.navigation.NavHostController
@@ -23,8 +25,9 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.afoxplus.uikitcompose.ui.theme.Dark01
 import com.afoxplus.uikitcompose.ui.theme.Light01
-import com.afoxplus.uikitcompose.ui.theme.Light04
+import com.afoxplus.uikitcompose.ui.theme.Mulish
 import com.afoxplus.uikitcompose.ui.theme.Orange01
+import com.afoxplus.uikitcompose.ui.theme.Yellow02
 import com.afoxplus.yalistoadmin.ui.extensions.navigateSingleTopTo
 import com.afoxplus.yalistoadmin.ui.graphs.HomeNavGraph
 
@@ -63,7 +66,7 @@ fun BottomBar(navController: NavHostController, modifier: Modifier = Modifier) {
 
     val bottomBarDestination = screens.any { it.route == currentDestination?.route }
     if (bottomBarDestination) {
-        NavigationBar(modifier = modifier, containerColor = Light04) {
+        NavigationBar(modifier = modifier, containerColor = Yellow02) {
             screens.forEach { screen ->
                 AddItem(
                     screen = screen,
@@ -83,7 +86,12 @@ fun RowScope.AddItem(
 ) {
     NavigationBarItem(
         label = {
-            Text(text = screen.title)
+            Text(
+                text = screen.title,
+                fontFamily = Mulish,
+                fontSize = 12.sp,
+                fontWeight = FontWeight.Medium
+            )
         },
         icon = {
             Icon(
@@ -98,6 +106,7 @@ fun RowScope.AddItem(
             selectedIconColor = Light01,
             unselectedIconColor = Dark01,
             selectedTextColor = Orange01,
+            unselectedTextColor = Dark01,
             indicatorColor = Orange01
         ),
 
