@@ -24,6 +24,10 @@ class SplashViewModel @Inject constructor(
     private val _isNavigate = MutableStateFlow(false)
     val isNavigate = _isNavigate.asStateFlow()
 
+    init {
+        states()
+    }
+
     fun states(): Job {
         return viewModelScope.launch(dispatcher.getIODispatcher()) {
             try {
