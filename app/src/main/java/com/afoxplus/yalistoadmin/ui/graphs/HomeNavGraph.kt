@@ -13,9 +13,12 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.navigation
 import com.afoxplus.uikitcompose.ui.theme.Header03
+import com.afoxplus.yalistoadmin.ui.extensions.navigateSingleTopTo
+import com.afoxplus.yalistoadmin.ui.extensions.sharedViewModel
 import com.afoxplus.yalistoadmin.ui.screens.details.OrderStatusScreen
-import com.afoxplus.yalistoadmin.ui.screens.home.BottomBarScreen
+import com.afoxplus.yalistoadmin.ui.screens.home.BottomBarHomeRouter
 import com.afoxplus.yalistoadmin.ui.screens.orders.OrderScreen
+import com.afoxplus.yalistoadmin.ui.screens.orders.OrdersStatusViewModel
 
 @Composable
 fun HomeNavGraph(navController: NavHostController, modifier: Modifier = Modifier) {
@@ -23,21 +26,22 @@ fun HomeNavGraph(navController: NavHostController, modifier: Modifier = Modifier
         modifier = modifier,
         navController = navController,
         route = Graph.HOME,
-        startDestination = BottomBarScreen.Orders.route
+        startDestination = BottomBarHomeRouter.Orders.route
     ) {
-        composable(route = BottomBarScreen.Orders.route) {
-            OrderScreen(navigateTo = {
-                navController.navigate(Graph.HOME_DETAILS)
+        composable(route = BottomBarHomeRouter.Orders.route) {
+            val viewModel = it.sharedViewModel<OrdersStatusViewModel>(navController = navController)
+            OrderScreen(viewModel = viewModel, navigateTo = {
+                navController.navigateSingleTopTo(Graph.HOME_DETAILS)
             })
         }
 
-        composable(route = BottomBarScreen.Products.route) {
+        composable(route = BottomBarHomeRouter.Products.route) {
             // TODO: Replace with ProductScreen
-            ScreenContent(name = BottomBarScreen.Products.title, onClick = {})
+            ScreenContent(name = BottomBarHomeRouter.Products.title, onClick = {})
         }
-        composable(route = BottomBarScreen.Sales.route) {
+        composable(route = BottomBarHomeRouter.Sales.route) {
             // TODO: Replace with SalesScreen
-            ScreenContent(name = BottomBarScreen.Sales.title, onClick = {})
+            ScreenContent(name = BottomBarHomeRouter.Sales.title, onClick = {})
         }
         homeDetailsNavGraph(navController)
     }
@@ -49,8 +53,6 @@ fun NavGraphBuilder.homeDetailsNavGraph(navController: NavHostController) {
         startDestination = HomeDetailsScreenRouter.OrderDetail.route
     ) {
         composable(route = HomeDetailsScreenRouter.OrderDetail.route) {
-            // Get SharedViewModel from NavBackStackEntry
-            // val viewModel = it.sharedViewModel<OrdersStatusViewModel>(navController = navController)
             OrderStatusScreen()
         }
     }

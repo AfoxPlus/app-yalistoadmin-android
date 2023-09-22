@@ -42,7 +42,10 @@ class OrdersStatusViewModel @Inject constructor(
     fun getStatus(restaurantCode: String): Job {
         return viewModelScope.launch(dispatcher.getIODispatcher()) {
             try {
-                when (val result = getOrderStatusUseCase.getStatus(RestaurantParams(code = restaurantCode))) {
+                when (
+                    val result =
+                        getOrderStatusUseCase.getStatus(RestaurantParams(code = restaurantCode))
+                ) {
                     is ResultState.Error -> {
                         _isLoading.value = false
                     }

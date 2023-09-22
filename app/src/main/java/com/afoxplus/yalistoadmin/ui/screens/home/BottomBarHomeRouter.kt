@@ -3,26 +3,24 @@ package com.afoxplus.yalistoadmin.ui.screens.home
 import androidx.annotation.DrawableRes
 import com.afoxplus.yalistoadmin.R
 
-sealed class BottomBarScreen(
+enum class BottomBarHomeRouter(
     val route: String,
     val title: String,
     @DrawableRes val icon: Int
 ) {
-    object Orders : BottomBarScreen(
+    Orders(
         route = "ORDERS",
         title = "Pedidos",
         icon = R.drawable.ic_order_item
-    )
-
-    object Products : BottomBarScreen(
+    ),
+    Products(
         route = "PRODUCTS",
         title = "Productos",
         icon = R.drawable.ic_products_item
-    )
-
-    object Sales : BottomBarScreen(
+    ),
+    Sales(
         route = "SALES",
         title = "Ventas",
         icon = R.drawable.ic_sales_item
-    )
+    );
 }
