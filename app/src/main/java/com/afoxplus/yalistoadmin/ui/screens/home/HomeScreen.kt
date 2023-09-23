@@ -27,9 +27,9 @@ import androidx.navigation.NavDestination
 import androidx.navigation.NavDestination.Companion.hierarchy
 import com.afoxplus.uikitcompose.ui.theme.Dark01
 import com.afoxplus.uikitcompose.ui.theme.Light01
+import com.afoxplus.uikitcompose.ui.theme.Light05
 import com.afoxplus.uikitcompose.ui.theme.Mulish
 import com.afoxplus.uikitcompose.ui.theme.Orange01
-import com.afoxplus.uikitcompose.ui.theme.Yellow02
 import com.afoxplus.yalistoadmin.R
 import com.afoxplus.yalistoadmin.domain.entities.Auth
 import com.afoxplus.yalistoadmin.domain.entities.Restaurant
@@ -96,7 +96,7 @@ fun BottomBarYaListo(
     appState: YaListoHomeState,
     onNavigateToDestination: (BottomBarHomeRouter) -> Unit
 ) {
-    NavigationBar(modifier = modifier, containerColor = Yellow02) {
+    NavigationBar(modifier = modifier, containerColor = Light05) {
         appState.bottomBarHomeRouters.forEach { screen ->
             AddItem(
                 screen = screen,
