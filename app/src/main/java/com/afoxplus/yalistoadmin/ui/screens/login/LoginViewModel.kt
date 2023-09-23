@@ -49,4 +49,13 @@ class LoginViewModel @Inject constructor(
             }
         }
     }
+
+    fun verifySession(onSessionActive: () -> Unit, onSessionInactive: () -> Unit) =
+        viewModelScope.launch(dispatcher.getMainDispatcher()) {
+            if (isSessionActive()) onSessionActive() else onSessionInactive()
+        }
+
+    private suspend fun isSessionActive(): Boolean {
+        return getAuthUseCase.authPreferences().code.isNotEmpty()
+    }
 }
