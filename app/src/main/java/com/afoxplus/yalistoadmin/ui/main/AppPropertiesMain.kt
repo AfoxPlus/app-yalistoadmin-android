@@ -1,4 +1,4 @@
-package com.afoxplus.yalistoadmin.commons.utils
+package com.afoxplus.yalistoadmin.ui.main
 
 import com.afoxplus.network.global.AppProperties
 import com.afoxplus.yalistoadmin.BuildConfig

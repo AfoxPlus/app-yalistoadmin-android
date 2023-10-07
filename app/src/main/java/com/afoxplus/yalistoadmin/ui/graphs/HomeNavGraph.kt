@@ -19,6 +19,7 @@ import com.afoxplus.yalistoadmin.ui.screens.details.OrderStatusScreen
 import com.afoxplus.yalistoadmin.ui.screens.home.BottomBarHomeRouter
 import com.afoxplus.yalistoadmin.ui.screens.orders.OrderScreen
 import com.afoxplus.yalistoadmin.ui.screens.orders.OrdersStatusViewModel
+import com.afoxplus.yalistoadmin.ui.screens.products.ProductScreen
 
 @Composable
 fun HomeNavGraph(navController: NavHostController, modifier: Modifier = Modifier) {
@@ -36,8 +37,7 @@ fun HomeNavGraph(navController: NavHostController, modifier: Modifier = Modifier
         }
 
         composable(route = BottomBarHomeRouter.Products.route) {
-            // TODO: Replace with ProductScreen
-            ScreenContent(name = BottomBarHomeRouter.Products.title, onClick = {})
+            ProductScreen()
         }
         composable(route = BottomBarHomeRouter.Sales.route) {
             // TODO: Replace with SalesScreen

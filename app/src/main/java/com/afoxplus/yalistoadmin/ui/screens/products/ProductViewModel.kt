@@ -1,0 +1,42 @@
+package com.afoxplus.yalistoadmin.ui.screens.products
+
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import com.afoxplus.uikit.di.UIKitCoroutineDispatcher
+import com.afoxplus.yalistoadmin.commons.utils.ResultState
+import com.afoxplus.yalistoadmin.domain.entities.Product
+import com.afoxplus.yalistoadmin.domain.usecase.GetProductsByRestaurant
+import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.launch
+
+@HiltViewModel
+class ProductViewModel @Inject constructor(
+    private val getProductsByRestaurant: GetProductsByRestaurant,
+    private val dispatcher: UIKitCoroutineDispatcher
+) : ViewModel() {
+
+    private val mProductResult: MutableStateFlow<ProductResult> by lazy {
+        MutableStateFlow(ProductResult.Loading)
+    }
+    val productResult = mProductResult.asStateFlow()
+
+    fun searchProducts() = viewModelScope.launch(dispatcher.getIODispatcher()) {
+        when (val result = getProductsByRestaurant()) {
+            is ResultState.Error -> mProductResult.value = ProductResult.Error(result.exception)
+            is ResultState.Success -> mProductResult.value = ProductResult.Success(result.data)
+        }
+    }
+
+    fun updateShowInAppProduct(product: Product) =
+        viewModelScope.launch(dispatcher.getIODispatcher()) {
+        }
+
+    sealed interface ProductResult {
+        object Loading : ProductResult
+        data class Success(val data: List<Product>) : ProductResult
+        data class Error(val error: Throwable) : ProductResult
+    }
+}
