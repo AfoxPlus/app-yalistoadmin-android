@@ -1,14 +1,12 @@
 package com.afoxplus.yalistoadmin.ui.screens.details
 
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.setValue
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.afoxplus.uikit.di.UIKitCoroutineDispatcher
-import com.afoxplus.yalistoadmin.commons.utils.NavArgs
 import com.afoxplus.yalistoadmin.domain.entities.Order
 import com.afoxplus.yalistoadmin.domain.usecase.UpdateOrderStateUseCase
+import com.afoxplus.yalistoadmin.ui.graphs.NavArgs
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 import kotlinx.coroutines.flow.MutableStateFlow

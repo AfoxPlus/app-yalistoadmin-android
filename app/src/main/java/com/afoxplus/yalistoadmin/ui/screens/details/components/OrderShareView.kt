@@ -66,9 +66,4 @@ class OrderShareView @JvmOverloads constructor(
             }
         }
     }
-
-    fun capture(view: OrderShareView) {
-        val bitmap = ImageUtils.generateShareImage(view)
-        ShareUtils.shareImageToOthers(context, "test", bitmap)
-    }
 }
