@@ -3,6 +3,7 @@ package com.afoxplus.yalistoadmin.data.datasource.remote
 import com.afoxplus.yalistoadmin.commons.utils.ResultState
 import com.afoxplus.yalistoadmin.data.api.AdminApiOrdersNetwork
 import com.afoxplus.yalistoadmin.data.datasource.OrderStatusRemote
+import com.afoxplus.yalistoadmin.data.datasource.remote.model.request.OrderStateRequestModel
 import com.afoxplus.yalistoadmin.data.datasource.remote.model.request.toRequest
 import com.afoxplus.yalistoadmin.data.datasource.remote.model.response.toEntity
 import com.afoxplus.yalistoadmin.domain.entities.Order
@@ -20,5 +21,14 @@ class OrderStatusDataSourceRemote @Inject constructor(
             return ResultState.Error(e)
         }
         return ResultState.Success(response)
+    }
+
+    override suspend fun updateState(order: Order, state: String): ResultState<Unit> {
+        val response = try {
+            api.sendOrderState(OrderStateRequestModel(order.id, state))
+        } catch (e: Exception) {
+            return ResultState.Error(e)
+        }
+        return ResultState.Success(Unit)
     }
 }

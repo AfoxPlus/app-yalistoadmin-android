@@ -8,13 +8,13 @@ import com.afoxplus.yalistoadmin.ui.screens.login.LoginScreen
 
 fun NavGraphBuilder.authNavGraph(navController: NavHostController) {
     navigation(
-        route = Graph.AUTHENTICATION,
+        route = Graph.Authentication.route,
         startDestination = AuthScreenRouter.Login.route
     ) {
         composable(route = AuthScreenRouter.Login.route) {
             LoginScreen(navigateTo = {
                 navController.popBackStack()
-                navController.navigate(Graph.HOME)
+                navController.navigate(Graph.Home.route)
             })
         }
     }
