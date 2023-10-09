@@ -5,7 +5,8 @@ import androidx.lifecycle.viewModelScope
 import com.afoxplus.uikit.di.UIKitCoroutineDispatcher
 import com.afoxplus.yalistoadmin.commons.utils.ResultState
 import com.afoxplus.yalistoadmin.domain.entities.Product
-import com.afoxplus.yalistoadmin.domain.usecase.GetProductsByRestaurant
+import com.afoxplus.yalistoadmin.domain.usecase.GetProductsByRestaurantUseCase
+import com.afoxplus.yalistoadmin.domain.usecase.UpdateProductUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -14,7 +15,8 @@ import kotlinx.coroutines.launch
 
 @HiltViewModel
 class ProductViewModel @Inject constructor(
-    private val getProductsByRestaurant: GetProductsByRestaurant,
+    private val getProductsByRestaurantUseCase: GetProductsByRestaurantUseCase,
+    private val updateProductUseCase: UpdateProductUseCase,
     private val dispatcher: UIKitCoroutineDispatcher
 ) : ViewModel() {
 
@@ -24,7 +26,7 @@ class ProductViewModel @Inject constructor(
     val productResult = mProductResult.asStateFlow()
 
     fun searchProducts() = viewModelScope.launch(dispatcher.getIODispatcher()) {
-        when (val result = getProductsByRestaurant()) {
+        when (val result = getProductsByRestaurantUseCase()) {
             is ResultState.Error -> mProductResult.value = ProductResult.Error(result.exception)
             is ResultState.Success -> mProductResult.value = ProductResult.Success(result.data)
         }
@@ -32,6 +34,7 @@ class ProductViewModel @Inject constructor(
 
     fun updateShowInAppProduct(product: Product) =
         viewModelScope.launch(dispatcher.getIODispatcher()) {
+            updateProductUseCase(product)
         }
 
     sealed interface ProductResult {
