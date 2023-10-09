@@ -12,7 +12,9 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.navigation
+import androidx.navigation.navArgument
 import com.afoxplus.uikitcompose.ui.theme.Header03
+import com.afoxplus.yalistoadmin.domain.entities.OrderNavType
 import com.afoxplus.yalistoadmin.ui.extensions.navigateSingleTopTo
 import com.afoxplus.yalistoadmin.ui.extensions.sharedViewModel
 import com.afoxplus.yalistoadmin.ui.screens.details.OrderStatusScreen
@@ -26,13 +28,13 @@ fun HomeNavGraph(navController: NavHostController, modifier: Modifier = Modifier
     NavHost(
         modifier = modifier,
         navController = navController,
-        route = Graph.HOME,
+        route = Graph.Home.route,
         startDestination = BottomBarHomeRouter.Orders.route
     ) {
         composable(route = BottomBarHomeRouter.Orders.route) {
             val viewModel = it.sharedViewModel<OrdersStatusViewModel>(navController = navController)
-            OrderScreen(viewModel = viewModel, navigateTo = {
-                navController.navigateSingleTopTo(Graph.HOME_DETAILS)
+            OrderScreen(viewModel = viewModel, navigateTo = { order ->
+                navController.navigateSingleTopTo(Graph.OrderDetails.createRoute(order = order))
             })
         }
 
@@ -49,11 +51,14 @@ fun HomeNavGraph(navController: NavHostController, modifier: Modifier = Modifier
 
 fun NavGraphBuilder.homeDetailsNavGraph(navController: NavHostController) {
     navigation(
-        route = Graph.HOME_DETAILS,
-        startDestination = HomeDetailsScreenRouter.OrderDetail.route
+        route = Graph.OrderDetails.route,
+        startDestination = HomeDetailsScreenRouter.OrderDetail.route,
+        arguments = listOf(navArgument(NavArgs.Order.key) { type = OrderNavType })
     ) {
         composable(route = HomeDetailsScreenRouter.OrderDetail.route) {
-            OrderStatusScreen()
+            OrderStatusScreen(navigateBack = {
+                navController.popBackStack()
+            })
         }
     }
 }

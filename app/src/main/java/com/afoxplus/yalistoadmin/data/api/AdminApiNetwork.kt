@@ -4,8 +4,8 @@ import com.afoxplus.network.annotations.ServiceClient
 import com.afoxplus.network.api.UrlProvider
 import com.afoxplus.network.response.BaseResponse
 import com.afoxplus.yalistoadmin.data.datasource.remote.model.request.AuthRequestModel
-import com.afoxplus.yalistoadmin.data.datasource.remote.model.request.ProductUpdateRequestModel
 import com.afoxplus.yalistoadmin.data.datasource.remote.model.request.OrderStateRequestModel
+import com.afoxplus.yalistoadmin.data.datasource.remote.model.request.ProductUpdateRequestModel
 import com.afoxplus.yalistoadmin.data.datasource.remote.model.response.AuthResponseModel
 import com.afoxplus.yalistoadmin.data.datasource.remote.model.response.OrderResponseModel
 import com.afoxplus.yalistoadmin.data.datasource.remote.model.response.ProductSearchResponseModel

@@ -1,40 +1,49 @@
 package com.afoxplus.yalistoadmin.ui.graphs
 
+import android.net.Uri
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import com.afoxplus.yalistoadmin.domain.entities.Order
 import com.afoxplus.yalistoadmin.ui.screens.home.HomeScreen
 import com.afoxplus.yalistoadmin.ui.screens.splash.CheckInScreen
+import com.google.gson.Gson
 
 @Composable
 fun RootNavigationGraph(navController: NavHostController) {
     NavHost(
         navController = navController,
-        route = Graph.ROOT,
-        startDestination = Graph.CHECK_IN
+        route = Graph.Root.route,
+        startDestination = Graph.CheckIn.route
     ) {
-        composable(route = Graph.CHECK_IN) {
+        composable(route = Graph.CheckIn.route) {
             CheckInScreen(
                 onSessionActive = {
                     navController.popBackStack()
-                    navController.navigate(Graph.HOME)
+                    navController.navigate(Graph.Home.route)
                 },
                 onSessionInactive = {
                     navController.popBackStack()
-                    navController.navigate(Graph.AUTHENTICATION)
+                    navController.navigate(Graph.Authentication.route)
                 }
             )
         }
         authNavGraph(navController = navController)
-        composable(route = Graph.HOME) { HomeScreen() }
+        composable(route = Graph.Home.route) { HomeScreen() }
     }
 }
 
-object Graph {
-    const val ROOT = "root_graph"
-    const val CHECK_IN = "check_in_graph"
-    const val AUTHENTICATION = "auth_graph"
-    const val HOME = "home_graph"
-    const val HOME_DETAILS = "home_details_graph"
+sealed class Graph(val route: String) {
+    object Root : Graph("root_graph")
+    object CheckIn : Graph("check_in_graph")
+    object Authentication : Graph("auth_graph")
+    object Home : Graph("home_graph")
+    object OrderDetails : Graph("order_screen/{${NavArgs.Order.key}}") {
+        fun createRoute(order: Order) = "order_screen/${Uri.encode(Gson().toJson(order))}"
+    }
+}
+
+enum class NavArgs(val key: String) {
+    Order("order")
 }
