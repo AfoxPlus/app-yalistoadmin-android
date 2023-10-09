@@ -1,7 +1,6 @@
 package com.afoxplus.yalistoadmin.ui.screens.details
 
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
@@ -11,11 +10,11 @@ import com.afoxplus.yalistoadmin.commons.utils.NavArgs
 import com.afoxplus.yalistoadmin.domain.entities.Order
 import com.afoxplus.yalistoadmin.domain.usecase.UpdateOrderStateUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
-import javax.inject.Inject
 
 @HiltViewModel
 class OrderViewModel @Inject constructor(
@@ -39,7 +38,6 @@ class OrderViewModel @Inject constructor(
                 try {
                     orderStateUseCase.updateState(it, state)
                 } catch (ex: Exception) {
-
                 }
             }
         }

@@ -1,5 +1,7 @@
 package com.afoxplus.yalistoadmin.ui.screens.details
 
+import android.content.Intent
+import android.net.Uri
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -12,6 +14,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
@@ -38,6 +41,7 @@ fun OrderStatusScreen(
     navigateBack: () -> Unit
 ) {
     val order = orderViewModel.orderState.collectAsState().value ?: return
+    val context = LocalContext.current
     ConstraintLayout(
         modifier = Modifier
             .fillMaxSize()
@@ -75,7 +79,20 @@ fun OrderStatusScreen(
                 OrderWhatsappContactComponent(
                     phoneNumber = order.client.cel,
                     description = order.client.addressReference
-                )
+                ) {
+                    context.startActivity(
+                        Intent(
+                            Intent.ACTION_VIEW,
+                            Uri.parse(
+                                String.format(
+                                    "https://api.whatsapp.com/send?phone=%s&text=%s",
+                                    order.client.cel,
+                                    "Hello this is a new client"
+                                )
+                            )
+                        )
+                    )
+                }
             }
             item {
                 Spacer(modifier = Modifier.height(8.dp))
