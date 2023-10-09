@@ -16,4 +16,8 @@ class ProductRepositoryData @Inject constructor(
         val restaurantCode = authPreferencesLocal.getAuth().code
         return productDataSourceRemote.getProductsByRestaurant(restaurantCode = restaurantCode)
     }
+
+    override suspend fun updateProduct(product: Product): ResultState<Boolean> {
+        return productDataSourceRemote.updateProduct(product)
+    }
 }
