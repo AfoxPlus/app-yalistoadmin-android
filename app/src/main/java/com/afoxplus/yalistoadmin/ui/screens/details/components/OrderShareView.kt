@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.util.AttributeSet
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.lazy.LazyColumn
@@ -13,6 +14,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.AbstractComposeView
 import androidx.compose.ui.unit.dp
 import com.afoxplus.uikitcompose.ui.theme.Light03
+import com.afoxplus.uikitcompose.ui.theme.Light04
+import com.afoxplus.yalistoadmin.commons.utils.generateBitmap
+import com.afoxplus.yalistoadmin.commons.utils.shareBitmap
 import com.afoxplus.yalistoadmin.domain.entities.Order
 
 class OrderShareView @JvmOverloads constructor(
@@ -26,11 +30,13 @@ class OrderShareView @JvmOverloads constructor(
     override fun Content() {
         LazyColumn(
             modifier = Modifier
+                .background(Light04)
         ) {
             item {
                 Spacer(modifier = Modifier.height(12.dp))
                 OrderWhatsappContactComponent(
                     phoneNumber = order.client.cel,
+                    clientName = order.client.name,
                     description = order.client.addressReference
                 ) {
                     context.startActivity(
@@ -65,5 +71,10 @@ class OrderShareView @JvmOverloads constructor(
                 Spacer(modifier = Modifier.height(12.dp))
             }
         }
+    }
+
+    fun capture(view: OrderShareView) {
+        val bitmap = view.generateBitmap()
+        context.shareBitmap("Order ${order.number}", bitmap)
     }
 }

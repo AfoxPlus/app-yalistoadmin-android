@@ -4,6 +4,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.defaultMinSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -33,7 +34,7 @@ fun CardOrderTypeComponent(
     Box(
         modifier = modifier
             .fillMaxWidth()
-            .height(48.dp)
+            .defaultMinSize(minHeight = 48.dp)
             .background(color = orderType.backgroundColor, RoundedCornerShape(4.dp))
     ) {
         Column(

@@ -32,6 +32,7 @@ import com.afoxplus.yalistoadmin.commons.extensions.noRippleClickable
 fun OrderWhatsappContactComponent(
     modifier: Modifier = Modifier,
     phoneNumber: String,
+    clientName: String,
     description: String = "",
     onClick: () -> Unit = {}
 ) {
@@ -53,6 +54,11 @@ fun OrderWhatsappContactComponent(
                 verticalArrangement = Arrangement.spacedBy(4.dp, Alignment.CenterVertically),
                 horizontalAlignment = Alignment.Start
             ) {
+                Text(
+                    text = clientName,
+                    color = Dark02,
+                    style = Paragraph01SemiBold
+                )
                 Text(
                     text = phoneNumber,
                     color = Dark02,
@@ -86,9 +92,11 @@ fun OrderWhatsappContactComponentPreview() {
         Column {
             OrderWhatsappContactComponent(
                 phoneNumber = "932534599",
+                clientName = "Petter Garcia",
                 description = "Av. Los Faisanes 354"
             )
             OrderWhatsappContactComponent(
+                clientName = "Petter Garcia",
                 phoneNumber = "932534599"
             )
         }
