@@ -6,9 +6,13 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
@@ -32,7 +36,8 @@ fun OrderStatusScreen(
     navigateBack: () -> Unit
 ) {
     val order = orderViewModel.orderState.collectAsState().value ?: return
-
+    var orderShareView: MutableState<OrderShareView>?
+    val context = LocalContext.current
     ConstraintLayout(
         modifier = Modifier
             .fillMaxSize()
@@ -53,6 +58,7 @@ fun OrderStatusScreen(
         ) {
             navigateBack()
         }
+        orderShareView = remember { mutableStateOf(OrderShareView(order, context)) }
         AndroidView(
             modifier = Modifier
                 .constrainAs(contentBox) {
@@ -64,7 +70,11 @@ fun OrderStatusScreen(
                     width = Dimension.fillToConstraints
                 },
             factory = {
-                OrderShareView(order, it)
+                OrderShareView(order, it).apply {
+                    post {
+                        orderShareView?.value = this
+                    }
+                }
             }
         )
 
@@ -118,6 +128,7 @@ fun OrderStatusScreen(
                 },
                 text = stringResource(id = R.string.order_print)
             ) {
+                orderShareView?.value?.capture(orderShareView?.value as OrderShareView)
             }
         }
     }
