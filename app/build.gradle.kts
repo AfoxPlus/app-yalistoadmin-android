@@ -105,7 +105,6 @@ dependencies {
     // Core
     implementation("androidx.core:core-ktx:1.12.0")
     implementation(platform("org.jetbrains.kotlin:kotlin-bom:1.8.0"))
-    implementation(kotlin("reflect"))
 
     // Compose
     implementation("androidx.activity:activity-compose:1.7.2")
