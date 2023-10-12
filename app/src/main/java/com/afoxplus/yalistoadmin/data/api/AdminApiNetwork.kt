@@ -4,14 +4,19 @@ import com.afoxplus.network.annotations.ServiceClient
 import com.afoxplus.network.api.UrlProvider
 import com.afoxplus.network.response.BaseResponse
 import com.afoxplus.yalistoadmin.data.datasource.remote.model.request.AuthRequestModel
+import com.afoxplus.yalistoadmin.data.datasource.remote.model.request.OrderStateRequestModel
+import com.afoxplus.yalistoadmin.data.datasource.remote.model.request.ProductUpdateRequestModel
 import com.afoxplus.yalistoadmin.data.datasource.remote.model.response.AuthResponseModel
 import com.afoxplus.yalistoadmin.data.datasource.remote.model.response.OrderResponseModel
+import com.afoxplus.yalistoadmin.data.datasource.remote.model.response.ProductSearchResponseModel
 import com.afoxplus.yalistoadmin.data.datasource.remote.model.response.StatesResponseModel
 import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.Header
 import retrofit2.http.POST
+import retrofit2.http.PUT
+import retrofit2.http.Query
 
 @ServiceClient(type = UrlProvider.Type.API_RESTAURANTS)
 fun interface AdminApiRestaurantNetwork {
@@ -42,4 +47,23 @@ interface AdminApiOrdersNetwork {
     suspend fun getOrderStatus(
         @Header("restaurant_code") code: String
     ): Response<BaseResponse<List<OrderResponseModel>>>
+
+    @GET("orders/$PATH_SEND_STATE")
+    suspend fun sendOrderState(
+        @Body orderStateRequest: OrderStateRequestModel
+    ): Response<BaseResponse<List<OrderResponseModel>>>
+}
+
+@ServiceClient(type = UrlProvider.Type.API_PRODUCTS)
+interface AdminApiProductNetwork {
+    companion object {
+        const val PATH_SEARCH = "search"
+        const val PATH_UPDATE = "show_in_app"
+    }
+
+    @GET("product/$PATH_SEARCH")
+    suspend fun searchProducts(@Query("restaurant_code") restaurantCode: String): Response<BaseResponse<List<ProductSearchResponseModel>>>
+
+    @PUT("product/$PATH_UPDATE")
+    suspend fun updateProduct(@Body productResponse: ProductUpdateRequestModel): Response<BaseResponse<Any>>
 }

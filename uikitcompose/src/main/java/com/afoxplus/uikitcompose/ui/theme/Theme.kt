@@ -13,16 +13,16 @@ import androidx.core.view.WindowCompat
 
 val DarkColorSchemeUiKit = darkColorScheme(
     primary = Dark01,
-    secondary = Green01,
-    tertiary = Pink02,
-    background = Light06
+    secondary = Dark02,
+    tertiary = Dark03,
+    background = Light01
 )
 
 val LightColorSchemeUiKit = lightColorScheme(
     primary = Dark01,
-    secondary = Green01,
-    tertiary = Pink02,
-    background = Light06
+    secondary = Dark02,
+    tertiary = Dark03,
+    background = Light01
 )
 
 @Composable

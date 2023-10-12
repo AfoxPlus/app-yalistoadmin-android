@@ -7,6 +7,7 @@ import com.afoxplus.yalistoadmin.domain.entities.Auth
 import com.afoxplus.yalistoadmin.domain.usecase.GetAuthUseCase
 import com.afoxplus.yalistoadmin.domain.usecase.SaveAuthUseCase
 import com.afoxplus.yalistoadmin.domain.usecase.params.AuthParams
+import com.afoxplus.yalistoadmin.ui.screens.login.LoginViewModel
 import com.afoxplus.yalistoadmin.utils.TestCoroutineRule
 import com.afoxplus.yalistoadmin.utils.UIKitCoroutineDispatcherTest
 import kotlinx.coroutines.ExperimentalCoroutinesApi

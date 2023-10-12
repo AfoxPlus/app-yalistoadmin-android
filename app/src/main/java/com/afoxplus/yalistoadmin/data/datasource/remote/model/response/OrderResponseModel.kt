@@ -14,6 +14,8 @@ data class OrderResponseModel(
     @SerializedName("order_type")
     val orderType: OrderTypeResponseModel,
     val total: String,
+    @SerializedName("payment_method")
+    val paymentMethod: String? = null,
     val client: ClientResponseModel,
     val detail: List<ProductResponseModel> = arrayListOf()
 )
@@ -28,6 +30,7 @@ fun OrderResponseModel.toEntity(): Order {
         restaurant = restaurant,
         orderType = orderType.toEntity(),
         total = total,
+        paymentMethod = paymentMethod ?: "",
         client = client.toEntity(),
         detail = detail.map { it.toEntity() }
     )
