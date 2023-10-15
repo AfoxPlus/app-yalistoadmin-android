@@ -34,10 +34,8 @@ import com.afoxplus.yalistoadmin.R
 import com.afoxplus.yalistoadmin.domain.entities.Auth
 import com.afoxplus.yalistoadmin.domain.entities.Restaurant
 import com.afoxplus.yalistoadmin.ui.graphs.HomeNavGraph
-import com.afoxplus.yalistoadmin.ui.main.YaListoHomeState
-import com.afoxplus.yalistoadmin.ui.main.rememberYaListoHomeState
 import com.afoxplus.yalistoadmin.ui.screens.orders.OrdersStatusViewModel
-import com.afoxplus.yalistoadmin.ui.screens.orders.components.InfoBusinessComponent
+import com.afoxplus.yalistoadmin.ui.screens.home.components.InfoBusinessComponent
 
 @OptIn(ExperimentalLayoutApi::class)
 @Composable

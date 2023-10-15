@@ -1,4 +1,4 @@
-package com.afoxplus.yalistoadmin.ui.screens.details
+package com.afoxplus.yalistoadmin.ui.screens.order_status
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.fillMaxSize
@@ -28,7 +28,7 @@ import com.afoxplus.uikitcompose.ui.theme.Header05SemiBold
 import com.afoxplus.uikitcompose.ui.theme.Light01
 import com.afoxplus.uikitcompose.ui.theme.Light04
 import com.afoxplus.yalistoadmin.R
-import com.afoxplus.yalistoadmin.ui.screens.details.components.OrderShareView
+import com.afoxplus.yalistoadmin.ui.screens.order_status.components.OrderShareView
 
 @Composable
 fun OrderStatusScreen(

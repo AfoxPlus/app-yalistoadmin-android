@@ -11,12 +11,12 @@ import androidx.navigation.navArgument
 import com.afoxplus.yalistoadmin.commons.extensions.navigateSingleTopTo
 import com.afoxplus.yalistoadmin.commons.extensions.sharedViewModel
 import com.afoxplus.yalistoadmin.domain.entities.OrderNavType
-import com.afoxplus.yalistoadmin.ui.screens.details.OrderStatusScreen
+import com.afoxplus.yalistoadmin.ui.screens.order_status.OrderStatusScreen
 import com.afoxplus.yalistoadmin.ui.screens.home.BottomBarHomeRouter
-import com.afoxplus.yalistoadmin.ui.screens.orders.OrderScreen
+import com.afoxplus.yalistoadmin.ui.screens.home.orders.OrdersHomeScreen
 import com.afoxplus.yalistoadmin.ui.screens.orders.OrdersStatusViewModel
+import com.afoxplus.yalistoadmin.ui.screens.home.sales.SalesHomeScreen
 import com.afoxplus.yalistoadmin.ui.screens.products.ProductScreen
-import com.afoxplus.yalistoadmin.ui.screens.sales.SalesScreen
 
 @Composable
 fun HomeNavGraph(navController: NavHostController, modifier: Modifier = Modifier) {
@@ -28,7 +28,7 @@ fun HomeNavGraph(navController: NavHostController, modifier: Modifier = Modifier
     ) {
         composable(route = BottomBarHomeRouter.Orders.route) {
             val viewModel = it.sharedViewModel<OrdersStatusViewModel>(navController = navController)
-            OrderScreen(viewModel = viewModel, navigateTo = { order ->
+            OrdersHomeScreen(viewModel = viewModel, navigateTo = { order ->
                 navController.navigateSingleTopTo(Graph.OrderDetails.createRoute(order = order))
             })
         }
@@ -37,7 +37,7 @@ fun HomeNavGraph(navController: NavHostController, modifier: Modifier = Modifier
         }
         composable(route = BottomBarHomeRouter.Sales.route) {
             val viewModel = it.sharedViewModel<OrdersStatusViewModel>(navController = navController)
-            SalesScreen(viewModel = viewModel, navigateTo = { order ->
+            SalesHomeScreen(viewModel = viewModel, navigateTo = { order ->
                 navController.navigateSingleTopTo(Graph.OrderDetails.createRoute(order = order))
             })
         }

@@ -1,4 +1,4 @@
-package com.afoxplus.yalistoadmin.ui.screens.details.components
+package com.afoxplus.yalistoadmin.ui.screens.order_status.components
 
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.layout.fillMaxWidth

@@ -1,4 +1,4 @@
-package com.afoxplus.yalistoadmin.ui.screens.details
+package com.afoxplus.yalistoadmin.ui.screens.order_status
 
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
