@@ -23,11 +23,11 @@ fun OrdersHomeScreen(
             screen = { OrderScreen(viewModel = viewModel, navigateTo = navigateTo) }
         ),
         TabItemYaListo(
-            title =stringResource(id = R.string.order_process_state),
+            title = stringResource(id = R.string.order_process_state),
             screen = { OrderScreen(viewModel = viewModel, navigateTo = navigateTo) }
         )
     )
-    
+
     TapPagerYaListoComponent(
         modifier = Modifier.padding(horizontal = 16.dp),
         tabItems = tabItems

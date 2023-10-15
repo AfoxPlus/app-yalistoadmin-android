@@ -1,4 +1,4 @@
-package com.afoxplus.yalistoadmin.ui.screens.order_status.components
+package com.afoxplus.yalistoadmin.ui.screens.status.components
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column

@@ -1,4 +1,4 @@
-package com.afoxplus.yalistoadmin.ui.screens.order_status.components
+package com.afoxplus.yalistoadmin.ui.screens.status.components
 
 import android.content.Context
 import android.content.Intent
