@@ -1,4 +1,4 @@
-package com.afoxplus.yalistoadmin.ui.extensions
+package com.afoxplus.yalistoadmin.commons.extensions
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember

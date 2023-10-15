@@ -12,7 +12,7 @@ import androidx.navigation.NavDestination
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
-import com.afoxplus.yalistoadmin.ui.extensions.navigateSingleTopTo
+import com.afoxplus.yalistoadmin.commons.extensions.navigateSingleTopTo
 import com.afoxplus.yalistoadmin.ui.screens.home.BottomBarHomeRouter
 import kotlinx.coroutines.CoroutineScope
 
