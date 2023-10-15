@@ -24,7 +24,7 @@ fun OrdersComponent(
             .fillMaxSize()
             .background(color = Light01),
         verticalArrangement = Arrangement.spacedBy(10.dp),
-        contentPadding = PaddingValues(horizontal = 20.dp, vertical = 16.dp)
+        contentPadding = PaddingValues(horizontal = 8.dp, vertical = 16.dp)
     ) {
         items(orders.size) {
             ItemOrderComponent(
