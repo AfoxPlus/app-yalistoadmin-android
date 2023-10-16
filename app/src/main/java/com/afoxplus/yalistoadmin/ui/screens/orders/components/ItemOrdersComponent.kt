@@ -14,7 +14,9 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -50,110 +52,135 @@ fun ItemOrderComponent(
     onClick: (Order) -> Unit
 ) {
     Box(
-        modifier = modifier
+        modifier = Modifier
             .fillMaxWidth()
-            .background(color = Light03, shape = RoundedCornerShape(8.dp))
             .clickable {
                 onClick(order)
             }
     ) {
-        Row(
-            modifier = Modifier
+        Box(
+            modifier = modifier
+                .padding(horizontal = 8.dp)
                 .fillMaxWidth()
-                .padding(12.dp)
-                .height(IntrinsicSize.Min)
+                .background(color = Light03, shape = RoundedCornerShape(8.dp))
         ) {
-            Column(
+            Row(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .weight(2f)
-            ) {
-                Text(
-                    text = stringResource(id = R.string.order_status_client),
-                    color = Dark04,
-                    style = Paragraph02
-                )
-                Spacer(modifier = Modifier.height(3.dp))
-                Text(text = order.client.name, color = Dark01, style = Paragraph01SemiBold)
-                Spacer(modifier = Modifier.height(8.dp))
-                Row(modifier = Modifier.fillMaxWidth()) {
-                    CardOrderTypeComponent(
-                        modifier = Modifier.weight(1.5f),
-                        orderTypeVO = OrderTypeVO(
-                            order.orderType.title,
-                            description = order.orderType.description
-                        ),
-                        orderType = if (order.orderType.code == "DELI") OrderType.Delivery() else OrderType.Table()
-                    )
-                    Spacer(modifier = Modifier.width(5.dp))
-                    CardOrderTypeComponent(
-                        modifier = Modifier.weight(3f),
-                        orderTypeVO = OrderTypeVO(
-                            stringResource(id = R.string.order_status_total),
-                            description = order.total
-                        ),
-                        orderType = OrderType.Amount()
-                    )
-                }
-            }
-            Column(
-                modifier = Modifier
-                    .fillMaxHeight()
-                    .padding(start = 10.dp, end = 10.dp)
-                    .width(1.dp),
-                verticalArrangement = Arrangement.Center,
-                horizontalAlignment = Alignment.CenterHorizontally
-            ) {
-                Canvas(modifier = Modifier.fillMaxHeight()) {
-                    val pathEffect = PathEffect.dashPathEffect(
-                        floatArrayOf(size.height / 35, size.height / 35),
-                        0f
-                    )
-                    drawLine(
-                        color = Gray01,
-                        strokeWidth = 2.dp.toPx(),
-                        start = Offset(x = size.width / 2, y = 0f),
-                        end = Offset(x = size.width / 2, y = size.height),
-                        pathEffect = pathEffect
-                    )
-                }
-            }
-            Column(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .weight(1.3f),
-                verticalArrangement = Arrangement.SpaceBetween
+                    .padding(12.dp)
+                    .height(IntrinsicSize.Min)
             ) {
                 Column(
                     modifier = Modifier
-                        .background(color = Dark05, shape = RoundedCornerShape(10.dp))
-                        .padding(4.dp)
+                        .fillMaxWidth()
+                        .weight(2f)
                 ) {
                     Text(
-                        modifier = Modifier.fillMaxWidth(),
-                        text = order.state,
-                        color = Light01,
-                        style = Paragraph02,
-                        textAlign = TextAlign.Center
+                        text = stringResource(id = R.string.order_status_client),
+                        color = Dark04,
+                        style = Paragraph02
                     )
+                    Spacer(modifier = Modifier.height(3.dp))
+                    Text(text = order.client.name, color = Dark01, style = Paragraph01SemiBold)
+                    Spacer(modifier = Modifier.height(8.dp))
+                    Row(modifier = Modifier.fillMaxWidth()) {
+                        CardOrderTypeComponent(
+                            modifier = Modifier.weight(1.5f),
+                            orderTypeVO = OrderTypeVO(
+                                order.orderType.title,
+                                description = order.orderType.description
+                            ),
+                            orderType = if (order.orderType.code == "DELI") OrderType.Delivery() else OrderType.Table()
+                        )
+                        Spacer(modifier = Modifier.width(5.dp))
+                        CardOrderTypeComponent(
+                            modifier = Modifier.weight(3f),
+                            orderTypeVO = OrderTypeVO(
+                                stringResource(id = R.string.order_status_total),
+                                description = order.total
+                            ),
+                            orderType = OrderType.Amount()
+                        )
+                    }
                 }
                 Column(
-                    modifier = Modifier.fillMaxWidth()
+                    modifier = Modifier
+                        .fillMaxHeight()
+                        .padding(start = 10.dp, end = 10.dp)
+                        .width(1.dp),
+                    verticalArrangement = Arrangement.Center,
+                    horizontalAlignment = Alignment.CenterHorizontally
                 ) {
-                    Text(
+                    Canvas(modifier = Modifier.fillMaxHeight()) {
+                        val pathEffect = PathEffect.dashPathEffect(
+                            floatArrayOf(size.height / 35, size.height / 35),
+                            0f
+                        )
+                        drawLine(
+                            color = Gray01,
+                            strokeWidth = 2.dp.toPx(),
+                            start = Offset(x = size.width / 2, y = 0f),
+                            end = Offset(x = size.width / 2, y = size.height),
+                            pathEffect = pathEffect
+                        )
+                    }
+                }
+                Column(
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .weight(1.3f),
+                    verticalArrangement = Arrangement.SpaceBetween
+                ) {
+                    Column(
                         modifier = Modifier
-                            .fillMaxWidth(),
-                        text = String.format(
-                            stringResource(id = R.string.order_status_id),
-                            order.number
-                        ),
-                        color = Dark04,
-                        style = Header04Bold,
-                        textAlign = TextAlign.End
-                    )
+                            .background(color = Dark05, shape = RoundedCornerShape(10.dp))
+                            .padding(4.dp)
+                    ) {
+                        Text(
+                            modifier = Modifier.fillMaxWidth(),
+                            text = order.state,
+                            color = Light01,
+                            style = Paragraph02,
+                            textAlign = TextAlign.Center
+                        )
+                    }
+                    Column(
+                        modifier = Modifier.fillMaxWidth()
+                    ) {
+                        Text(
+                            modifier = Modifier
+                                .fillMaxWidth(),
+                            text = String.format(
+                                stringResource(id = R.string.order_status_id),
+                                order.number
+                            ),
+                            color = Dark04,
+                            style = Header04Bold,
+                            textAlign = TextAlign.End
+                        )
+                    }
                 }
             }
         }
+        Box(
+            modifier = Modifier
+                .align(Alignment.CenterStart)
+                .size(16.dp)
+                .background(
+                    color = Light01,
+                    shape = CircleShape
+                )
+        )
+
+        Box(
+            modifier = Modifier
+                .align(Alignment.CenterEnd)
+                .size(16.dp)
+                .background(
+                    color = Light01,
+                    shape = CircleShape
+                )
+        )
     }
 }
 

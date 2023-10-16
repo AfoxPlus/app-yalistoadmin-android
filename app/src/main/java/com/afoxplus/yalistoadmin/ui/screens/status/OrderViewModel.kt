@@ -1,4 +1,4 @@
-package com.afoxplus.yalistoadmin.ui.screens.details
+package com.afoxplus.yalistoadmin.ui.screens.status
 
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
@@ -12,13 +12,13 @@ import com.afoxplus.yalistoadmin.ui.graphs.NavArgs
 import com.afoxplus.yalistoadmin.ui.screens.details.vo.StatesVO
 import com.afoxplus.yalistoadmin.ui.screens.details.vo.toVO
 import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import timber.log.Timber
-import javax.inject.Inject
 
 @HiltViewModel
 class OrderViewModel @Inject constructor(
@@ -67,7 +67,6 @@ class OrderViewModel @Inject constructor(
                         _states.value = result.data.map { it.toVO() }.toMutableList()
                         updateCheckState(stateName = _orderState.value?.state ?: "")
                     }
-
                 }
             } catch (ex: Exception) {
                 Timber.d("Here - OrderViewModel: $ex")

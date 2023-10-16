@@ -1,4 +1,4 @@
-package com.afoxplus.yalistoadmin.ui.screens.details.components
+package com.afoxplus.yalistoadmin.ui.screens.status.components
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement

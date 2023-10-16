@@ -1,4 +1,4 @@
-package com.afoxplus.yalistoadmin.ui.main
+package com.afoxplus.yalistoadmin.ui.screens.home
 
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.runtime.Composable
@@ -12,8 +12,7 @@ import androidx.navigation.NavDestination
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
-import com.afoxplus.yalistoadmin.ui.extensions.navigateSingleTopTo
-import com.afoxplus.yalistoadmin.ui.screens.home.BottomBarHomeRouter
+import com.afoxplus.yalistoadmin.commons.extensions.navigateSingleTopTo
 import kotlinx.coroutines.CoroutineScope
 
 @Composable

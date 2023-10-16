@@ -38,7 +38,6 @@ import com.afoxplus.uikitcompose.ui.theme.Light06
 import com.afoxplus.uikitcompose.ui.theme.Paragraph02
 import com.afoxplus.uikitcompose.ui.theme.Paragraph02Bold
 import com.afoxplus.yalistoadmin.domain.entities.Product
-import timber.log.Timber
 
 internal typealias ProductSwitchClicked = (product: Product) -> Unit
 
@@ -64,7 +63,6 @@ fun ProductScreen(
 @Composable
 fun HandleShowError(ex: Throwable) {
     // Handle Show Error
-    Timber.d("LOG_VALE ${ex.message}")
 }
 
 @Composable
