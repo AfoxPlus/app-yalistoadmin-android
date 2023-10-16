@@ -36,6 +36,7 @@ fun TapPagerYaListoComponent(
         TabRow(
             modifier = modifier,
             selectedTabIndex = selectedTabIndex,
+            divider = {},
             containerColor = Color.Transparent
         ) {
             tabItems.forEachIndexed { index, item ->
