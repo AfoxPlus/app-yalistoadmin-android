@@ -12,8 +12,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.afoxplus.uikitcompose.ui.extensions.noRippleClickable
 import com.afoxplus.uikitcompose.ui.theme.Light06
-import com.afoxplus.yalistoadmin.commons.extensions.noRippleClickable
 import com.afoxplus.yalistoadmin.ui.screens.login.components.LoginCardComponent
 import com.afoxplus.yalistoadmin.ui.screens.login.components.LoginLogoComponent
 

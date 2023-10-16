@@ -1,4 +1,4 @@
-package com.afoxplus.yalistoadmin.commons.extensions
+package com.afoxplus.uikitcompose.ui.extensions
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource

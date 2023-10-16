@@ -16,4 +16,5 @@
     <string name="order_menu">Menu</string>
     <string name="order_print">Imprimir</string>
     <string name="order_update_state">Modificar estado</string>
+    <string name="order_states_list">Elige un nuevo estado al pedido</string>
 </resources>
