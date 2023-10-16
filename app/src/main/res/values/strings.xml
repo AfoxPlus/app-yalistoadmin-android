@@ -16,4 +16,8 @@
     <string name="order_menu">Menu</string>
     <string name="order_print">Imprimir</string>
     <string name="order_update_state">Modificar estado</string>
+    <string name="order_done_state">Finalizadas</string>
+    <string name="order_rejected_state">Rechazadas</string>
+    <string name="order_pending_state">Nuevos</string>
+    <string name="order_process_state">En Proceso</string>
 </resources>
