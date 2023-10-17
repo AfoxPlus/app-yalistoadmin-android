@@ -9,8 +9,8 @@ import com.afoxplus.yalistoadmin.domain.entities.Order
 import com.afoxplus.yalistoadmin.domain.usecase.GetStatesUseCase
 import com.afoxplus.yalistoadmin.domain.usecase.UpdateOrderStateUseCase
 import com.afoxplus.yalistoadmin.ui.graphs.NavArgs
-import com.afoxplus.yalistoadmin.ui.screens.details.vo.StatesVO
-import com.afoxplus.yalistoadmin.ui.screens.details.vo.toVO
+import com.afoxplus.yalistoadmin.ui.screens.status.vo.StatesVO
+import com.afoxplus.yalistoadmin.ui.screens.status.vo.toVO
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 import kotlinx.coroutines.Job

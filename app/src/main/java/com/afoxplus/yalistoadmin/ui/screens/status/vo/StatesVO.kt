@@ -1,4 +1,4 @@
-package com.afoxplus.yalistoadmin.ui.screens.details.vo
+package com.afoxplus.yalistoadmin.ui.screens.status.vo
 
 import com.afoxplus.yalistoadmin.domain.entities.States
 
