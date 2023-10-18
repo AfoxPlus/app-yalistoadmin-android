@@ -18,6 +18,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.afoxplus.uikitcompose.ui.extensions.noRippleClickable
 import com.afoxplus.uikitcompose.ui.theme.Dark01
 import com.afoxplus.uikitcompose.ui.theme.Dark02
 import com.afoxplus.uikitcompose.ui.theme.Green02
@@ -26,7 +27,6 @@ import com.afoxplus.uikitcompose.ui.theme.Paragraph01
 import com.afoxplus.uikitcompose.ui.theme.Paragraph01SemiBold
 import com.afoxplus.uikitcompose.ui.theme.UiKitComposeTheme
 import com.afoxplus.yalistoadmin.R
-import com.afoxplus.yalistoadmin.commons.extensions.noRippleClickable
 
 @Composable
 fun OrderWhatsappContactComponent(

@@ -4,12 +4,17 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.wrapContentHeight
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Text
+import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
@@ -20,6 +25,7 @@ import androidx.compose.ui.viewinterop.AndroidView
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.constraintlayout.compose.Dimension
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.afoxplus.uikitcompose.ui.components.BottomSheetComponent
 import com.afoxplus.uikitcompose.ui.components.ButtonOutlineYaListoComponent
 import com.afoxplus.uikitcompose.ui.components.ButtonYaListoComponent
 import com.afoxplus.uikitcompose.ui.components.ToolbarComponent
@@ -30,6 +36,7 @@ import com.afoxplus.uikitcompose.ui.theme.Light04
 import com.afoxplus.yalistoadmin.R
 import com.afoxplus.yalistoadmin.ui.screens.status.components.OrderShareView
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun OrderStatusScreen(
     orderViewModel: OrderViewModel = hiltViewModel(),
@@ -38,6 +45,12 @@ fun OrderStatusScreen(
     val order = orderViewModel.orderState.collectAsState().value ?: return
     var orderShareView: MutableState<OrderShareView>?
     val context = LocalContext.current
+
+    val statesOrder = orderViewModel.states.collectAsState().value
+    val stateSelected = orderViewModel.stateSelected.collectAsState().value
+    val sheetState = rememberModalBottomSheetState()
+    var isSheetOpen by rememberSaveable { mutableStateOf(false) }
+
     ConstraintLayout(
         modifier = Modifier
             .fillMaxSize()
@@ -113,10 +126,11 @@ fun OrderStatusScreen(
                     end.linkTo(parent.end, margin = 16.dp)
                     width = Dimension.fillToConstraints
                 },
-                text = stringResource(id = R.string.order_update_state)
-            ) {
-                orderViewModel.sendOrderState("state")
-            }
+                text = stringResource(id = R.string.order_update_state),
+                onClick = {
+                    isSheetOpen = true
+                }
+            )
 
             ButtonOutlineYaListoComponent(
                 modifier = Modifier.constrainAs(buttonPrint) {
@@ -129,6 +143,28 @@ fun OrderStatusScreen(
                 text = stringResource(id = R.string.order_print)
             ) {
                 orderShareView?.value?.capture(orderShareView?.value as OrderShareView)
+            }
+
+            if (isSheetOpen) {
+                BottomSheetComponent(
+                    title = stringResource(id = R.string.order_states_list),
+                    list = statesOrder,
+                    description = {
+                        it.name
+                    },
+                    showIcon = {
+                        it.isCheck
+                    },
+                    onClick = {
+                        isSheetOpen = false
+                        orderViewModel.updateCheckState(it.name)
+                        orderViewModel.sendOrderState(it.name)
+                    },
+                    onDismiss = {
+                        isSheetOpen = false
+                    },
+                    sheetState = sheetState
+                )
             }
         }
     }
