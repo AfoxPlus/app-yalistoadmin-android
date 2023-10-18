@@ -11,6 +11,7 @@ import com.afoxplus.yalistoadmin.ui.screens.orders.components.OrdersComponent
 @Composable
 fun OrderScreen(
     viewModel: OrdersStatusViewModel,
+    stateId: String? = "",
     navigateTo: (Order) -> Unit
 ) {
     val auth by viewModel.auth.collectAsStateWithLifecycle()
@@ -18,8 +19,8 @@ fun OrderScreen(
 
     LaunchedEffect(key1 = Unit) { viewModel.getAuth() }
     LaunchedEffect(key1 = auth) {
-        if (auth.code != "") {
-            viewModel.getStatus(auth.code)
+        if (auth.code != "" && stateId != null) {
+            viewModel.getStatus(restaurantCode = auth.code, stateId = stateId)
         }
     }
 
