@@ -15,7 +15,8 @@ class OrderStatusDataSourceRemote @Inject constructor(
 ) : OrderStatusRemote {
     override suspend fun getStatus(params: RestaurantParams): ResultState<List<Order>> {
         val response = try {
-            api.getOrderStatus(code = params.toRequest().code)
+            val paramsRequest = params.toRequest()
+            api.getOrderStatus(code = paramsRequest.code, stateId = paramsRequest.stateId)
                 .body()?.payload!!.map { it.toEntity() }
         } catch (e: Exception) {
             return ResultState.Error(e)

@@ -16,6 +16,7 @@ import retrofit2.http.GET
 import retrofit2.http.Header
 import retrofit2.http.POST
 import retrofit2.http.PUT
+import retrofit2.http.Path
 import retrofit2.http.Query
 
 @ServiceClient(type = UrlProvider.Type.API_RESTAURANTS)
@@ -43,9 +44,10 @@ interface AdminApiOrdersNetwork {
     @GET("orders/$PATH_STATES")
     suspend fun getStates(): Response<BaseResponse<List<StatesResponseModel>>>
 
-    @GET("orders/$PATH_STATUS")
+    @GET("orders/$PATH_STATUS/{stateId}")
     suspend fun getOrderStatus(
-        @Header("restaurant_code") code: String
+        @Header("restaurant_code") code: String,
+        @Path("stateId") stateId: String
     ): Response<BaseResponse<List<OrderResponseModel>>>
 
     @GET("orders/$PATH_SEND_STATE")
