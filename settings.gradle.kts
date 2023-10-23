@@ -27,5 +27,3 @@ dependencyResolutionManagement {
 }
 rootProject.name = "app-yalistoadmin-android"
 include(":app")
-include(":uikitcompose")
-include(":uikit-demo")
