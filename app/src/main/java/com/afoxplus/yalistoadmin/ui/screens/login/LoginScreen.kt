@@ -36,7 +36,7 @@ fun LoginScreen(
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .background(UIKitTheme.colors.gray200)
+            .background(UIKitTheme.colors.gray100)
             .noRippleClickable { focusManager.clearFocus() }
     ) {
         LoginLogoComponent(

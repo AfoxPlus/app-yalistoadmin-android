@@ -102,7 +102,7 @@ fun OrderStatusScreen(
             Text(
                 modifier = Modifier
                     .height(35.dp)
-                    .background(UIKitTheme.colors.blueGray800)
+                    .background(UIKitTheme.colors.blueGray900)
                     .wrapContentHeight(align = Alignment.CenterVertically)
                     .constrainAs(textState) {
                         top.linkTo(parent.top)

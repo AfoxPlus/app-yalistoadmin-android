@@ -142,8 +142,8 @@ fun ItemProduct(product: Product, productSwitchClicked: ProductSwitchClicked) {
                 checkedThumbColor = UIKitTheme.colors.light01,
                 checkedTrackColor = UIKitTheme.colors.green400,
                 uncheckedThumbColor = UIKitTheme.colors.light01,
-                uncheckedTrackColor = UIKitTheme.colors.light01,
-                uncheckedBorderColor = UIKitTheme.colors.gray100
+                uncheckedTrackColor = UIKitTheme.colors.gray100,
+                uncheckedBorderColor = UIKitTheme.colors.gray300
             ),
             onCheckedChange = {
                 checkState = it

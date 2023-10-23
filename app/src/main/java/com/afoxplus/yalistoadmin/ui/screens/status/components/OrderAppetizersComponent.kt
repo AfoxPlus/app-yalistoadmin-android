@@ -35,7 +35,7 @@ fun OrderAppetizerItemComponent(modifier: Modifier = Modifier, product: Product)
                 },
             text = product.title,
             textAlign = TextAlign.Start,
-            color = UIKitTheme.colors.gray400,
+            color = UIKitTheme.colors.gray500,
             style = UIKitTheme.typography.paragraph01
         )
 
@@ -84,7 +84,7 @@ fun OrderAppetizersComponent(modifier: Modifier = Modifier, list: List<Product>)
                 modifier = modifier
                     .padding(0.dp, 4.dp, 0.dp, 0.dp),
                 text = stringResource(id = R.string.order_appetizers),
-                color = UIKitTheme.colors.blueGray700,
+                color = UIKitTheme.colors.secondaryColor,
                 style = UIKitTheme.typography.paragraph01SemiBold
             )
         }

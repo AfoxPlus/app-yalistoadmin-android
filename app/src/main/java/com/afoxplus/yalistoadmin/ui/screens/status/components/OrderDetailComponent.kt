@@ -48,7 +48,7 @@ fun OrderTypeComponent(
             ) {
                 Text(
                     text = stringResource(id = R.string.order_status_id, orderId),
-                    color = UIKitTheme.colors.blueGray700,
+                    color = UIKitTheme.colors.blueGray800,
                     style = UIKitTheme.typography.header05SemiBold
                 )
                 Text(

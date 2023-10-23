@@ -56,7 +56,7 @@ fun ItemOrderComponent(
             modifier = modifier
                 .padding(horizontal = 8.dp)
                 .fillMaxWidth()
-                .background(color = UIKitTheme.colors.gray100, shape = RoundedCornerShape(8.dp))
+                .background(color = UIKitTheme.colors.gray200, shape = RoundedCornerShape(8.dp))
         ) {
             Row(
                 modifier = Modifier
@@ -71,7 +71,7 @@ fun ItemOrderComponent(
                 ) {
                     Text(
                         text = stringResource(id = R.string.order_status_client),
-                        color = UIKitTheme.colors.gray400,
+                        color = UIKitTheme.colors.gray600,
                         style = UIKitTheme.typography.paragraph02
                     )
                     Spacer(modifier = Modifier.height(3.dp))
@@ -114,7 +114,7 @@ fun ItemOrderComponent(
                             0f
                         )
                         drawLine(
-                            color = UIKitColorTheme.gray100,
+                            color = UIKitColorTheme.gray400,
                             strokeWidth = 2.dp.toPx(),
                             start = Offset(x = size.width / 2, y = 0f),
                             end = Offset(x = size.width / 2, y = size.height),
@@ -131,7 +131,7 @@ fun ItemOrderComponent(
                     Column(
                         modifier = Modifier
                             .background(
-                                color = UIKitTheme.colors.blueGray800,
+                                color = UIKitTheme.colors.blueGray900,
                                 shape = RoundedCornerShape(10.dp)
                             )
                             .padding(4.dp)
@@ -154,7 +154,7 @@ fun ItemOrderComponent(
                                 stringResource(id = R.string.order_status_id),
                                 order.number
                             ),
-                            color = UIKitTheme.colors.gray400,
+                            color = UIKitTheme.colors.gray600,
                             style = UIKitTheme.typography.header04Bold,
                             textAlign = TextAlign.End
                         )
@@ -186,7 +186,7 @@ fun ItemOrderComponent(
 
 @Preview
 @Composable
-fun ItemOrderComponentPreview() {
+fun ItemOrderComponentPreview() = UIKitTheme {
     Column {
         ItemOrderComponent(
             order = Order(
