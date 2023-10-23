@@ -13,8 +13,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.AbstractComposeView
 import androidx.compose.ui.unit.dp
-import com.afoxplus.uikitcompose.ui.theme.Light03
-import com.afoxplus.uikitcompose.ui.theme.Light04
+import com.afoxplus.uikit.designsystem.theme.UIKitTheme
 import com.afoxplus.yalistoadmin.commons.utils.generateBitmap
 import com.afoxplus.yalistoadmin.commons.utils.shareBitmap
 import com.afoxplus.yalistoadmin.domain.entities.Order
@@ -30,7 +29,7 @@ class OrderShareView @JvmOverloads constructor(
     override fun Content() {
         LazyColumn(
             modifier = Modifier
-                .background(Light04)
+                .background(UIKitTheme.colors.yellow25)
         ) {
             item {
                 Spacer(modifier = Modifier.height(12.dp))
@@ -63,7 +62,7 @@ class OrderShareView @JvmOverloads constructor(
             }
             items(order.detail.size) {
                 OrderDetailItem(product = order.detail[it])
-                Divider(modifier = Modifier.height(1.dp), color = Light03)
+                Divider(modifier = Modifier.height(1.dp), color = UIKitTheme.colors.gray100)
             }
 
             item {

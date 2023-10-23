@@ -12,8 +12,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import com.afoxplus.uikitcompose.ui.extensions.noRippleClickable
-import com.afoxplus.uikitcompose.ui.theme.Light06
+import com.afoxplus.uikit.designsystem.extensions.noRippleClickable
+import com.afoxplus.uikit.designsystem.theme.UIKitTheme
 import com.afoxplus.yalistoadmin.ui.screens.login.components.LoginCardComponent
 import com.afoxplus.yalistoadmin.ui.screens.login.components.LoginLogoComponent
 
@@ -36,7 +36,7 @@ fun LoginScreen(
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .background(Light06)
+            .background(UIKitTheme.colors.gray200)
             .noRippleClickable { focusManager.clearFocus() }
     ) {
         LoginLogoComponent(

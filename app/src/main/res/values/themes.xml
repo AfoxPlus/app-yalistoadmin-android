@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <style name="Theme.UikitCompose" parent="android:Theme.Material.Light.NoActionBar" />
+
     <style name="Theme.YaListo.Splash" parent="Theme.SplashScreen">
         <item name="windowSplashScreenBackground">@color/light_06</item>
         <item name="windowSplashScreenAnimatedIcon">@drawable/yalisto_splash_logo</item>

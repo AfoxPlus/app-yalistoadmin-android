@@ -27,16 +27,8 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import coil.compose.AsyncImage
-import com.afoxplus.uikitcompose.ui.components.LoadingYaListoAnimation
-import com.afoxplus.uikitcompose.ui.theme.Gray01
-import com.afoxplus.uikitcompose.ui.theme.Green01
-import com.afoxplus.uikitcompose.ui.theme.Header05Bold
-import com.afoxplus.uikitcompose.ui.theme.Header05SemiBold
-import com.afoxplus.uikitcompose.ui.theme.Light01
-import com.afoxplus.uikitcompose.ui.theme.Light03
-import com.afoxplus.uikitcompose.ui.theme.Light06
-import com.afoxplus.uikitcompose.ui.theme.Paragraph02
-import com.afoxplus.uikitcompose.ui.theme.Paragraph02Bold
+import com.afoxplus.uikit.designsystem.components.UIKitLoading
+import com.afoxplus.uikit.designsystem.theme.UIKitTheme
 import com.afoxplus.yalistoadmin.domain.entities.Product
 
 internal typealias ProductSwitchClicked = (product: Product) -> Unit
@@ -72,7 +64,7 @@ fun HandleShowLoading() {
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        LoadingYaListoAnimation(circleSize = 12.dp)
+        UIKitLoading(circleSize = 12.dp)
     }
 }
 
@@ -108,7 +100,7 @@ fun ProductIterator(
     Column(modifier = Modifier.fillMaxWidth()) {
         ItemProduct(product = product, productSwitchClicked = productSwitchClicked)
         if (showDividerLine) {
-            Divider(color = Light03)
+            Divider(color = UIKitTheme.colors.gray100)
         }
     }
 }
@@ -135,20 +127,23 @@ fun ItemProduct(product: Product, productSwitchClicked: ProductSwitchClicked) {
             verticalArrangement = Arrangement.spacedBy(2.dp, Alignment.CenterVertically),
             horizontalAlignment = Alignment.Start
         ) {
-            Text(text = product.productType.toString(), style = Paragraph02Bold)
-            Text(text = product.title, style = Header05SemiBold)
-            Text(text = product.description.toString(), style = Paragraph02)
-            Text(text = product.unitPrice.toString(), style = Header05Bold)
+            Text(
+                text = product.productType.toString(),
+                style = UIKitTheme.typography.paragraph02Bold
+            )
+            Text(text = product.title, style = UIKitTheme.typography.header05SemiBold)
+            Text(text = product.description.toString(), style = UIKitTheme.typography.paragraph02)
+            Text(text = product.unitPrice.toString(), style = UIKitTheme.typography.header05Bold)
         }
         var checkState by remember { mutableStateOf(product.showInApp) }
         Switch(
             checked = checkState,
             colors = SwitchDefaults.colors(
-                checkedThumbColor = Light01,
-                checkedTrackColor = Green01,
-                uncheckedThumbColor = Light01,
-                uncheckedTrackColor = Light06,
-                uncheckedBorderColor = Gray01
+                checkedThumbColor = UIKitTheme.colors.light01,
+                checkedTrackColor = UIKitTheme.colors.green400,
+                uncheckedThumbColor = UIKitTheme.colors.light01,
+                uncheckedTrackColor = UIKitTheme.colors.light01,
+                uncheckedBorderColor = UIKitTheme.colors.gray100
             ),
             onCheckedChange = {
                 checkState = it

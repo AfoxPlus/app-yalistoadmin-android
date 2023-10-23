@@ -16,15 +16,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.afoxplus.uikitcompose.ui.components.CardOrderTypeComponent
-import com.afoxplus.uikitcompose.ui.components.OrderType
-import com.afoxplus.uikitcompose.ui.components.OrderTypeVO
-import com.afoxplus.uikitcompose.ui.theme.Dark02
-import com.afoxplus.uikitcompose.ui.theme.Gray01
-import com.afoxplus.uikitcompose.ui.theme.Header05SemiBold
-import com.afoxplus.uikitcompose.ui.theme.Light01
-import com.afoxplus.uikitcompose.ui.theme.Paragraph01
-import com.afoxplus.uikitcompose.ui.theme.UiKitComposeTheme
+import com.afoxplus.uikit.designsystem.components.UIKitCardOrderType
+import com.afoxplus.uikit.designsystem.components.UIKitOrderType
+import com.afoxplus.uikit.designsystem.components.UIKitOrderTypeVO
+import com.afoxplus.uikit.designsystem.theme.UIKitTheme
 import com.afoxplus.yalistoadmin.R
 
 @Composable
@@ -38,7 +33,7 @@ fun OrderTypeComponent(
         modifier = modifier
             .fillMaxWidth(),
         shape = RoundedCornerShape(topStart = 4.dp, topEnd = 4.dp),
-        colors = CardDefaults.cardColors(containerColor = Light01)
+        colors = CardDefaults.cardColors(containerColor = UIKitTheme.colors.light01)
     ) {
         Row(
             modifier = modifier
@@ -53,20 +48,20 @@ fun OrderTypeComponent(
             ) {
                 Text(
                     text = stringResource(id = R.string.order_status_id, orderId),
-                    color = Dark02,
-                    style = Header05SemiBold
+                    color = UIKitTheme.colors.blueGray700,
+                    style = UIKitTheme.typography.header05SemiBold
                 )
                 Text(
                     text = orderDate,
-                    color = Gray01,
-                    style = Paragraph01
+                    color = UIKitTheme.colors.blueGray300,
+                    style = UIKitTheme.typography.paragraph01
                 )
             }
-            CardOrderTypeComponent(
+            UIKitCardOrderType(
                 modifier = Modifier
                     .width(63.dp),
-                orderTypeVO = OrderTypeVO(orderType.title, orderType.description),
-                orderType = if (orderType.code == "DELI") OrderType.Delivery() else OrderType.Table()
+                orderTypeVO = UIKitOrderTypeVO(orderType.title, orderType.description),
+                orderType = if (orderType.code == "DELI") UIKitOrderType.Delivery() else UIKitOrderType.Table()
             )
         }
     }
@@ -75,7 +70,7 @@ fun OrderTypeComponent(
 @Preview(showBackground = true)
 @Composable
 fun OrderDetailComponentPreview() {
-    UiKitComposeTheme {
+    UIKitTheme {
         OrderTypeComponent(
             orderId = "#000001",
             orderDate = "04 Jul 2023, 11:26 PM",

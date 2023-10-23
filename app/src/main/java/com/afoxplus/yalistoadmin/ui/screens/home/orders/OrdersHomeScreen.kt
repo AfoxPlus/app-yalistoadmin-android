@@ -7,10 +7,10 @@ import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import com.afoxplus.uikitcompose.ui.components.TabItemYaListo
-import com.afoxplus.uikitcompose.ui.components.TapPagerYaListoComponent
+import com.afoxplus.uikit.designsystem.components.UIKitTabItem
+import com.afoxplus.uikit.designsystem.components.UIKitTabs
+import com.afoxplus.uikit.designsystem.theme.UIKitTheme
 import com.afoxplus.yalistoadmin.domain.entities.Order
 import com.afoxplus.yalistoadmin.ui.screens.orders.OrderScreen
 import com.afoxplus.yalistoadmin.ui.screens.orders.OrdersStatusViewModel
@@ -25,7 +25,7 @@ fun OrdersHomeScreen(
     val tabItems = remember {
         derivedStateOf {
             states.map { state ->
-                TabItemYaListo(
+                UIKitTabItem(
                     title = state.name,
                     screen = {
                         OrderScreen(
@@ -39,8 +39,8 @@ fun OrdersHomeScreen(
         }
     }
 
-    TapPagerYaListoComponent(
-        modifier = Modifier.padding(horizontal = 16.dp),
+    UIKitTabs(
+        modifier = Modifier.padding(horizontal = UIKitTheme.spacing.spacing16),
         tabItems = tabItems.value
     ) { index ->
         tabItems.value[index].screen()
