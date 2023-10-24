@@ -6,5 +6,5 @@ import com.afoxplus.yalistoadmin.domain.usecase.params.RestaurantParams
 
 interface OrderStatusRemote {
     suspend fun getStatus(params: RestaurantParams): ResultState<List<Order>>
-    suspend fun updateState(order: Order, state: String): ResultState<Unit>
+    suspend fun updateState(order: Order, state: String): ResultState<Order>
 }

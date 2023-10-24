@@ -47,9 +47,14 @@ class OrderViewModel @Inject constructor(
     fun sendOrderState(state: String) {
         viewModelScope.launch(dispatcher.getIODispatcher()) {
             order?.let {
-                try {
-                    orderStateUseCase.updateState(it, state)
-                } catch (ex: Exception) {
+                when (val result = orderStateUseCase.updateState(it, state)) {
+                    is ResultState.Error -> {
+                        Timber.d("Here - OrderViewModel - Error: ${result.exception}")
+                    }
+
+                    is ResultState.Success -> {
+                        _orderState.value = result.data
+                    }
                 }
             }
         }
