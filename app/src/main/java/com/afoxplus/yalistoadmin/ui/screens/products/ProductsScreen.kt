@@ -27,7 +27,7 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import coil.compose.AsyncImage
-import com.afoxplus.uikit.designsystem.components.UIKitLoading
+import com.afoxplus.uikit.designsystem.atoms.UIKitLoading
 import com.afoxplus.uikit.designsystem.theme.UIKitTheme
 import com.afoxplus.yalistoadmin.domain.entities.Product
 

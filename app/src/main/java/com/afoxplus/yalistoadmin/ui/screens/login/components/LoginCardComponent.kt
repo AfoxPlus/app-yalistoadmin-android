@@ -24,8 +24,8 @@ import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.afoxplus.uikit.designsystem.components.UIKitButtonPrimaryLarge
-import com.afoxplus.uikit.designsystem.components.UIKitTextField
+import com.afoxplus.uikit.designsystem.atoms.UIKitButtonPrimaryLarge
+import com.afoxplus.uikit.designsystem.atoms.UIKitTextField
 import com.afoxplus.uikit.designsystem.theme.UIKitTheme
 import com.afoxplus.yalistoadmin.R
 

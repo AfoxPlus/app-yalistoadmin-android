@@ -8,7 +8,7 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
-import com.afoxplus.uikit.designsystem.components.UIKitLoading
+import com.afoxplus.uikit.designsystem.atoms.UIKitLoading
 import com.afoxplus.yalistoadmin.ui.screens.login.LoginViewModel
 
 @Composable

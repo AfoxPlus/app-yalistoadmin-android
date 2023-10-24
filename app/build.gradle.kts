@@ -175,5 +175,5 @@ dependencies {
 
     // Business
     implementation("com.afoxplus.android:network:1.2.5")
-    implementation("com.afoxplus.android:uikit:6.0.0_rs-feature_designsystem-SNAPSHOT")
+    implementation("com.afoxplus.android:uikit:6.0.0_style-feature_designsystem-SNAPSHOT")
 }

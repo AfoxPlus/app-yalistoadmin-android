@@ -25,9 +25,9 @@ import androidx.compose.ui.viewinterop.AndroidView
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.constraintlayout.compose.Dimension
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.afoxplus.uikit.designsystem.atoms.UIKitButtonOutlineLarge
+import com.afoxplus.uikit.designsystem.atoms.UIKitButtonPrimaryLarge
 import com.afoxplus.uikit.designsystem.components.UIKitBottomSheet
-import com.afoxplus.uikit.designsystem.components.UIKitButtonOutlineLarge
-import com.afoxplus.uikit.designsystem.components.UIKitButtonPrimaryLarge
 import com.afoxplus.uikit.designsystem.components.UIKitTopBar
 import com.afoxplus.uikit.designsystem.theme.UIKitTheme
 import com.afoxplus.yalistoadmin.R
