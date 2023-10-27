@@ -4,6 +4,7 @@ import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.afoxplus.uikit.di.UIKitCoroutineDispatcher
+import com.afoxplus.yalistoadmin.commons.constants.ConstantsDomain
 import com.afoxplus.yalistoadmin.commons.utils.ResultState
 import com.afoxplus.yalistoadmin.domain.entities.Order
 import com.afoxplus.yalistoadmin.domain.usecase.GetStatesUseCase
@@ -92,8 +93,8 @@ class OrderViewModel @Inject constructor(
 
     fun updateOrderStateFromPrint() {
         viewModelScope.launch(dispatcher.getIODispatcher()) {
-            if (order?.state == "Pendiente") {
-                when (val result = getStatesUseCase.getStateByCode("TODO")) {
+            if (order?.stateCode == ConstantsDomain.PENDING_ORDER_STATE) {
+                when (val result = getStatesUseCase.getStateByCode(ConstantsDomain.PROGRESS_ORDER_STATE)) {
                     is ResultState.Error -> {
                         Timber.d("Here - OrderViewModel - Error: ${result.exception}")
                     }
