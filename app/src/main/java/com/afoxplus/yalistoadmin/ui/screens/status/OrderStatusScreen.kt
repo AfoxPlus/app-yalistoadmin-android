@@ -13,6 +13,7 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Text
 import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -57,6 +58,11 @@ fun OrderStatusScreen(
     val stateSelected = orderViewModel.stateSelected.collectAsState().value
     val sheetState = rememberModalBottomSheetState()
     var isSheetOpen by rememberSaveable { mutableStateOf(false) }
+    LaunchedEffect(key1 = Unit) {
+        orderViewModel.orderArchived.collect {
+            navigateBack()
+        }
+    }
 
     ConstraintLayout(
         modifier = Modifier
@@ -166,9 +172,19 @@ fun OrderStatusScreen(
                     end.linkTo(parent.end, margin = 16.dp)
                     width = Dimension.fillToConstraints
                 },
-                text = stringResource(id = R.string.order_update_state),
+                text = if (orderViewModel.isUpdateButton()) {
+                    stringResource(id = R.string.order_update_state)
+                } else {
+                    stringResource(
+                        id = R.string.order_archive
+                    )
+                },
                 onClick = {
-                    isSheetOpen = true
+                    if (orderViewModel.isUpdateButton()) {
+                        isSheetOpen = true
+                    } else {
+                        orderViewModel.archiveOrder()
+                    }
                 }
             )
 

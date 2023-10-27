@@ -7,6 +7,7 @@ import com.afoxplus.uikit.di.UIKitCoroutineDispatcher
 import com.afoxplus.yalistoadmin.commons.constants.ConstantsDomain
 import com.afoxplus.yalistoadmin.commons.utils.ResultState
 import com.afoxplus.yalistoadmin.domain.entities.Order
+import com.afoxplus.yalistoadmin.domain.usecase.ArchiveOrderUseCase
 import com.afoxplus.yalistoadmin.domain.usecase.GetStatesUseCase
 import com.afoxplus.yalistoadmin.domain.usecase.UpdateOrderStateUseCase
 import com.afoxplus.yalistoadmin.ui.graphs.NavArgs
@@ -15,7 +16,9 @@ import com.afoxplus.yalistoadmin.ui.screens.status.vo.toVO
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 import kotlinx.coroutines.Job
+import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
@@ -26,6 +29,7 @@ class OrderViewModel @Inject constructor(
     private val savedStateHandle: SavedStateHandle,
     private val orderStateUseCase: UpdateOrderStateUseCase,
     private val getStatesUseCase: GetStatesUseCase,
+    private val archiveOrderUseCase: ArchiveOrderUseCase,
     private val dispatcher: UIKitCoroutineDispatcher
 ) : ViewModel() {
 
@@ -37,6 +41,9 @@ class OrderViewModel @Inject constructor(
 
     private val _stateSelected: MutableStateFlow<StatesVO?> = MutableStateFlow(null)
     val stateSelected: StateFlow<StatesVO?> = _stateSelected.asStateFlow()
+
+    private val _orderArchived: MutableSharedFlow<Boolean> = MutableSharedFlow()
+    val orderArchived: SharedFlow<Boolean> = _orderArchived
 
     private val order: Order? = savedStateHandle[NavArgs.Order.key]
 
@@ -94,13 +101,36 @@ class OrderViewModel @Inject constructor(
     fun updateOrderStateFromPrint() {
         viewModelScope.launch(dispatcher.getIODispatcher()) {
             if (order?.stateCode == ConstantsDomain.PENDING_ORDER_STATE) {
-                when (val result = getStatesUseCase.getStateByCode(ConstantsDomain.PROGRESS_ORDER_STATE)) {
+                when (
+                    val result =
+                        getStatesUseCase.getStateByCode(ConstantsDomain.PROGRESS_ORDER_STATE)
+                ) {
                     is ResultState.Error -> {
                         Timber.d("Here - OrderViewModel - Error: ${result.exception}")
                     }
 
                     is ResultState.Success -> {
                         sendOrderState(result.data.id)
+                    }
+                }
+            }
+        }
+    }
+
+    fun isUpdateButton(): Boolean {
+        return order?.stateCode != ConstantsDomain.COMPLETE_ORDER_STATE && order?.stateCode != ConstantsDomain.REJECTED_ORDER_STATE
+    }
+
+    fun archiveOrder() {
+        viewModelScope.launch(dispatcher.getIODispatcher()) {
+            order?.let {
+                when (val result = archiveOrderUseCase.archiveOrder(order)) {
+                    is ResultState.Error -> {
+                        Timber.d("Here - OrderViewModel - Error: ${result.exception}")
+                    }
+
+                    is ResultState.Success -> {
+                        _orderArchived.emit(true)
                     }
                 }
             }
