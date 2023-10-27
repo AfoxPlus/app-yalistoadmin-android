@@ -32,7 +32,7 @@
 
         <provider
             android:name=".commons.utils.GenericFileProvider"
-            android:authorities="${applicationId}.com.afoxplus.yalistoadmin.provider"
+            android:authorities="${applicationId}.provider.share.document"
             android:exported="false"
             android:grantUriPermissions="true">
             <meta-data

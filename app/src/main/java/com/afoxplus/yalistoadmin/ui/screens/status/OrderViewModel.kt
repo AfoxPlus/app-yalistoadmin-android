@@ -4,6 +4,7 @@ import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.afoxplus.uikit.di.UIKitCoroutineDispatcher
+import com.afoxplus.yalistoadmin.commons.constants.ConstantsDomain
 import com.afoxplus.yalistoadmin.commons.utils.ResultState
 import com.afoxplus.yalistoadmin.domain.entities.Order
 import com.afoxplus.yalistoadmin.domain.usecase.GetStatesUseCase
@@ -47,9 +48,14 @@ class OrderViewModel @Inject constructor(
     fun sendOrderState(state: String) {
         viewModelScope.launch(dispatcher.getIODispatcher()) {
             order?.let {
-                try {
-                    orderStateUseCase.updateState(it, state)
-                } catch (ex: Exception) {
+                when (val result = orderStateUseCase.updateState(it, state)) {
+                    is ResultState.Error -> {
+                        Timber.d("Here - OrderViewModel - Error: ${result.exception}")
+                    }
+
+                    is ResultState.Success -> {
+                        _orderState.value = result.data
+                    }
                 }
             }
         }
@@ -82,6 +88,22 @@ class OrderViewModel @Inject constructor(
                 _stateSelected.value = stateVO
             }
             stateVO
+        }
+    }
+
+    fun updateOrderStateFromPrint() {
+        viewModelScope.launch(dispatcher.getIODispatcher()) {
+            if (order?.stateCode == ConstantsDomain.PENDING_ORDER_STATE) {
+                when (val result = getStatesUseCase.getStateByCode(ConstantsDomain.PROGRESS_ORDER_STATE)) {
+                    is ResultState.Error -> {
+                        Timber.d("Here - OrderViewModel - Error: ${result.exception}")
+                    }
+
+                    is ResultState.Success -> {
+                        sendOrderState(result.data.id)
+                    }
+                }
+            }
         }
     }
 }

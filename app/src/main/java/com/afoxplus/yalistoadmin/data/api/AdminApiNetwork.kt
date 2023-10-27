@@ -50,10 +50,10 @@ interface AdminApiOrdersNetwork {
         @Path("stateId") stateId: String
     ): Response<BaseResponse<List<OrderResponseModel>>>
 
-    @GET("orders/$PATH_SEND_STATE")
+    @PUT("orders/$PATH_SEND_STATE")
     suspend fun sendOrderState(
         @Body orderStateRequest: OrderStateRequestModel
-    ): Response<BaseResponse<List<OrderResponseModel>>>
+    ): Response<BaseResponse<OrderResponseModel>>
 }
 
 @ServiceClient(type = UrlProvider.Type.API_PRODUCTS)

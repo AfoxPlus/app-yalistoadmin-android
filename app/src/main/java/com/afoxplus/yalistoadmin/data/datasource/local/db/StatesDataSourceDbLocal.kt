@@ -28,4 +28,13 @@ class StatesDataSourceDbLocal @Inject constructor(
         }
         return ResultState.Success(response)
     }
+
+    override suspend fun getStateByCode(code: String): ResultState<States> {
+        val response = try {
+            statesDAO.getStateByCode(code).toEntity()
+        } catch (e: Exception) {
+            return ResultState.Error(e)
+        }
+        return ResultState.Success(response)
+    }
 }

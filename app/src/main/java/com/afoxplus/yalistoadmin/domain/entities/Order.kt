@@ -19,7 +19,22 @@ data class Order(
     val paymentMethod: String,
     val client: Client,
     val detail: List<Product>
-) : Parcelable
+) : Parcelable {
+    fun calculateDetailSize(): Int {
+        var size = detail.size
+        detail.forEach {
+            size += it.subDetail.size
+        }
+        return size
+    }
+
+    fun haveAppetizers(): Boolean {
+        detail.forEach {
+            if (it.subDetail.isNotEmpty()) return true
+        }
+        return false
+    }
+}
 
 val OrderNavType = object : NavType<Order>(isNullableAllowed = false) {
     override fun get(bundle: Bundle, key: String): Order? {
