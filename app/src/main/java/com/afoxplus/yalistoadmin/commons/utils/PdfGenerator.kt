@@ -47,27 +47,20 @@ fun Context.generateOrderPDF(order: Order): String {
         canvas.drawText("Mesa:   ${order.orderType.description}          ", xPosition, 200F, title)
     }
     canvas.drawLine(0F, 220F, pageWidth * 1F, 220F, paint)
+    canvas.drawText("Cant.  Descripcion", xPosition, 260F, title)
 
-    canvas.drawText("Primeros", xPosition, 260F, title)
     var positionY = 280F
     order.detail.forEach {
         positionY += 20F
         canvas.drawText(
-            "${it.quantity} --> (${if (it.isMenu()) "M" else "C"}) ${it.title}              ",
+            "${it.quantity} ${if (it.isMenu()) "(M) " else "      "} ${it.title}              ",
             xPosition,
             positionY,
             title
         )
-    }
-    if (order.haveAppetizers()) {
-        positionY += 40
-        canvas.drawText("Segundos", xPosition, positionY, title)
-        positionY += 20
-        order.detail.forEach {
-            it.subDetail.forEach { detail ->
-                positionY += 20F
-                canvas.drawText("${it.quantity} --> ${detail.title} ", xPosition, positionY, title)
-            }
+        it.subDetail.forEach { detail ->
+            positionY += 20F
+            canvas.drawText("${it.quantity}         ${detail.title}", xPosition, positionY, title)
         }
     }
 

@@ -30,4 +30,8 @@ class StatesRepositoryData @Inject constructor(
     override suspend fun saveStates(states: List<States>): ResultState<Unit> {
         return dataSourceLocal.saveStates(states)
     }
+
+    override suspend fun getStateByCode(code: String): ResultState<States> {
+        return dataSourceLocal.getStateByCode(code)
+    }
 }

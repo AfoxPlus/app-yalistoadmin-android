@@ -89,4 +89,20 @@ class OrderViewModel @Inject constructor(
             stateVO
         }
     }
+
+    fun updateOrderStateFromPrint() {
+        viewModelScope.launch(dispatcher.getIODispatcher()) {
+            if (order?.state == "Pendiente") {
+                when (val result = getStatesUseCase.getStateByCode("TODO")) {
+                    is ResultState.Error -> {
+                        Timber.d("Here - OrderViewModel - Error: ${result.exception}")
+                    }
+
+                    is ResultState.Success -> {
+                        sendOrderState(result.data.id)
+                    }
+                }
+            }
+        }
+    }
 }

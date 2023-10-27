@@ -184,7 +184,7 @@ fun OrderStatusScreen(
             ) {
                 val filePath = context.generateOrderPDF(order)
                 context.sharePDF(filePath)
-                // orderShareView?.value?.capture(orderShareView?.value as OrderShareView)
+                orderViewModel.updateOrderStateFromPrint()
             }
 
             if (isSheetOpen) {
