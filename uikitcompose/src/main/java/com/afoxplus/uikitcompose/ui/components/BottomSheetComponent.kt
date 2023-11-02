@@ -89,6 +89,7 @@ fun <T> BottomSheetComponent(
                             if (showIcon(list[itemPosition])) {
                                 Icon(
                                     painter = painterResource(id = R.drawable.check_icon),
+                                    tint = Dark01,
                                     contentDescription = "check_icon"
                                 )
                             }
