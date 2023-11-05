@@ -4,7 +4,6 @@ import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.util.AttributeSet
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.lazy.LazyColumn
@@ -27,10 +26,7 @@ class OrderShareView @JvmOverloads constructor(
 
     @Composable
     override fun Content() {
-        LazyColumn(
-            modifier = Modifier
-                .background(UIKitTheme.colors.yellow25)
-        ) {
+        LazyColumn {
             item {
                 Spacer(modifier = Modifier.height(12.dp))
                 OrderWhatsappContactComponent(

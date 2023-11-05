@@ -9,7 +9,6 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -25,6 +24,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.afoxplus.uikit.designsystem.atoms.UIKitButtonPrimaryLarge
+import com.afoxplus.uikit.designsystem.atoms.UIKitText
 import com.afoxplus.uikit.designsystem.atoms.UIKitTextField
 import com.afoxplus.uikit.designsystem.foundations.UIKitTheme
 import com.afoxplus.yalistoadmin.R
@@ -54,7 +54,7 @@ fun LoginCardComponent(
                     .fillMaxWidth()
                     .padding(UIKitTheme.spacing.spacing24)
             ) {
-                Text(
+                UIKitText(
                     modifier = Modifier
                         .fillMaxWidth()
                         .padding(horizontal = UIKitTheme.spacing.spacing10),
@@ -63,7 +63,7 @@ fun LoginCardComponent(
                     style = UIKitTheme.typography.header04Bold
                 )
                 Spacer(modifier = Modifier.height(6.dp))
-                Text(
+                UIKitText(
                     modifier = Modifier
                         .fillMaxWidth()
                         .padding(horizontal = UIKitTheme.spacing.spacing10),
@@ -73,12 +73,12 @@ fun LoginCardComponent(
                     style = UIKitTheme.typography.paragraph01
                 )
                 Spacer(modifier = Modifier.height(42.dp))
-                Text(
+                UIKitText(
                     modifier = Modifier
                         .fillMaxWidth(),
                     text = stringResource(id = R.string.login_card_input_title),
                     textAlign = TextAlign.Start,
-                    color = UIKitTheme.colors.blueGray800,
+                    color = UIKitTheme.colors.gray500,
                     style = UIKitTheme.typography.paragraph02
                 )
                 Spacer(modifier = Modifier.height(UIKitTheme.spacing.spacing02))
@@ -102,7 +102,7 @@ fun LoginCardComponent(
 
 @Preview
 @Composable
-fun LoginCardComponentPreview() {
+fun LoginCardComponentPreview() = UIKitTheme {
     val focusManager = LocalFocusManager.current
     Column {
         LoginCardComponent(focusManager = focusManager, enabled = true, onLogin = {})

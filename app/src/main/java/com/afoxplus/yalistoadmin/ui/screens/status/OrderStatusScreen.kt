@@ -51,7 +51,7 @@ fun OrderStatusScreen(
     ConstraintLayout(
         modifier = Modifier
             .fillMaxSize()
-            .background(UIKitTheme.colors.yellow25)
+            .background(UIKitTheme.colors.orange25)
     ) {
         val (toolbar, contentBox, footer) = createRefs()
 
@@ -102,7 +102,7 @@ fun OrderStatusScreen(
             Text(
                 modifier = Modifier
                     .height(35.dp)
-                    .background(UIKitTheme.colors.blueGray900)
+                    .background(UIKitTheme.colors.gray800)
                     .wrapContentHeight(align = Alignment.CenterVertically)
                     .constrainAs(textState) {
                         top.linkTo(parent.top)

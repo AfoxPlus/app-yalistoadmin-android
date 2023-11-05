@@ -28,6 +28,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.afoxplus.uikit.designsystem.atoms.UIKitText
 import com.afoxplus.uikit.designsystem.businesscomponents.UIKitCardOrderType
 import com.afoxplus.uikit.designsystem.businesscomponents.UIKitOrderType
 import com.afoxplus.uikit.designsystem.businesscomponents.UIKitOrderTypeVO
@@ -70,7 +71,7 @@ fun ItemOrderComponent(
                 ) {
                     Text(
                         text = stringResource(id = R.string.order_status_client),
-                        color = UIKitTheme.colors.gray600,
+                        color = UIKitTheme.colors.gray700,
                         style = UIKitTheme.typography.paragraph02
                     )
                     Spacer(modifier = Modifier.height(3.dp))
@@ -130,7 +131,7 @@ fun ItemOrderComponent(
                     Column(
                         modifier = Modifier
                             .background(
-                                color = UIKitTheme.colors.blueGray900,
+                                color = UIKitTheme.colors.gray900,
                                 shape = RoundedCornerShape(10.dp)
                             )
                             .padding(4.dp)
@@ -146,7 +147,7 @@ fun ItemOrderComponent(
                     Column(
                         modifier = Modifier.fillMaxWidth()
                     ) {
-                        Text(
+                        UIKitText(
                             modifier = Modifier
                                 .fillMaxWidth(),
                             text = String.format(

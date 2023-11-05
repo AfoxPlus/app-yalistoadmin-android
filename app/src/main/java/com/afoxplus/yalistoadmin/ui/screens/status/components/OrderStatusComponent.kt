@@ -41,7 +41,7 @@ fun OrderDetailItem(
         if (product.isMenu()) {
             Column(
                 modifier = Modifier
-                    .background(color = UIKitTheme.colors.secondaryColor, shape = RoundedCornerShape(4.dp))
+                    .background(color = UIKitTheme.colors.gray800, shape = RoundedCornerShape(4.dp))
                     .padding(4.dp)
             ) {
                 Text(
@@ -112,7 +112,6 @@ fun OrderDetailTotalItem(modifier: Modifier = Modifier, total: String, paymentMe
             )
             Text(
                 text = total,
-                color = UIKitTheme.colors.secondaryColor,
                 style = UIKitTheme.typography.header02Bold
             )
             Text(
@@ -122,7 +121,6 @@ fun OrderDetailTotalItem(modifier: Modifier = Modifier, total: String, paymentMe
             )
             Text(
                 text = paymentMethod,
-                color = UIKitTheme.colors.secondaryColor,
                 style = UIKitTheme.typography.paragraph02
             )
         }

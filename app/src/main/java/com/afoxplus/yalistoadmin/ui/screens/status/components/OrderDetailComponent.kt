@@ -38,7 +38,7 @@ fun OrderTypeComponent(
         Row(
             modifier = modifier
                 .fillMaxWidth()
-                .padding(16.dp),
+                .padding(UIKitTheme.spacing.spacing16),
             horizontalArrangement = Arrangement.SpaceBetween,
             verticalAlignment = Alignment.CenterVertically
         ) {
@@ -48,12 +48,12 @@ fun OrderTypeComponent(
             ) {
                 Text(
                     text = stringResource(id = R.string.order_status_id, orderId),
-                    color = UIKitTheme.colors.blueGray800,
+                    color = UIKitTheme.colors.secondaryColor,
                     style = UIKitTheme.typography.header05SemiBold
                 )
                 Text(
                     text = orderDate,
-                    color = UIKitTheme.colors.blueGray300,
+                    color = UIKitTheme.colors.gray600,
                     style = UIKitTheme.typography.paragraph01
                 )
             }
