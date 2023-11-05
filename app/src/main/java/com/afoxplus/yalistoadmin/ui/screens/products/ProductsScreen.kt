@@ -27,8 +27,8 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import coil.compose.AsyncImage
-import com.afoxplus.uikit.designsystem.atoms.UIKitLoading
-import com.afoxplus.uikit.designsystem.theme.UIKitTheme
+import com.afoxplus.uikit.designsystem.foundations.UIKitTheme
+import com.afoxplus.uikit.designsystem.molecules.UIKitLoading
 import com.afoxplus.yalistoadmin.domain.entities.Product
 
 internal typealias ProductSwitchClicked = (product: Product) -> Unit

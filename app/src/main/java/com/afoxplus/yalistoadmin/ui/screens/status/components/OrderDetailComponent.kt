@@ -16,10 +16,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.afoxplus.uikit.designsystem.components.UIKitCardOrderType
-import com.afoxplus.uikit.designsystem.components.UIKitOrderType
-import com.afoxplus.uikit.designsystem.components.UIKitOrderTypeVO
-import com.afoxplus.uikit.designsystem.theme.UIKitTheme
+import com.afoxplus.uikit.designsystem.businesscomponents.UIKitCardOrderType
+import com.afoxplus.uikit.designsystem.businesscomponents.UIKitOrderType
+import com.afoxplus.uikit.designsystem.businesscomponents.UIKitOrderTypeVO
+import com.afoxplus.uikit.designsystem.foundations.UIKitTheme
 import com.afoxplus.yalistoadmin.R
 
 @Composable

@@ -8,9 +8,9 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import com.afoxplus.uikit.designsystem.components.UIKitTabItem
-import com.afoxplus.uikit.designsystem.components.UIKitTabs
-import com.afoxplus.uikit.designsystem.theme.UIKitTheme
+import com.afoxplus.uikit.designsystem.foundations.UIKitTheme
+import com.afoxplus.uikit.designsystem.molecules.UIKitTabItem
+import com.afoxplus.uikit.designsystem.molecules.UIKitTabs
 import com.afoxplus.yalistoadmin.domain.entities.Order
 import com.afoxplus.yalistoadmin.ui.screens.orders.OrderScreen
 import com.afoxplus.yalistoadmin.ui.screens.orders.OrdersStatusViewModel
