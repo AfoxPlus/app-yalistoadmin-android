@@ -14,4 +14,7 @@ interface StatesDAO {
 
     @Query("SELECT * FROM $DB_TABLE_STATES")
     fun getStates(): List<StatesDB>
+
+    @Query("SELECT * FROM $DB_TABLE_STATES WHERE code = :code")
+    fun getStateByCode(code: String): StatesDB
 }

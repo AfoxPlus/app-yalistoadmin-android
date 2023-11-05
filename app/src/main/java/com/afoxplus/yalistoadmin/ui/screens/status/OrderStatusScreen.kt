@@ -1,18 +1,22 @@
 package com.afoxplus.yalistoadmin.ui.screens.status
 
+import android.content.Intent
+import android.net.Uri
 import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.wrapContentHeight
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.material3.Divider
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Text
 import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.MutableState
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
@@ -21,7 +25,6 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.viewinterop.AndroidView
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.constraintlayout.compose.Dimension
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -31,7 +34,12 @@ import com.afoxplus.uikit.designsystem.foundations.UIKitTheme
 import com.afoxplus.uikit.designsystem.molecules.UIKitTopBar
 import com.afoxplus.uikit.designsystem.organisms.UIKitBottomSheet
 import com.afoxplus.yalistoadmin.R
-import com.afoxplus.yalistoadmin.ui.screens.status.components.OrderShareView
+import com.afoxplus.yalistoadmin.commons.utils.generateOrderPDF
+import com.afoxplus.yalistoadmin.commons.utils.sharePDF
+import com.afoxplus.yalistoadmin.ui.screens.status.components.OrderDetailItem
+import com.afoxplus.yalistoadmin.ui.screens.status.components.OrderDetailTotalItem
+import com.afoxplus.yalistoadmin.ui.screens.status.components.OrderTypeComponent
+import com.afoxplus.yalistoadmin.ui.screens.status.components.OrderWhatsappContactComponent
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -40,13 +48,17 @@ fun OrderStatusScreen(
     navigateBack: () -> Unit
 ) {
     val order = orderViewModel.orderState.collectAsState().value ?: return
-    var orderShareView: MutableState<OrderShareView>?
     val context = LocalContext.current
 
     val statesOrder = orderViewModel.states.collectAsState().value
     val stateSelected = orderViewModel.stateSelected.collectAsState().value
     val sheetState = rememberModalBottomSheetState()
     var isSheetOpen by rememberSaveable { mutableStateOf(false) }
+    LaunchedEffect(key1 = Unit) {
+        orderViewModel.orderArchived.collect {
+            navigateBack()
+        }
+    }
 
     ConstraintLayout(
         modifier = Modifier
@@ -68,8 +80,8 @@ fun OrderStatusScreen(
         ) {
             navigateBack()
         }
-        orderShareView = remember { mutableStateOf(OrderShareView(order, context)) }
-        AndroidView(
+
+        LazyColumn(
             modifier = Modifier
                 .constrainAs(contentBox) {
                     top.linkTo(toolbar.bottom)
@@ -78,15 +90,47 @@ fun OrderStatusScreen(
                     bottom.linkTo(footer.top)
                     height = Dimension.fillToConstraints
                     width = Dimension.fillToConstraints
-                },
-            factory = {
-                OrderShareView(order, it).apply {
-                    post {
-                        orderShareView?.value = this
-                    }
+                }
+        ) {
+            item {
+                Spacer(modifier = Modifier.height(12.dp))
+                OrderWhatsappContactComponent(
+                    phoneNumber = order.client.cel,
+                    clientName = order.client.name,
+                    description = order.client.addressReference
+                ) {
+                    context.startActivity(
+                        Intent(
+                            Intent.ACTION_VIEW,
+                            Uri.parse(
+                                String.format(
+                                    "https://api.whatsapp.com/send?phone=%s&text=%s",
+                                    order.client.cel,
+                                    "Hello this is a new client"
+                                )
+                            )
+                        )
+                    )
                 }
             }
-        )
+            item {
+                Spacer(modifier = Modifier.height(8.dp))
+                OrderTypeComponent(
+                    orderId = order.number,
+                    orderDate = order.date,
+                    orderType = order.orderType
+                )
+            }
+            items(order.detail.size) {
+                OrderDetailItem(product = order.detail[it])
+                Divider(modifier = Modifier.height(1.dp), color = UIKitTheme.colors.gray100)
+            }
+
+            item {
+                OrderDetailTotalItem(total = order.total, paymentMethod = order.paymentMethod)
+                Spacer(modifier = Modifier.height(12.dp))
+            }
+        }
 
         ConstraintLayout(
             modifier = Modifier
@@ -123,9 +167,19 @@ fun OrderStatusScreen(
                     end.linkTo(parent.end, margin = 16.dp)
                     width = Dimension.fillToConstraints
                 },
-                text = stringResource(id = R.string.order_update_state),
+                text = if (orderViewModel.isUpdateButton()) {
+                    stringResource(id = R.string.order_update_state)
+                } else {
+                    stringResource(
+                        id = R.string.order_archive
+                    )
+                },
                 onClick = {
-                    isSheetOpen = true
+                    if (orderViewModel.isUpdateButton()) {
+                        isSheetOpen = true
+                    } else {
+                        orderViewModel.archiveOrder()
+                    }
                 }
             )
 
@@ -139,7 +193,9 @@ fun OrderStatusScreen(
                 },
                 text = stringResource(id = R.string.order_print)
             ) {
-                orderShareView?.value?.capture(orderShareView?.value as OrderShareView)
+                val filePath = context.generateOrderPDF(order)
+                context.sharePDF(filePath)
+                orderViewModel.updateOrderStateFromPrint()
             }
 
             if (isSheetOpen) {
@@ -155,7 +211,7 @@ fun OrderStatusScreen(
                     onClick = {
                         isSheetOpen = false
                         orderViewModel.updateCheckState(it.name)
-                        orderViewModel.sendOrderState(it.name)
+                        orderViewModel.sendOrderState(it.id)
                     },
                     onDismiss = {
                         isSheetOpen = false

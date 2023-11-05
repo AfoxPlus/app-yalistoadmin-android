@@ -11,4 +11,8 @@ class GetStatesUseCase @Inject constructor(
     suspend fun getStates(): ResultState<List<States>> {
         return repository.getStates()
     }
+
+    suspend fun getStateByCode(code: String): ResultState<States> {
+        return repository.getStateByCode(code)
+    }
 }

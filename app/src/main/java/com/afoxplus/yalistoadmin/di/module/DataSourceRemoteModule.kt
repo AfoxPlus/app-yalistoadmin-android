@@ -1,9 +1,11 @@
 package com.afoxplus.yalistoadmin.di.module
 
 import com.afoxplus.yalistoadmin.data.datasource.AuthRemote
+import com.afoxplus.yalistoadmin.data.datasource.OrderRemote
 import com.afoxplus.yalistoadmin.data.datasource.OrderStatusRemote
 import com.afoxplus.yalistoadmin.data.datasource.StatesRemote
 import com.afoxplus.yalistoadmin.data.datasource.remote.AuthDataSourceRemote
+import com.afoxplus.yalistoadmin.data.datasource.remote.OrderDataSourceRemote
 import com.afoxplus.yalistoadmin.data.datasource.remote.OrderStatusDataSourceRemote
 import com.afoxplus.yalistoadmin.data.datasource.remote.StatesDataSourceRemote
 import dagger.Binds
@@ -29,4 +31,7 @@ abstract class DataSourceRemoteModule {
     abstract fun bindsOrderStatusRemote(
         dataSourceRemote: OrderStatusDataSourceRemote
     ): OrderStatusRemote
+
+    @Binds
+    abstract fun bindsOrderDataSourceRemote(dataSourceRemote: OrderDataSourceRemote): OrderRemote
 }

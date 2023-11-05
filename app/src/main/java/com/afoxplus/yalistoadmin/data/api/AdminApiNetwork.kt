@@ -12,6 +12,7 @@ import com.afoxplus.yalistoadmin.data.datasource.remote.model.response.ProductSe
 import com.afoxplus.yalistoadmin.data.datasource.remote.model.response.StatesResponseModel
 import retrofit2.Response
 import retrofit2.http.Body
+import retrofit2.http.DELETE
 import retrofit2.http.GET
 import retrofit2.http.Header
 import retrofit2.http.POST
@@ -39,6 +40,7 @@ interface AdminApiOrdersNetwork {
         const val PATH_STATES = "states"
         const val PATH_STATUS = "restaurant/status"
         const val PATH_SEND_STATE = "send_state"
+        const val PATH_ARCHIVE = "archive"
     }
 
     @GET("orders/$PATH_STATES")
@@ -50,10 +52,13 @@ interface AdminApiOrdersNetwork {
         @Path("stateId") stateId: String
     ): Response<BaseResponse<List<OrderResponseModel>>>
 
-    @GET("orders/$PATH_SEND_STATE")
+    @PUT("orders/$PATH_SEND_STATE")
     suspend fun sendOrderState(
         @Body orderStateRequest: OrderStateRequestModel
-    ): Response<BaseResponse<List<OrderResponseModel>>>
+    ): Response<BaseResponse<OrderResponseModel>>
+
+    @DELETE("orders/$PATH_ARCHIVE/{orderId}")
+    suspend fun archiveOrder(@Path("orderId") orderId: String): Response<BaseResponse<Unit>>
 }
 
 @ServiceClient(type = UrlProvider.Type.API_PRODUCTS)

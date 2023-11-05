@@ -1,10 +1,12 @@
 package com.afoxplus.yalistoadmin.di.module
 
 import com.afoxplus.yalistoadmin.data.repository.AuthRepositoryData
+import com.afoxplus.yalistoadmin.data.repository.OrderRepositoryData
 import com.afoxplus.yalistoadmin.data.repository.OrderStatusRepositoryData
 import com.afoxplus.yalistoadmin.data.repository.ProductRepositoryData
 import com.afoxplus.yalistoadmin.data.repository.StatesRepositoryData
 import com.afoxplus.yalistoadmin.domain.repository.AuthRepository
+import com.afoxplus.yalistoadmin.domain.repository.OrderRepository
 import com.afoxplus.yalistoadmin.domain.repository.OrderStatusRepository
 import com.afoxplus.yalistoadmin.domain.repository.ProductRepository
 import com.afoxplus.yalistoadmin.domain.repository.StatesRepository
@@ -36,4 +38,9 @@ abstract class RepositoryModule {
     abstract fun bindProductRepository(
         productRepositoryData: ProductRepositoryData
     ): ProductRepository
+
+    @Binds
+    abstract fun bindOrderRepository(
+        orderRepository: OrderRepositoryData
+    ): OrderRepository
 }
