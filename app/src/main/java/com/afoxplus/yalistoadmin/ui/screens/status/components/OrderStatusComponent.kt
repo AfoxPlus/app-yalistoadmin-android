@@ -41,7 +41,7 @@ fun OrderDetailItem(
         if (product.isMenu()) {
             Column(
                 modifier = Modifier
-                    .background(color = UIKitTheme.colors.gray800, shape = RoundedCornerShape(4.dp))
+                    .background(color = UIKitTheme.colors.blue600, shape = RoundedCornerShape(4.dp))
                     .padding(4.dp)
             ) {
                 Text(

@@ -71,7 +71,7 @@ fun OrderAppetizersComponent(modifier: Modifier = Modifier, list: List<Product>)
                     0f
                 )
                 drawLine(
-                    color = UIKitColorTheme.gray100,
+                    color = UIKitColorTheme.gray200,
                     strokeWidth = 2.dp.toPx(),
                     start = Offset(x = 0f, y = 0f),
                     end = Offset(x = size.width, y = 0f),
