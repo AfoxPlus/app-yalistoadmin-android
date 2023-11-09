@@ -41,13 +41,13 @@ fun OrderDetailItem(
         if (product.isMenu()) {
             Column(
                 modifier = Modifier
-                    .background(color = UIKitTheme.colors.blue600, shape = RoundedCornerShape(4.dp))
+                    .background(color = UIKitTheme.colors.blue100, shape = RoundedCornerShape(4.dp))
                     .padding(4.dp)
             ) {
                 Text(
                     text = product.productType ?: stringResource(R.string.order_menu),
-                    color = UIKitTheme.colors.light01,
-                    style = UIKitTheme.typography.paragraph02,
+                    color = UIKitTheme.colors.blue700,
+                    style = UIKitTheme.typography.paragraph02Bold,
                     textAlign = TextAlign.Center
                 )
             }
