@@ -8,7 +8,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
-import com.afoxplus.uikitcompose.ui.theme.Orange01
+import com.afoxplus.uikit.designsystem.foundations.UIKitTheme
 import com.afoxplus.yalistoadmin.R
 
 @Composable
@@ -23,7 +23,7 @@ fun LoginLogoComponent(
         Icon(
             painter = painterResource(id = R.drawable.yalisto_logo),
             contentDescription = "yalisto_logo",
-            tint = Orange01
+            tint = UIKitTheme.colors.primaryColor
         )
     }
 }

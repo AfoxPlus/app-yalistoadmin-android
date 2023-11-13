@@ -37,30 +37,30 @@ fun Context.generateOrderPDF(order: Order): String {
 
     canvas.drawText(order.restaurant, pageWidth / 2.8F, 80F, title)
     canvas.drawLine(0F, 100F, pageWidth * 1F, 100F, paint)
-    canvas.drawText("Order Detail", pageWidth / 2.8F, 120F, title)
+    canvas.drawText("ORDEN: ${order.number}", pageWidth / 2.8F, 120F, title)
     canvas.drawLine(0F, 140F, pageWidth * 1F, 140F, paint)
-    canvas.drawText("Cliente: ${order.client.name}                   ", xPosition, 160F, title)
+    canvas.drawText("Cliente: ${order.client.name.uppercase()}                   ", xPosition, 160F, title)
     canvas.drawText("Fecha:  ${order.date}                           ", xPosition, 180F, title)
     if (order.orderType.code == "DELI") {
-        canvas.drawText("Delivery                                    ", xPosition, 200F, title)
+        canvas.drawText("${order.orderType.title.uppercase()}                                    ", xPosition, 200F, title)
     } else {
-        canvas.drawText("Mesa:   ${order.orderType.description}          ", xPosition, 200F, title)
+        canvas.drawText("MESA:   ${order.orderType.description}          ", xPosition, 200F, title)
     }
     canvas.drawLine(0F, 220F, pageWidth * 1F, 220F, paint)
-    canvas.drawText("Cant.  Descripcion", xPosition, 260F, title)
+    canvas.drawText("CANT.     DESCRIPCION", xPosition, 260F, title)
 
     var positionY = 280F
     order.detail.forEach {
         positionY += 20F
         canvas.drawText(
-            "${it.quantity} ${if (it.isMenu()) "(M) " else "      "} ${it.title}              ",
+            "${it.quantity} ${if (it.isMenu()) "(M) " else "      "} ${it.title.uppercase()}              ",
             xPosition,
             positionY,
             title
         )
         it.subDetail.forEach { detail ->
             positionY += 20F
-            canvas.drawText("${it.quantity}         ${detail.title}", xPosition, positionY, title)
+            canvas.drawText("${it.quantity}         ${detail.title.uppercase()}", xPosition, positionY, title)
         }
     }
 

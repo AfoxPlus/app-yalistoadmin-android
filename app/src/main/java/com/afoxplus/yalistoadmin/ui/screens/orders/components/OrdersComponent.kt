@@ -8,8 +8,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.unit.dp
-import com.afoxplus.uikitcompose.ui.theme.Light01
+import com.afoxplus.uikit.designsystem.foundations.UIKitTheme
 import com.afoxplus.yalistoadmin.domain.entities.Order
 
 @Composable
@@ -21,9 +20,12 @@ fun OrdersComponent(
     LazyColumn(
         modifier = modifier
             .fillMaxSize()
-            .background(color = Light01),
-        verticalArrangement = Arrangement.spacedBy(10.dp),
-        contentPadding = PaddingValues(horizontal = 8.dp, vertical = 16.dp)
+            .background(color = UIKitTheme.colors.light01),
+        verticalArrangement = Arrangement.spacedBy(UIKitTheme.spacing.spacing10),
+        contentPadding = PaddingValues(
+            horizontal = UIKitTheme.spacing.spacing08,
+            vertical = UIKitTheme.spacing.spacing16
+        )
     ) {
         items(orders.size) {
             ItemOrderComponent(

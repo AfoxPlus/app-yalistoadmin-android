@@ -28,15 +28,11 @@ import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.constraintlayout.compose.Dimension
 import androidx.hilt.navigation.compose.hiltViewModel
-import com.afoxplus.uikitcompose.ui.components.BottomSheetComponent
-import com.afoxplus.uikitcompose.ui.components.ButtonOutlineYaListoComponent
-import com.afoxplus.uikitcompose.ui.components.ButtonYaListoComponent
-import com.afoxplus.uikitcompose.ui.components.ToolbarComponent
-import com.afoxplus.uikitcompose.ui.theme.Dark05
-import com.afoxplus.uikitcompose.ui.theme.Header05SemiBold
-import com.afoxplus.uikitcompose.ui.theme.Light01
-import com.afoxplus.uikitcompose.ui.theme.Light03
-import com.afoxplus.uikitcompose.ui.theme.Light04
+import com.afoxplus.uikit.designsystem.atoms.UIKitButtonOutlineLarge
+import com.afoxplus.uikit.designsystem.atoms.UIKitButtonPrimaryLarge
+import com.afoxplus.uikit.designsystem.foundations.UIKitTheme
+import com.afoxplus.uikit.designsystem.molecules.UIKitTopBar
+import com.afoxplus.uikit.designsystem.organisms.UIKitBottomSheet
 import com.afoxplus.yalistoadmin.R
 import com.afoxplus.yalistoadmin.commons.utils.generateOrderPDF
 import com.afoxplus.yalistoadmin.commons.utils.sharePDF
@@ -67,13 +63,13 @@ fun OrderStatusScreen(
     ConstraintLayout(
         modifier = Modifier
             .fillMaxSize()
-            .background(Light04)
+            .background(UIKitTheme.colors.orange25)
     ) {
         val (toolbar, contentBox, footer) = createRefs()
 
-        ToolbarComponent(
+        UIKitTopBar(
             modifier = Modifier
-                .background(color = Light01)
+                .background(color = UIKitTheme.colors.light01)
                 .constrainAs(toolbar) {
                     top.linkTo(parent.top)
                     start.linkTo(parent.start)
@@ -95,7 +91,6 @@ fun OrderStatusScreen(
                     height = Dimension.fillToConstraints
                     width = Dimension.fillToConstraints
                 }
-                .background(Light04)
         ) {
             item {
                 Spacer(modifier = Modifier.height(12.dp))
@@ -128,7 +123,7 @@ fun OrderStatusScreen(
             }
             items(order.detail.size) {
                 OrderDetailItem(product = order.detail[it])
-                Divider(modifier = Modifier.height(1.dp), color = Light03)
+                Divider(modifier = Modifier.height(1.dp), color = UIKitTheme.colors.gray100)
             }
 
             item {
@@ -139,7 +134,7 @@ fun OrderStatusScreen(
 
         ConstraintLayout(
             modifier = Modifier
-                .background(Light01)
+                .background(UIKitTheme.colors.light01)
                 .constrainAs(footer) {
                     bottom.linkTo(parent.bottom)
                     start.linkTo(parent.start)
@@ -151,7 +146,7 @@ fun OrderStatusScreen(
             Text(
                 modifier = Modifier
                     .height(35.dp)
-                    .background(Dark05)
+                    .background(UIKitTheme.colors.gray800)
                     .wrapContentHeight(align = Alignment.CenterVertically)
                     .constrainAs(textState) {
                         top.linkTo(parent.top)
@@ -161,11 +156,11 @@ fun OrderStatusScreen(
                     },
                 text = order.state,
                 textAlign = TextAlign.Center,
-                color = Light01,
-                style = Header05SemiBold
+                color = UIKitTheme.colors.light01,
+                style = UIKitTheme.typography.header05SemiBold
             )
 
-            ButtonYaListoComponent(
+            UIKitButtonPrimaryLarge(
                 modifier = Modifier.constrainAs(buttonUpdate) {
                     top.linkTo(textState.bottom, margin = 16.dp)
                     start.linkTo(parent.start, margin = 16.dp)
@@ -188,7 +183,7 @@ fun OrderStatusScreen(
                 }
             )
 
-            ButtonOutlineYaListoComponent(
+            UIKitButtonOutlineLarge(
                 modifier = Modifier.constrainAs(buttonPrint) {
                     top.linkTo(buttonUpdate.bottom, margin = 12.dp)
                     start.linkTo(parent.start, margin = 16.dp)
@@ -204,7 +199,7 @@ fun OrderStatusScreen(
             }
 
             if (isSheetOpen) {
-                BottomSheetComponent(
+                UIKitBottomSheet(
                     title = stringResource(id = R.string.order_states_list),
                     list = statesOrder,
                     description = {

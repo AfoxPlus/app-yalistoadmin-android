@@ -8,7 +8,6 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Divider
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -17,11 +16,7 @@ import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
-import com.afoxplus.uikitcompose.ui.theme.Dark01
-import com.afoxplus.uikitcompose.ui.theme.Dark05
-import com.afoxplus.uikitcompose.ui.theme.Header05SemiBold
-import com.afoxplus.uikitcompose.ui.theme.Light03
-import com.afoxplus.uikitcompose.ui.theme.Paragraph02
+import com.afoxplus.uikit.designsystem.foundations.UIKitTheme
 import com.afoxplus.yalistoadmin.domain.entities.Restaurant
 
 @Composable
@@ -30,7 +25,7 @@ fun InfoBusinessComponent(restaurant: Restaurant) {
         Row(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(16.dp),
+                .padding(UIKitTheme.spacing.spacing16),
             horizontalArrangement = Arrangement.Center
         ) {
             AsyncImage(
@@ -39,7 +34,7 @@ fun InfoBusinessComponent(restaurant: Restaurant) {
                     .height(80.dp)
                     .shadow(
                         elevation = 5.dp,
-                        shape = RoundedCornerShape(8.dp),
+                        shape = UIKitTheme.shapes.small,
                         clip = true
                     ),
                 model = restaurant.image,
@@ -50,13 +45,17 @@ fun InfoBusinessComponent(restaurant: Restaurant) {
             Column(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(18.dp)
+                    .padding(UIKitTheme.spacing.spacing18)
             ) {
-                Text(text = restaurant.description, style = Paragraph02, color = Dark05)
-                Spacer(modifier = Modifier.height(4.dp))
-                Text(text = restaurant.name, style = Header05SemiBold, color = Dark01)
+                Text(
+                    text = restaurant.description,
+                    style = UIKitTheme.typography.paragraph02,
+                    color = UIKitTheme.colors.gray500
+                )
+                Spacer(modifier = Modifier.height(UIKitTheme.spacing.spacing04))
+                Text(text = restaurant.name, style = UIKitTheme.typography.header05SemiBold)
             }
         }
-        Divider(color = Light03, thickness = 2.dp)
+        Divider(color = UIKitTheme.colors.gray100, thickness = UIKitTheme.spacing.spacing02)
     }
 }

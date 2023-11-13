@@ -16,12 +16,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.constraintlayout.compose.Dimension
-import com.afoxplus.uikitcompose.ui.theme.Dark02
-import com.afoxplus.uikitcompose.ui.theme.Dark04
-import com.afoxplus.uikitcompose.ui.theme.Gray01
-import com.afoxplus.uikitcompose.ui.theme.Paragraph01
-import com.afoxplus.uikitcompose.ui.theme.Paragraph01SemiBold
-import com.afoxplus.uikitcompose.ui.theme.UiKitComposeTheme
+import com.afoxplus.uikit.designsystem.foundations.UIKitColorTheme
+import com.afoxplus.uikit.designsystem.foundations.UIKitTheme
 import com.afoxplus.yalistoadmin.R
 import com.afoxplus.yalistoadmin.domain.entities.Product
 
@@ -39,8 +35,8 @@ fun OrderAppetizerItemComponent(modifier: Modifier = Modifier, product: Product)
                 },
             text = product.title,
             textAlign = TextAlign.Start,
-            color = Dark04,
-            style = Paragraph01
+            color = UIKitTheme.colors.gray500,
+            style = UIKitTheme.typography.paragraph01
         )
 
         Text(
@@ -50,8 +46,8 @@ fun OrderAppetizerItemComponent(modifier: Modifier = Modifier, product: Product)
                 end.linkTo(parent.end)
             },
             text = stringResource(id = R.string.order_quantity, product.quantity),
-            color = Dark02,
-            style = Paragraph01
+            color = UIKitTheme.colors.gray700,
+            style = UIKitTheme.typography.paragraph01
         )
     }
 }
@@ -75,7 +71,7 @@ fun OrderAppetizersComponent(modifier: Modifier = Modifier, list: List<Product>)
                     0f
                 )
                 drawLine(
-                    color = Gray01,
+                    color = UIKitColorTheme.gray200,
                     strokeWidth = 2.dp.toPx(),
                     start = Offset(x = 0f, y = 0f),
                     end = Offset(x = size.width, y = 0f),
@@ -88,8 +84,8 @@ fun OrderAppetizersComponent(modifier: Modifier = Modifier, list: List<Product>)
                 modifier = modifier
                     .padding(0.dp, 4.dp, 0.dp, 0.dp),
                 text = stringResource(id = R.string.order_appetizers),
-                color = Dark02,
-                style = Paragraph01SemiBold
+                color = UIKitTheme.colors.secondaryColor,
+                style = UIKitTheme.typography.paragraph01SemiBold
             )
         }
         items(list.size) {
@@ -101,7 +97,7 @@ fun OrderAppetizersComponent(modifier: Modifier = Modifier, list: List<Product>)
 @Composable
 @Preview(showBackground = true)
 fun OrderAppetizersComponentPreview() {
-    UiKitComposeTheme {
+    UIKitTheme {
         OrderAppetizersComponent(
             list = listOf(
                 Product(

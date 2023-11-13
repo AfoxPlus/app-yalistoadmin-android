@@ -8,7 +8,7 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
-import com.afoxplus.uikitcompose.ui.components.LoadingYaListoAnimation
+import com.afoxplus.uikit.designsystem.molecules.UIKitLoading
 import com.afoxplus.yalistoadmin.ui.screens.login.LoginViewModel
 
 @Composable
@@ -28,6 +28,6 @@ fun CheckInScreen(
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        LoadingYaListoAnimation()
+        UIKitLoading()
     }
 }

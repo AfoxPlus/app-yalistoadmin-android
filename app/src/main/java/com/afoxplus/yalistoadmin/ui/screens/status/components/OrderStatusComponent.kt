@@ -21,17 +21,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.afoxplus.uikitcompose.ui.theme.Dark02
-import com.afoxplus.uikitcompose.ui.theme.Dark03
-import com.afoxplus.uikitcompose.ui.theme.Dark05
-import com.afoxplus.uikitcompose.ui.theme.Header02Bold
-import com.afoxplus.uikitcompose.ui.theme.Header05
-import com.afoxplus.uikitcompose.ui.theme.Light01
-import com.afoxplus.uikitcompose.ui.theme.Light03
-import com.afoxplus.uikitcompose.ui.theme.Paragraph01
-import com.afoxplus.uikitcompose.ui.theme.Paragraph01Bold
-import com.afoxplus.uikitcompose.ui.theme.Paragraph02
-import com.afoxplus.uikitcompose.ui.theme.UiKitComposeTheme
+import com.afoxplus.uikit.designsystem.foundations.UIKitTheme
 import com.afoxplus.yalistoadmin.R
 import com.afoxplus.yalistoadmin.domain.entities.Product
 
@@ -43,7 +33,7 @@ fun OrderDetailItem(
     Column(
         modifier = modifier
             .fillMaxWidth()
-            .background(Light01)
+            .background(UIKitTheme.colors.light01)
             .padding(horizontal = 16.dp, vertical = 8.dp),
         verticalArrangement = Arrangement.spacedBy(2.dp, Alignment.Top),
         horizontalAlignment = Alignment.Start
@@ -51,27 +41,27 @@ fun OrderDetailItem(
         if (product.isMenu()) {
             Column(
                 modifier = Modifier
-                    .background(color = Dark03, shape = RoundedCornerShape(4.dp))
+                    .background(color = UIKitTheme.colors.blue100, shape = RoundedCornerShape(4.dp))
                     .padding(4.dp)
             ) {
                 Text(
                     text = product.productType ?: stringResource(R.string.order_menu),
-                    color = Light01,
-                    style = Paragraph02,
+                    color = UIKitTheme.colors.blue700,
+                    style = UIKitTheme.typography.paragraph02Bold,
                     textAlign = TextAlign.Center
                 )
             }
         }
         Text(
             text = product.title,
-            color = Dark02,
-            style = Header05
+            color = UIKitTheme.colors.secondaryColor,
+            style = UIKitTheme.typography.header05
         )
         Row(modifier = Modifier.fillMaxWidth()) {
             Text(
                 text = product.unitPrice ?: "",
-                color = Dark02,
-                style = Paragraph01
+                color = UIKitTheme.colors.blueGray700,
+                style = UIKitTheme.typography.paragraph01
             )
             Spacer(modifier = Modifier.width(8.dp))
             Text(
@@ -79,15 +69,15 @@ fun OrderDetailItem(
                     R.string.order_quantity,
                     product.quantity.toString()
                 ),
-                color = Dark02,
-                style = Paragraph01
+                color = UIKitTheme.colors.blueGray700,
+                style = UIKitTheme.typography.paragraph01
             )
             Text(
                 modifier = Modifier.weight(1f),
                 text = product.subTotal ?: "",
-                color = Dark02,
+                color = UIKitTheme.colors.secondaryColor,
                 textAlign = TextAlign.End,
-                style = Paragraph01Bold
+                style = UIKitTheme.typography.paragraph01Bold
             )
         }
         if (product.isMenu()) {
@@ -106,7 +96,7 @@ fun OrderDetailTotalItem(modifier: Modifier = Modifier, total: String, paymentMe
         modifier = modifier
             .fillMaxWidth(),
         shape = RoundedCornerShape(bottomStart = 4.dp, bottomEnd = 4.dp),
-        colors = CardDefaults.cardColors(containerColor = Light01)
+        colors = CardDefaults.cardColors(containerColor = UIKitTheme.colors.light01)
     ) {
         Column(
             modifier = modifier
@@ -117,23 +107,21 @@ fun OrderDetailTotalItem(modifier: Modifier = Modifier, total: String, paymentMe
         ) {
             Text(
                 text = stringResource(id = R.string.order_status_total_label),
-                color = Dark02,
-                style = Paragraph01
+                color = UIKitTheme.colors.blueGray700,
+                style = UIKitTheme.typography.paragraph01
             )
             Text(
                 text = total,
-                color = Dark02,
-                style = Header02Bold
+                style = UIKitTheme.typography.header02Bold
             )
             Text(
                 text = stringResource(id = R.string.order_status_payment_method_label),
-                color = Dark02,
-                style = Paragraph01
+                color = UIKitTheme.colors.blueGray700,
+                style = UIKitTheme.typography.paragraph01
             )
             Text(
                 text = paymentMethod,
-                color = Dark05,
-                style = Paragraph02
+                style = UIKitTheme.typography.paragraph02
             )
         }
     }
@@ -142,7 +130,7 @@ fun OrderDetailTotalItem(modifier: Modifier = Modifier, total: String, paymentMe
 @Preview(showBackground = true)
 @Composable
 fun OrderDetailItemPreview() {
-    UiKitComposeTheme {
+    UIKitTheme {
         Column {
             OrderDetailItem(
                 product = Product(
@@ -177,7 +165,7 @@ fun OrderDetailItemPreview() {
                     )
                 )
             )
-            Divider(modifier = Modifier.height(1.dp), color = Light03)
+            Divider(modifier = Modifier.height(1.dp), color = UIKitTheme.colors.gray100)
             OrderDetailItem(
                 product = Product(
                     productId = "02",
@@ -190,7 +178,7 @@ fun OrderDetailItemPreview() {
                     subDetail = listOf()
                 )
             )
-            Divider(modifier = Modifier.height(1.dp), color = Light03)
+            Divider(modifier = Modifier.height(1.dp), color = UIKitTheme.colors.gray100)
             OrderDetailTotalItem(total = "S/ 50.30", paymentMethod = "Efectivo")
         }
     }

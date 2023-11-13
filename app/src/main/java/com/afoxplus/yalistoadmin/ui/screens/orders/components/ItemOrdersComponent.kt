@@ -28,18 +28,12 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.afoxplus.uikitcompose.ui.components.CardOrderTypeComponent
-import com.afoxplus.uikitcompose.ui.components.OrderType
-import com.afoxplus.uikitcompose.ui.components.OrderTypeVO
-import com.afoxplus.uikitcompose.ui.theme.Dark01
-import com.afoxplus.uikitcompose.ui.theme.Dark04
-import com.afoxplus.uikitcompose.ui.theme.Dark05
-import com.afoxplus.uikitcompose.ui.theme.Gray01
-import com.afoxplus.uikitcompose.ui.theme.Header04Bold
-import com.afoxplus.uikitcompose.ui.theme.Light01
-import com.afoxplus.uikitcompose.ui.theme.Light03
-import com.afoxplus.uikitcompose.ui.theme.Paragraph01SemiBold
-import com.afoxplus.uikitcompose.ui.theme.Paragraph02
+import com.afoxplus.uikit.designsystem.atoms.UIKitText
+import com.afoxplus.uikit.designsystem.businesscomponents.UIKitCardOrderType
+import com.afoxplus.uikit.designsystem.businesscomponents.UIKitOrderType
+import com.afoxplus.uikit.designsystem.businesscomponents.UIKitOrderTypeVO
+import com.afoxplus.uikit.designsystem.foundations.UIKitColorTheme
+import com.afoxplus.uikit.designsystem.foundations.UIKitTheme
 import com.afoxplus.yalistoadmin.R
 import com.afoxplus.yalistoadmin.domain.entities.Client
 import com.afoxplus.yalistoadmin.domain.entities.Order
@@ -62,7 +56,7 @@ fun ItemOrderComponent(
             modifier = modifier
                 .padding(horizontal = 8.dp)
                 .fillMaxWidth()
-                .background(color = Light03, shape = RoundedCornerShape(8.dp))
+                .background(color = UIKitTheme.colors.gray200, shape = RoundedCornerShape(8.dp))
         ) {
             Row(
                 modifier = Modifier
@@ -77,29 +71,32 @@ fun ItemOrderComponent(
                 ) {
                     Text(
                         text = stringResource(id = R.string.order_status_client),
-                        color = Dark04,
-                        style = Paragraph02
+                        color = UIKitTheme.colors.gray700,
+                        style = UIKitTheme.typography.paragraph02
                     )
                     Spacer(modifier = Modifier.height(3.dp))
-                    Text(text = order.client.name, color = Dark01, style = Paragraph01SemiBold)
+                    Text(
+                        text = order.client.name,
+                        style = UIKitTheme.typography.paragraph01SemiBold
+                    )
                     Spacer(modifier = Modifier.height(8.dp))
                     Row(modifier = Modifier.fillMaxWidth()) {
-                        CardOrderTypeComponent(
+                        UIKitCardOrderType(
                             modifier = Modifier.weight(1.5f),
-                            orderTypeVO = OrderTypeVO(
+                            orderTypeVO = UIKitOrderTypeVO(
                                 order.orderType.title,
                                 description = order.orderType.description
                             ),
-                            orderType = if (order.orderType.code == "DELI") OrderType.Delivery() else OrderType.Table()
+                            orderType = if (order.orderType.code == "DELI") UIKitOrderType.Delivery() else UIKitOrderType.Table()
                         )
                         Spacer(modifier = Modifier.width(5.dp))
-                        CardOrderTypeComponent(
+                        UIKitCardOrderType(
                             modifier = Modifier.weight(3f),
-                            orderTypeVO = OrderTypeVO(
+                            orderTypeVO = UIKitOrderTypeVO(
                                 stringResource(id = R.string.order_status_total),
                                 description = order.total
                             ),
-                            orderType = OrderType.Amount()
+                            orderType = UIKitOrderType.Amount()
                         )
                     }
                 }
@@ -117,7 +114,7 @@ fun ItemOrderComponent(
                             0f
                         )
                         drawLine(
-                            color = Gray01,
+                            color = UIKitColorTheme.gray400,
                             strokeWidth = 2.dp.toPx(),
                             start = Offset(x = size.width / 2, y = 0f),
                             end = Offset(x = size.width / 2, y = size.height),
@@ -133,29 +130,32 @@ fun ItemOrderComponent(
                 ) {
                     Column(
                         modifier = Modifier
-                            .background(color = Dark05, shape = RoundedCornerShape(10.dp))
+                            .background(
+                                color = UIKitTheme.colors.gray900,
+                                shape = RoundedCornerShape(10.dp)
+                            )
                             .padding(4.dp)
                     ) {
                         Text(
                             modifier = Modifier.fillMaxWidth(),
                             text = order.state,
-                            color = Light01,
-                            style = Paragraph02,
+                            color = UIKitTheme.colors.light01,
+                            style = UIKitTheme.typography.paragraph02,
                             textAlign = TextAlign.Center
                         )
                     }
                     Column(
                         modifier = Modifier.fillMaxWidth()
                     ) {
-                        Text(
+                        UIKitText(
                             modifier = Modifier
                                 .fillMaxWidth(),
                             text = String.format(
                                 stringResource(id = R.string.order_status_id),
                                 order.number
                             ),
-                            color = Dark04,
-                            style = Header04Bold,
+                            color = UIKitTheme.colors.gray600,
+                            style = UIKitTheme.typography.header04Bold,
                             textAlign = TextAlign.End
                         )
                     }
@@ -167,7 +167,7 @@ fun ItemOrderComponent(
                 .align(Alignment.CenterStart)
                 .size(16.dp)
                 .background(
-                    color = Light01,
+                    color = UIKitTheme.colors.light01,
                     shape = CircleShape
                 )
         )
@@ -177,7 +177,7 @@ fun ItemOrderComponent(
                 .align(Alignment.CenterEnd)
                 .size(16.dp)
                 .background(
-                    color = Light01,
+                    color = UIKitTheme.colors.light01,
                     shape = CircleShape
                 )
         )
@@ -186,7 +186,7 @@ fun ItemOrderComponent(
 
 @Preview
 @Composable
-fun ItemOrderComponentPreview() {
+fun ItemOrderComponentPreview() = UIKitTheme {
     Column {
         ItemOrderComponent(
             order = Order(

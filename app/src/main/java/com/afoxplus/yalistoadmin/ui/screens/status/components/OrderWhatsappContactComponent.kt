@@ -18,14 +18,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.afoxplus.uikitcompose.ui.extensions.noRippleClickable
-import com.afoxplus.uikitcompose.ui.theme.Dark01
-import com.afoxplus.uikitcompose.ui.theme.Dark02
-import com.afoxplus.uikitcompose.ui.theme.Green02
-import com.afoxplus.uikitcompose.ui.theme.Light01
-import com.afoxplus.uikitcompose.ui.theme.Paragraph01
-import com.afoxplus.uikitcompose.ui.theme.Paragraph01SemiBold
-import com.afoxplus.uikitcompose.ui.theme.UiKitComposeTheme
+import com.afoxplus.uikit.designsystem.extensions.noRippleClickable
+import com.afoxplus.uikit.designsystem.foundations.UIKitTheme
 import com.afoxplus.yalistoadmin.R
 
 @Composable
@@ -41,7 +35,7 @@ fun OrderWhatsappContactComponent(
             .fillMaxWidth()
             .noRippleClickable { onClick() },
         shape = RoundedCornerShape(4.dp),
-        colors = CardDefaults.cardColors(containerColor = Light01)
+        colors = CardDefaults.cardColors(containerColor = UIKitTheme.colors.light01)
     ) {
         Row(
             modifier = modifier
@@ -56,19 +50,19 @@ fun OrderWhatsappContactComponent(
             ) {
                 Text(
                     text = clientName,
-                    color = Dark02,
-                    style = Paragraph01SemiBold
+                    color = UIKitTheme.colors.blueGray800,
+                    style = UIKitTheme.typography.paragraph01SemiBold
                 )
                 Text(
                     text = phoneNumber,
-                    color = Dark02,
-                    style = Paragraph01SemiBold
+                    color = UIKitTheme.colors.blueGray800,
+                    style = UIKitTheme.typography.paragraph01SemiBold
                 )
                 if (description.isNotEmpty()) {
                     Text(
                         text = description,
-                        color = Dark01,
-                        style = Paragraph01
+                        color = UIKitTheme.colors.gray600,
+                        style = UIKitTheme.typography.paragraph01
                     )
                 }
             }
@@ -79,7 +73,7 @@ fun OrderWhatsappContactComponent(
                     .height(36.dp),
                 painter = painterResource(id = R.drawable.logo_whatsapp_icon),
                 contentDescription = "logo_whatsapp_icon",
-                tint = Green02
+                tint = UIKitTheme.colors.green400
             )
         }
     }
@@ -88,7 +82,7 @@ fun OrderWhatsappContactComponent(
 @Preview(showBackground = true)
 @Composable
 fun OrderWhatsappContactComponentPreview() {
-    UiKitComposeTheme {
+    UIKitTheme {
         Column {
             OrderWhatsappContactComponent(
                 phoneNumber = "932534599",

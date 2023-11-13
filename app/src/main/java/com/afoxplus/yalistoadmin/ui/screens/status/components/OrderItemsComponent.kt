@@ -10,9 +10,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.afoxplus.uikitcompose.ui.theme.Light01
-import com.afoxplus.uikitcompose.ui.theme.Light03
-import com.afoxplus.uikitcompose.ui.theme.UiKitComposeTheme
+import com.afoxplus.uikit.designsystem.foundations.UIKitTheme
 import com.afoxplus.yalistoadmin.domain.entities.Product
 
 @Composable
@@ -23,12 +21,12 @@ fun OrderItemsComponent(
     LazyColumn(
         modifier = modifier
             .fillMaxWidth()
-            .background(color = Light01),
+            .background(color = UIKitTheme.colors.light01),
         verticalArrangement = Arrangement.spacedBy(4.dp)
     ) {
         items(list.size) {
             OrderDetailItem(product = list[it])
-            Divider(modifier = Modifier.height(1.dp), color = Light03)
+            Divider(modifier = Modifier.height(1.dp), color = UIKitTheme.colors.gray100)
         }
     }
 }
@@ -36,7 +34,7 @@ fun OrderItemsComponent(
 @Preview(showBackground = true)
 @Composable
 fun OrderItemsComponentPreview() {
-    UiKitComposeTheme {
+    UIKitTheme {
         OrderItemsComponent(
             list = listOf(
                 Product(

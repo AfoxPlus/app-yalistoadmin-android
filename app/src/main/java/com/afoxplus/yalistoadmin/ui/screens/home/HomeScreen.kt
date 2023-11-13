@@ -18,18 +18,12 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavDestination
 import androidx.navigation.NavDestination.Companion.hierarchy
-import com.afoxplus.uikitcompose.ui.theme.Dark01
-import com.afoxplus.uikitcompose.ui.theme.Light01
-import com.afoxplus.uikitcompose.ui.theme.Light05
-import com.afoxplus.uikitcompose.ui.theme.Mulish
-import com.afoxplus.uikitcompose.ui.theme.Orange01
+import com.afoxplus.uikit.designsystem.foundations.UIKitTheme
 import com.afoxplus.yalistoadmin.R
 import com.afoxplus.yalistoadmin.domain.entities.Auth
 import com.afoxplus.yalistoadmin.domain.entities.Restaurant
@@ -94,7 +88,7 @@ fun BottomBarYaListo(
     appState: YaListoHomeState,
     onNavigateToDestination: (BottomBarHomeRouter) -> Unit
 ) {
-    NavigationBar(modifier = modifier, containerColor = Light05) {
+    NavigationBar(modifier = modifier, containerColor = UIKitTheme.colors.blueGray25) {
         appState.bottomBarHomeRouters.forEach { screen ->
             AddItem(
                 screen = screen,
@@ -115,9 +109,7 @@ fun RowScope.AddItem(
         label = {
             Text(
                 text = screen.title,
-                fontFamily = Mulish,
-                fontSize = 12.sp,
-                fontWeight = FontWeight.Medium
+                style = UIKitTheme.typography.paragraph02
             )
         },
         icon = {
@@ -130,11 +122,11 @@ fun RowScope.AddItem(
             it.route == screen.route
         } == true,
         colors = NavigationBarItemDefaults.colors(
-            selectedIconColor = Light01,
-            unselectedIconColor = Dark01,
-            selectedTextColor = Orange01,
-            unselectedTextColor = Dark01,
-            indicatorColor = Orange01
+            selectedIconColor = UIKitTheme.colors.light01,
+            unselectedIconColor = UIKitTheme.colors.secondaryColor,
+            selectedTextColor = UIKitTheme.colors.primaryColor,
+            unselectedTextColor = UIKitTheme.colors.secondaryColor,
+            indicatorColor = UIKitTheme.colors.primaryColor
         ),
 
         onClick = { onNavigateToDestination(screen) }

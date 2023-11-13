@@ -9,7 +9,6 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -24,14 +23,10 @@ import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.afoxplus.uikitcompose.ui.components.ButtonYaListoComponent
-import com.afoxplus.uikitcompose.ui.components.TextFieldYaListoComponent
-import com.afoxplus.uikitcompose.ui.theme.Dark01
-import com.afoxplus.uikitcompose.ui.theme.Dark05
-import com.afoxplus.uikitcompose.ui.theme.Header04Bold
-import com.afoxplus.uikitcompose.ui.theme.Light01
-import com.afoxplus.uikitcompose.ui.theme.Paragraph01
-import com.afoxplus.uikitcompose.ui.theme.Paragraph02
+import com.afoxplus.uikit.designsystem.atoms.UIKitButtonPrimaryLarge
+import com.afoxplus.uikit.designsystem.atoms.UIKitText
+import com.afoxplus.uikit.designsystem.atoms.UIKitTextField
+import com.afoxplus.uikit.designsystem.foundations.UIKitTheme
 import com.afoxplus.yalistoadmin.R
 
 @Composable
@@ -51,49 +46,48 @@ fun LoginCardComponent(
         Card(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(12.dp),
-            colors = CardDefaults.cardColors(containerColor = Light01)
+                .padding(UIKitTheme.spacing.spacing12),
+            colors = CardDefaults.cardColors(containerColor = UIKitTheme.colors.light01)
         ) {
             Column(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(24.dp)
+                    .padding(UIKitTheme.spacing.spacing24)
             ) {
-                Text(
+                UIKitText(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .padding(start = 10.dp, end = 10.dp),
+                        .padding(horizontal = UIKitTheme.spacing.spacing10),
                     textAlign = TextAlign.Start,
                     text = stringResource(id = R.string.login_card_title),
-                    color = Dark01,
-                    style = Header04Bold
+                    style = UIKitTheme.typography.header04Bold
                 )
                 Spacer(modifier = Modifier.height(6.dp))
-                Text(
+                UIKitText(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .padding(start = 10.dp, end = 10.dp),
+                        .padding(horizontal = UIKitTheme.spacing.spacing10),
                     textAlign = TextAlign.Start,
                     text = stringResource(id = R.string.login_card_subtitle),
-                    color = Dark05,
-                    style = Paragraph01
+                    color = UIKitTheme.colors.blueGray800,
+                    style = UIKitTheme.typography.paragraph01
                 )
                 Spacer(modifier = Modifier.height(42.dp))
-                Text(
+                UIKitText(
                     modifier = Modifier
                         .fillMaxWidth(),
                     text = stringResource(id = R.string.login_card_input_title),
                     textAlign = TextAlign.Start,
-                    color = Dark05,
-                    style = Paragraph02
+                    color = UIKitTheme.colors.gray500,
+                    style = UIKitTheme.typography.paragraph02
                 )
-                Spacer(modifier = Modifier.height(2.dp))
-                TextFieldYaListoComponent(
+                Spacer(modifier = Modifier.height(UIKitTheme.spacing.spacing02))
+                UIKitTextField(
                     modifier = Modifier.fillMaxWidth(),
                     onValueChange = { inputText = it }
                 )
                 Spacer(modifier = Modifier.height(32.dp))
-                ButtonYaListoComponent(
+                UIKitButtonPrimaryLarge(
                     text = stringResource(id = R.string.ingresar),
                     enabled = enabled,
                     onClick = {
@@ -108,7 +102,7 @@ fun LoginCardComponent(
 
 @Preview
 @Composable
-fun LoginCardComponentPreview() {
+fun LoginCardComponentPreview() = UIKitTheme {
     val focusManager = LocalFocusManager.current
     Column {
         LoginCardComponent(focusManager = focusManager, enabled = true, onLogin = {})
