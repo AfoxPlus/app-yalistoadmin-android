@@ -175,5 +175,5 @@ dependencies {
 
     // Business
     implementation("com.afoxplus.android:network:6.0.0")
-    implementation("com.afoxplus.android:uikit:6.0.1")
+    implementation("com.afoxplus.android:uikit:6.0.2")
 }
