@@ -174,6 +174,6 @@ dependencies {
     releaseImplementation("com.github.chuckerteam.chucker:library-no-op:4.0.0")
 
     // Business
-    implementation("com.afoxplus.android:network:1.2.5")
-    implementation("com.afoxplus.android:uikit:6.0.0_uikitv3-feature_designsystem-SNAPSHOT")
+    implementation("com.afoxplus.android:network:6.0.0")
+    implementation("com.afoxplus.android:uikit:6.0.2")
 }
