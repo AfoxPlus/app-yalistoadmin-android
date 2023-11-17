@@ -7,3 +7,13 @@ plugins {
     id("com.google.dagger.hilt.android").version("2.46.1") apply false
     id("com.google.android.libraries.mapsplatform.secrets-gradle-plugin").version("2.0.1") apply false
 }
+
+/*allprojects {
+    configurations.all {
+        resolutionStrategy {
+            dependencySubstitution {
+                substitute(module(Deps.UI.uikit)).using(project(":uikit"))
+            }
+        }
+    }
+}*/
