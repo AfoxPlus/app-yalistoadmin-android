@@ -1,6 +1,7 @@
 package com.afoxplus.yalistoadmin.ui.main
 
 import com.afoxplus.network.global.AppProperties
+import com.afoxplus.yalistoadmin.BuildConfig
 import com.afoxplus.yalistoadmin.data.repository.global.GlobalRepository
 import javax.inject.Inject
 
@@ -33,6 +34,6 @@ class AppPropertiesMain @Inject constructor(
     override fun getUserUUID(): String = globalRepository.getUserUUID()
 
     override fun isAppDebug(): Boolean {
-        return false
+        return BuildConfig.DEBUG
     }
 }
