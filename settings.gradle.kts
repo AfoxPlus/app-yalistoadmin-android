@@ -38,6 +38,7 @@ buildscript {
 rootProject.name = "app-yalistoadmin-android"
 include(":app")
 
+
 /*
 include("uikit")
 project(":uikit").projectDir = File("${settings.rootProject.projectDir.parent}/app-android-uikit/module")
