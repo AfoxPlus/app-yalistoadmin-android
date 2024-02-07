@@ -1,6 +1,5 @@
 <resources>
-    <string name="app_name">app-yalistoadmin-android</string>
-
+    <string name="app_name">YaListo-Admin</string>
     <string name="order_status_total_label">Total:</string>
     <string name="order_status_payment_method_label">Método de pago:</string>
     <string name="login_card_title">YaListo - Administrador</string>
