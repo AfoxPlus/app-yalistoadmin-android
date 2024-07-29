@@ -157,10 +157,10 @@ dependencies {
     implementation("androidx.constraintlayout:constraintlayout:2.1.4")
 
     // Compose
-    implementation("androidx.activity:activity-compose:1.8.1")
+    implementation("androidx.activity:activity-compose:1.8.0")
     implementation("androidx.constraintlayout:constraintlayout-compose:1.0.1")
-    implementation("androidx.navigation:navigation-compose:2.7.5")
-    implementation(platform("androidx.compose:compose-bom:2023.06.01"))
+    implementation("androidx.navigation:navigation-compose:2.7.4")
+    implementation(platform("androidx.compose:compose-bom:2024.03.00"))
     implementation("androidx.compose.ui:ui")
     implementation("androidx.compose.ui:ui-graphics")
     implementation("androidx.compose.ui:ui-tooling-preview")
@@ -227,6 +227,6 @@ dependencies {
     testImplementation("org.mockito:mockito-inline:5.2.0")
 
     // Business
-    implementation("com.afoxplus.android:network:6.0.1")
-    implementation("com.afoxplus.android:uikit:6.0.2")
+    implementation("com.afoxplus.android:network:6.1.0")
+    implementation("com.afoxplus.android:uikit:6.1.0")
 }
