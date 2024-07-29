@@ -18,7 +18,6 @@ import retrofit2.http.Header
 import retrofit2.http.POST
 import retrofit2.http.PUT
 import retrofit2.http.Path
-import retrofit2.http.Query
 
 @ServiceClient(type = UrlProvider.Type.API_RESTAURANTS)
 fun interface AdminApiRestaurantNetwork {
@@ -69,7 +68,7 @@ interface AdminApiProductNetwork {
     }
 
     @GET("product/$PATH_SEARCH")
-    suspend fun searchProducts(@Query("restaurant_code") restaurantCode: String): Response<BaseResponse<List<ProductSearchResponseModel>>>
+    suspend fun searchProducts(@Header("restaurant_code") restaurantCode: String): Response<BaseResponse<List<ProductSearchResponseModel>>>
 
     @PUT("product/$PATH_UPDATE")
     suspend fun updateProduct(@Body productResponse: ProductUpdateRequestModel): Response<BaseResponse<Any>>
