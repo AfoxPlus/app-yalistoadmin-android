@@ -1,5 +1,6 @@
 *.iml
 .gradle
+.signing
 /debug
 /local.properties
 /.idea/caches
