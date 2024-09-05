@@ -20,7 +20,7 @@ fun Context.generateOrderPDF(order: Order): String {
         color = Color.BLACK
         strokeWidth = 1F
     }
-    val title = Paint().apply {
+    val styleText = Paint().apply {
         typeface = Typeface.create(Typeface.DEFAULT, Typeface.NORMAL)
         textSize = 15F
         color = Color.BLACK
@@ -35,19 +35,19 @@ fun Context.generateOrderPDF(order: Order): String {
 
     val xPosition = 10F
 
-    canvas.drawText(order.restaurant, pageWidth / 2.8F, 80F, title)
+    canvas.drawText(order.restaurant, pageWidth / 2.8F, 80F, styleText)
     canvas.drawLine(0F, 100F, pageWidth * 1F, 100F, paint)
-    canvas.drawText("ORDEN: ${order.number}", pageWidth / 2.8F, 120F, title)
+    canvas.drawText("ORDEN: ${order.number}", pageWidth / 2.8F, 120F, styleText)
     canvas.drawLine(0F, 140F, pageWidth * 1F, 140F, paint)
-    canvas.drawText("Cliente: ${order.client.name.uppercase()}                   ", xPosition, 160F, title)
-    canvas.drawText("Fecha:  ${order.date}                           ", xPosition, 180F, title)
+    canvas.drawText("Cliente: ${order.client.name.uppercase()}                   ", xPosition, 160F, styleText)
+    canvas.drawText("Fecha:  ${order.date}                           ", xPosition, 180F, styleText)
     if (order.orderType.code == "DELI") {
-        canvas.drawText("${order.orderType.title.uppercase()}                                    ", xPosition, 200F, title)
+        canvas.drawText("${order.orderType.title.uppercase()}                                    ", xPosition, 200F, styleText)
     } else {
-        canvas.drawText("MESA:   ${order.orderType.description}          ", xPosition, 200F, title)
+        canvas.drawText("MESA:   ${order.orderType.description}          ", xPosition, 200F, styleText)
     }
     canvas.drawLine(0F, 220F, pageWidth * 1F, 220F, paint)
-    canvas.drawText("CANT.     DESCRIPCION", xPosition, 260F, title)
+    canvas.drawText("CANT.     DESCRIPCION", xPosition, 260F, styleText)
 
     var positionY = 280F
     order.detail.forEach {
@@ -56,13 +56,25 @@ fun Context.generateOrderPDF(order: Order): String {
             "${it.quantity} ${if (it.isMenu()) "(M) " else "      "} ${it.title.uppercase()}              ",
             xPosition,
             positionY,
-            title
+            styleText
         )
+        it.notes?.let { notes ->
+            positionY += 20F
+            canvas.drawText(
+                notes.uppercase(),
+                xPosition,
+                positionY,
+                styleText
+            )
+        }
+
         it.subDetail.forEach { detail ->
             positionY += 20F
-            canvas.drawText("${it.quantity}         ${detail.title.uppercase()}", xPosition, positionY, title)
+            canvas.drawText("${it.quantity}         ${detail.title.uppercase()}", xPosition, positionY, styleText)
         }
     }
+    positionY += 20F
+    canvas.drawLine(0F, positionY, pageWidth * 1F, positionY, paint)
 
     pdfDocument.finishPage(myPage)
 
