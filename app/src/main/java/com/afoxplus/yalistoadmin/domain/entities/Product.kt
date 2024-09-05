@@ -10,6 +10,7 @@ data class Product(
     var showInApp: Boolean = false,
     val title: String,
     val quantity: Int,
+    val notes: String?,
     val description: String?,
     val productType: String?,
     val unitPrice: String?,

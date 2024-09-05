@@ -21,7 +21,9 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.afoxplus.uikit.designsystem.atoms.UIKitText
 import com.afoxplus.uikit.designsystem.foundations.UIKitTheme
+import com.afoxplus.uikit.designsystem.foundations.UIKitTypographyTheme
 import com.afoxplus.yalistoadmin.R
 import com.afoxplus.yalistoadmin.domain.entities.Product
 
@@ -57,6 +59,11 @@ fun OrderDetailItem(
             color = UIKitTheme.colors.secondaryColor,
             style = UIKitTheme.typography.header05
         )
+        product.notes?.let { notes ->
+            UIKitText(text = stringResource(id = R.string.order_details_notes), style = UIKitTypographyTheme.paragraph01Bold)
+            UIKitText(text = notes, style = UIKitTypographyTheme.paragraph01, maxLines = 3)
+        }
+
         Row(modifier = Modifier.fillMaxWidth()) {
             Text(
                 text = product.unitPrice ?: "",
@@ -70,7 +77,7 @@ fun OrderDetailItem(
                     product.quantity.toString()
                 ),
                 color = UIKitTheme.colors.blueGray700,
-                style = UIKitTheme.typography.paragraph01
+                style = UIKitTypographyTheme.paragraph01Bold
             )
             Text(
                 modifier = Modifier.weight(1f),
@@ -141,6 +148,7 @@ fun OrderDetailItemPreview() {
                     unitPrice = "S/ 20.00",
                     productType = "Menu",
                     subTotal = "S/ 40.00",
+                    notes = "",
                     subDetail = listOf(
                         Product(
                             productId = "02",
@@ -150,6 +158,7 @@ fun OrderDetailItemPreview() {
                             unitPrice = "",
                             productType = "",
                             subTotal = "",
+                            notes = "",
                             subDetail = arrayListOf()
                         ),
                         Product(
@@ -160,6 +169,7 @@ fun OrderDetailItemPreview() {
                             unitPrice = "",
                             productType = "",
                             subTotal = "",
+                            notes = "",
                             subDetail = arrayListOf()
                         )
                     )
@@ -175,6 +185,7 @@ fun OrderDetailItemPreview() {
                     unitPrice = "S/. 30.00",
                     productType = "",
                     subTotal = "S/. 60.00",
+                    notes = "",
                     subDetail = listOf()
                 )
             )

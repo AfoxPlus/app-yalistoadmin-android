@@ -31,6 +31,10 @@ class AppPropertiesMain @Inject constructor(
         return deviceData
     }
 
+    override fun getUserAuthFCMToken(): String {
+        return ""
+    }
+
     override fun getUserUUID(): String = globalRepository.getUserUUID()
 
     override fun isAppDebug(): Boolean {

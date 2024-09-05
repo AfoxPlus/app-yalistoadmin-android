@@ -108,6 +108,7 @@ fun OrderAppetizersComponentPreview() {
                     unitPrice = "",
                     productType = "",
                     subTotal = "",
+                    notes = "",
                     subDetail = arrayListOf()
                 ),
                 Product(
@@ -118,6 +119,7 @@ fun OrderAppetizersComponentPreview() {
                     unitPrice = "",
                     productType = "",
                     subTotal = "",
+                    notes = "",
                     subDetail = arrayListOf()
                 )
             )

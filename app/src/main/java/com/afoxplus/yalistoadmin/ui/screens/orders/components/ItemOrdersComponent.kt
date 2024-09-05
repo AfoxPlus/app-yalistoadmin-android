@@ -217,6 +217,7 @@ fun ItemOrderComponentPreview() = UIKitTheme {
                         unitPrice = "S/ 18.20",
                         quantity = 2,
                         subTotal = "S/ 36.40",
+                        notes = "",
                         subDetail = arrayListOf()
                     )
                 )

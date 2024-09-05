@@ -1,12 +1,11 @@
 plugins {
-    id("com.android.application") version "8.0.2"
-    id("org.jetbrains.kotlin.android") version "1.8.22"
-    id("org.jetbrains.kotlin.kapt") version "1.8.22"
-    id("com.google.dagger.hilt.android") version "2.44.2"
-    id("org.jetbrains.kotlin.plugin.parcelize") version "1.7.20"
-    id("com.google.android.libraries.mapsplatform.secrets-gradle-plugin") version "2.0.1"
-    id("org.jlleitschuh.gradle.ktlint") version "11.5.0"
-    id("com.google.gms.google-services") version "4.4.0" apply false
+    id("com.android.application")
+    id("org.jetbrains.kotlin.android")
+    id("org.jetbrains.kotlin.kapt")
+    id("org.jetbrains.kotlin.plugin.parcelize")
+    id("com.google.dagger.hilt.android")
+    id("org.jlleitschuh.gradle.ktlint")
+    id("com.google.gms.google-services")
     id("org.sonarqube") version "3.3"
     id("jacoco")
 }
@@ -227,6 +226,6 @@ dependencies {
     testImplementation("org.mockito:mockito-inline:5.2.0")
 
     // Business
-    implementation("com.afoxplus.android:network:6.1.0")
-    implementation("com.afoxplus.android:uikit:6.1.0")
+    implementation("com.afoxplus.android:network:6.2.1")
+    implementation("com.afoxplus.android:uikit:6.2.1")
 }

@@ -45,6 +45,7 @@ fun OrderItemsComponentPreview() {
                     unitPrice = "",
                     productType = "Menu",
                     subTotal = "",
+                    notes = "",
                     subDetail = listOf(
                         Product(
                             productId = "02",
@@ -54,6 +55,7 @@ fun OrderItemsComponentPreview() {
                             unitPrice = "",
                             productType = "",
                             subTotal = "",
+                            notes = "",
                             subDetail = arrayListOf()
                         ),
                         Product(
@@ -64,6 +66,7 @@ fun OrderItemsComponentPreview() {
                             unitPrice = "",
                             productType = "",
                             subTotal = "",
+                            notes = "",
                             subDetail = arrayListOf()
                         )
                     )
@@ -76,6 +79,7 @@ fun OrderItemsComponentPreview() {
                     unitPrice = "S/. 20.00",
                     productType = "",
                     subTotal = "S/. 20.00",
+                    notes = "",
                     subDetail = arrayListOf()
                 ),
                 Product(
@@ -86,6 +90,7 @@ fun OrderItemsComponentPreview() {
                     unitPrice = "",
                     productType = "Menu",
                     subTotal = "",
+                    notes = "",
                     subDetail = listOf(
                         Product(
                             productId = "02",
@@ -95,6 +100,7 @@ fun OrderItemsComponentPreview() {
                             unitPrice = "",
                             productType = "",
                             subTotal = "",
+                            notes = "",
                             subDetail = arrayListOf()
                         )
                     )
@@ -107,6 +113,7 @@ fun OrderItemsComponentPreview() {
                     unitPrice = "",
                     productType = "Menu",
                     subTotal = "",
+                    notes = "",
                     subDetail = listOf(
                         Product(
                             productId = "02",
@@ -116,6 +123,7 @@ fun OrderItemsComponentPreview() {
                             unitPrice = "",
                             productType = "",
                             subTotal = "",
+                            notes = "",
                             subDetail = arrayListOf()
                         ),
                         Product(
@@ -126,6 +134,7 @@ fun OrderItemsComponentPreview() {
                             unitPrice = "",
                             productType = "",
                             subTotal = "",
+                            notes = "",
                             subDetail = arrayListOf()
                         )
                     )

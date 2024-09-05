@@ -9,6 +9,7 @@ data class ProductResponseModel(
     val imageUrl: String? = null,
     val showInApp: Boolean = true,
     val quantity: Int,
+    val note: String? = null,
     val description: String?,
     val productType: String?,
     val unitPrice: String?,
@@ -25,6 +26,7 @@ fun ProductResponseModel.toEntity(): Product {
         productType = productType,
         unitPrice = unitPrice,
         subTotal = subTotal,
+        notes = note,
         subDetail = subDetail?.map { it.toEntity() } ?: arrayListOf()
     )
 }
@@ -37,6 +39,7 @@ data class ProductSearchResponseModel(
     val showInApp: Boolean = true,
     @SerializedName("stock") val quantity: Int,
     val description: String?,
+    val note: String? = null,
     val productType: ProductTypeModel,
     @SerializedName("price") val unitPrice: String?
 )
@@ -51,6 +54,7 @@ fun ProductSearchResponseModel.toEntity(): Product {
         productType = productType.name,
         unitPrice = unitPrice,
         subTotal = unitPrice,
+        notes = note,
         showInApp = showInApp,
         subDetail = emptyList()
     )
