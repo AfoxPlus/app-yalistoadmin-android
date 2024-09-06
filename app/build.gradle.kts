@@ -6,6 +6,7 @@ plugins {
     id("com.google.dagger.hilt.android")
     id("org.jlleitschuh.gradle.ktlint")
     id("com.google.gms.google-services")
+    id("com.google.firebase.crashlytics")
     id("org.sonarqube") version "3.3"
     id("jacoco")
 }
@@ -210,6 +211,7 @@ dependencies {
     // Firebase
     implementation(platform("com.google.firebase:firebase-bom:32.6.0"))
     implementation("com.google.firebase:firebase-analytics")
+    implementation("com.google.firebase:firebase-crashlytics")
 
     // Test
     testImplementation("junit:junit:4.13.2")
