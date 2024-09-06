@@ -17,15 +17,15 @@ apply {
 }
 
 android {
-    namespace = "com.afoxplus.yalistoadmin"
+    namespace = ConfigureApp.applicationId
     compileSdk = 34
 
     defaultConfig {
-        applicationId = "com.afoxplus.yalistoadmin"
+        applicationId =  ConfigureApp.applicationId
         minSdk = 24
         targetSdk = 34
-        versionCode = 1
-        versionName = "1.0.0"
+        versionCode = ConfigureApp.versionCode
+        versionName = ConfigureApp.versionName
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables {
