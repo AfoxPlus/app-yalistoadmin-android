@@ -1,6 +1,7 @@
 package com.afoxplus.yalistoadmin.data.datasource.remote.model.response
 
 import com.afoxplus.yalistoadmin.domain.entities.Order
+import com.afoxplus.yalistoadmin.domain.entities.OrderStateCode
 import com.google.gson.annotations.SerializedName
 
 data class OrderResponseModel(
@@ -26,7 +27,7 @@ fun OrderResponseModel.toEntity(): Order {
         number = number,
         date = date,
         state = state,
-        stateCode = stateCode,
+        stateCode = OrderStateCode.valueOf(stateCode),
         restaurant = restaurant,
         orderType = orderType.toEntity(),
         total = total,

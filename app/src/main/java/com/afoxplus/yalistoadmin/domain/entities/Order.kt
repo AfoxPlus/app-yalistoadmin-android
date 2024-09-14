@@ -12,7 +12,7 @@ data class Order(
     val number: String,
     val date: String,
     val state: String,
-    val stateCode: String,
+    val stateCode: OrderStateCode,
     val restaurant: String,
     val orderType: OrderType,
     val total: String,
@@ -33,6 +33,10 @@ data class Order(
             if (it.subDetail.isNotEmpty()) return true
         }
         return false
+    }
+
+    fun isUpdateButton(): Boolean {
+        return stateCode != OrderStateCode.DONE && stateCode != OrderStateCode.REJECTED
     }
 }
 

@@ -13,8 +13,10 @@ import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
@@ -24,7 +26,6 @@ import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.constraintlayout.compose.Dimension
 import androidx.hilt.navigation.compose.hiltViewModel
-import com.afoxplus.uikit.designsystem.atoms.UIKitButtonOutlineLarge
 import com.afoxplus.uikit.designsystem.atoms.UIKitButtonPrimaryLarge
 import com.afoxplus.uikit.designsystem.foundations.UIKitTheme
 import com.afoxplus.uikit.designsystem.molecules.UIKitTopBar
@@ -37,23 +38,25 @@ import com.afoxplus.yalistoadmin.delivery.components.status.OrderDetailTotalItem
 import com.afoxplus.yalistoadmin.delivery.components.status.OrderStatusPrint
 import com.afoxplus.yalistoadmin.delivery.components.status.OrderTypeComponent
 import com.afoxplus.yalistoadmin.delivery.components.status.OrderWhatsappContactComponent
-import com.afoxplus.yalistoadmin.delivery.viewmodels.OrderViewModel
+import com.afoxplus.yalistoadmin.delivery.viewmodels.OrderDetailViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun OrderStatusScreen(
-    orderViewModel: OrderViewModel = hiltViewModel(),
+fun OrderDetailAdminScreen(
+    orderDetailViewModel: OrderDetailViewModel = hiltViewModel(),
     navigateBack: () -> Unit
 ) {
-    val order = orderViewModel.orderState.collectAsState().value ?: return
+    val orderState by orderDetailViewModel.orderState.collectAsState()
+    val order by remember {
+        derivedStateOf { (orderState as OrderDetailViewModel.OrderStateView.Success).data }
+    }
     val context = LocalContext.current
 
-    val statesOrder = orderViewModel.states.collectAsState().value
-    val stateSelected = orderViewModel.stateSelected.collectAsState().value
+    val statesOrder = orderDetailViewModel.states.collectAsState().value
     val sheetState = rememberModalBottomSheetState()
     var isSheetOpen by rememberSaveable { mutableStateOf(false) }
     LaunchedEffect(key1 = Unit) {
-        orderViewModel.orderArchived.collect {
+        orderDetailViewModel.orderArchived.collect {
             navigateBack()
         }
     }
@@ -95,7 +98,7 @@ fun OrderStatusScreen(
                 OrderStatusPrint(orderState = order.state) {
                     val filePath = context.generateOrderPDF(order)
                     context.sharePDF(filePath)
-                    orderViewModel.updateOrderStateFromPrint()
+                    orderDetailViewModel.updateOrderStateFromPrint()
                 }
                 if (order.client.cel.isNotEmpty() || order.client.addressReference.isNotEmpty()) {
                     OrderWhatsappContactComponent(
@@ -129,7 +132,6 @@ fun OrderStatusScreen(
                 OrderDetailItem(product = order.detail[it])
                 HorizontalDivider(modifier = Modifier.height(1.dp), color = UIKitTheme.colors.gray100)
             }
-
             item {
                 OrderDetailTotalItem(total = order.total, paymentMethod = order.paymentMethod)
                 Spacer(modifier = Modifier.height(12.dp))
@@ -153,9 +155,10 @@ fun OrderStatusScreen(
                     top.linkTo(parent.top, margin = 16.dp)
                     start.linkTo(parent.start, margin = 16.dp)
                     end.linkTo(parent.end, margin = 16.dp)
+                    bottom.linkTo(parent.bottom, margin = 16.dp)
                     width = Dimension.fillToConstraints
                 },
-                text = if (orderViewModel.isUpdateButton()) {
+                text = if (orderDetailViewModel.isUpdateButton()) {
                     stringResource(id = R.string.order_update_state)
                 } else {
                     stringResource(
@@ -163,28 +166,13 @@ fun OrderStatusScreen(
                     )
                 },
                 onClick = {
-                    if (orderViewModel.isUpdateButton()) {
+                    if (orderDetailViewModel.isUpdateButton()) {
                         isSheetOpen = true
                     } else {
-                        orderViewModel.archiveOrder()
+                        orderDetailViewModel.archiveOrder()
                     }
                 }
             )
-
-            UIKitButtonOutlineLarge(
-                modifier = Modifier.constrainAs(buttonPrint) {
-                    top.linkTo(buttonUpdate.bottom, margin = 12.dp)
-                    start.linkTo(parent.start, margin = 16.dp)
-                    end.linkTo(parent.end, margin = 16.dp)
-                    bottom.linkTo(parent.bottom, margin = 16.dp)
-                    width = Dimension.fillToConstraints
-                },
-                text = stringResource(id = R.string.order_print)
-            ) {
-                val filePath = context.generateOrderPDF(order)
-                context.sharePDF(filePath)
-                orderViewModel.updateOrderStateFromPrint()
-            }
 
             if (isSheetOpen) {
                 UIKitBottomSheet(
@@ -198,8 +186,8 @@ fun OrderStatusScreen(
                     },
                     onClick = {
                         isSheetOpen = false
-                        orderViewModel.updateCheckState(it.name)
-                        orderViewModel.sendOrderState(it.id)
+                        orderDetailViewModel.updateCheckState(it.name)
+                        orderDetailViewModel.sendOrderState(it.id)
                     },
                     onDismiss = {
                         isSheetOpen = false

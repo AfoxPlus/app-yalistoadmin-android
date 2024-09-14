@@ -1,8 +1,9 @@
 package com.afoxplus.yalistoadmin.delivery.components.orders
 
 import androidx.compose.foundation.Canvas
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
+import androidx.compose.foundation.combinedClickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -26,7 +27,6 @@ import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.PathEffect
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.afoxplus.uikit.designsystem.atoms.UIKitText
 import com.afoxplus.uikit.designsystem.businesscomponents.UIKitCardOrderType
@@ -35,23 +35,20 @@ import com.afoxplus.uikit.designsystem.businesscomponents.UIKitOrderTypeVO
 import com.afoxplus.uikit.designsystem.foundations.UIKitColorTheme
 import com.afoxplus.uikit.designsystem.foundations.UIKitTheme
 import com.afoxplus.yalistoadmin.R
-import com.afoxplus.yalistoadmin.domain.entities.Client
 import com.afoxplus.yalistoadmin.domain.entities.Order
-import com.afoxplus.yalistoadmin.domain.entities.OrderType
-import com.afoxplus.yalistoadmin.domain.entities.Product
 
+@OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun ItemOrderComponent(
     modifier: Modifier = Modifier,
     order: Order,
-    onClick: (Order) -> Unit
+    onClick: (Order) -> Unit,
+    onLongClick: (Order) -> Unit
 ) {
     Box(
         modifier = Modifier
             .fillMaxWidth()
-            .clickable {
-                onClick(order)
-            }
+            .combinedClickable(onClick = { onClick(order) }, onLongClick = { onLongClick(order) })
     ) {
         Box(
             modifier = modifier
@@ -182,47 +179,5 @@ fun ItemOrderComponent(
                     shape = CircleShape
                 )
         )
-    }
-}
-
-@Preview
-@Composable
-fun ItemOrderComponentPreview() = UIKitTheme {
-    Column {
-        ItemOrderComponent(
-            order = Order(
-                id = "64a4f0e9f03e52399e481854",
-                number = "#000001",
-                date = "04 Jul 2023, 11:26 PM",
-                state = "Proceso",
-                stateCode = "PROGRESS",
-                restaurant = "Kitchen",
-                orderType = OrderType(
-                    code = "SALON",
-                    title = "SALON",
-                    description = "06"
-                ),
-                total = "S/ 66.80",
-                paymentMethod = "Efectivo",
-                client = Client(
-                    name = "Prueba",
-                    cel = "966998544",
-                    addressReference = "Simbal, calle j4 puerta 250"
-                ),
-                detail = listOf(
-                    Product(
-                        productId = "61a5a68c0c327b1d087ccdb3",
-                        title = "Pescado",
-                        description = "Pescado frito",
-                        productType = "",
-                        unitPrice = "S/ 18.20",
-                        quantity = 2,
-                        subTotal = "S/ 36.40",
-                        notes = "",
-                        subDetail = arrayListOf()
-                    )
-                )
-            )
-        ) {}
     }
 }

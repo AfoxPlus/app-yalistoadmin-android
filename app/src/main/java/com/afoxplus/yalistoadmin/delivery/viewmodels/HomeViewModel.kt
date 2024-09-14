@@ -5,12 +5,10 @@ import androidx.lifecycle.viewModelScope
 import com.afoxplus.uikit.di.UIKitCoroutineDispatcher
 import com.afoxplus.yalistoadmin.cross.utils.ResultState
 import com.afoxplus.yalistoadmin.domain.entities.Auth
-import com.afoxplus.yalistoadmin.domain.entities.Order
+import com.afoxplus.yalistoadmin.domain.entities.OrderStateCode
 import com.afoxplus.yalistoadmin.domain.entities.States
 import com.afoxplus.yalistoadmin.domain.usecase.GetAuthUseCase
-import com.afoxplus.yalistoadmin.domain.usecase.GetOrderStatusUseCase
 import com.afoxplus.yalistoadmin.domain.usecase.GetStatesUseCase
-import com.afoxplus.yalistoadmin.domain.usecase.params.RestaurantParams
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 import kotlinx.coroutines.Job
@@ -21,14 +19,10 @@ import kotlinx.coroutines.launch
 
 @HiltViewModel
 class HomeViewModel @Inject constructor(
-    private val getOrderStatusUseCase: GetOrderStatusUseCase,
     private val getAuthUseCase: GetAuthUseCase,
     private val stateUseCase: GetStatesUseCase,
     private val dispatcher: UIKitCoroutineDispatcher
 ) : ViewModel() {
-
-    private val mOrdersState: MutableStateFlow<OrderState> = MutableStateFlow(OrderState.Loading)
-    val ordersState: StateFlow<OrderState> = mOrdersState.asStateFlow()
 
     private val _auth: MutableStateFlow<Auth> = MutableStateFlow(Auth("", "", "", ""))
     val auth: StateFlow<Auth> = _auth.asStateFlow()
@@ -42,7 +36,7 @@ class HomeViewModel @Inject constructor(
     fun getStatesTabOrder() = viewModelScope.launch(dispatcher.getIODispatcher()) {
         when (val statesResult = stateUseCase.getStates()) {
             is ResultState.Success -> {
-                val statePending = statesResult.data.find { item -> item.code == "TODO" }
+                val statePending = statesResult.data.find { item -> item.code == OrderStateCode.TODO.name }
                 mOrdersPendingState.value = statePending?.id ?: ""
             }
 
@@ -56,9 +50,9 @@ class HomeViewModel @Inject constructor(
         when (val statesResult = stateUseCase.getStates()) {
             is ResultState.Success -> {
                 val states = mutableListOf<States>()
-                statesResult.data.find { item -> item.code == "PROGRESS" }.also { item -> item?.let { states.add(it) } }
-                statesResult.data.find { item -> item.code == "DONE" }.also { item -> item?.let { states.add(it) } }
-                statesResult.data.find { item -> item.code == "REJECTED" }.also { item -> item?.let { states.add(it) } }
+                statesResult.data.find { item -> item.code == OrderStateCode.PROGRESS.name }.also { item -> item?.let { states.add(it) } }
+                statesResult.data.find { item -> item.code == OrderStateCode.DONE.name }.also { item -> item?.let { states.add(it) } }
+                statesResult.data.find { item -> item.code == OrderStateCode.REJECTED.name }.also { item -> item?.let { states.add(it) } }
                 mStatesTabKitchen.value = states
             }
 
@@ -72,37 +66,5 @@ class HomeViewModel @Inject constructor(
         return viewModelScope.launch(dispatcher.getIODispatcher()) {
             _auth.value = getAuthUseCase.authPreferences()
         }
-    }
-
-    fun getStatus(restaurantCode: String, stateId: String): Job {
-        return viewModelScope.launch(dispatcher.getIODispatcher()) {
-            try {
-                when (
-                    val result =
-                        getOrderStatusUseCase.getStatus(
-                            RestaurantParams(
-                                code = restaurantCode,
-                                stateId = stateId
-                            )
-                        )
-                ) {
-                    is ResultState.Error -> {
-                        mOrdersState.value = OrderState.Failure
-                    }
-
-                    is ResultState.Success -> {
-                        mOrdersState.value = OrderState.Success(result.data)
-                    }
-                }
-            } catch (e: Exception) {
-                mOrdersState.value = OrderState.Failure
-            }
-        }
-    }
-
-    sealed interface OrderState {
-        object Loading : OrderState
-        data class Success(val data: List<Order>) : OrderState
-        object Failure : OrderState
     }
 }

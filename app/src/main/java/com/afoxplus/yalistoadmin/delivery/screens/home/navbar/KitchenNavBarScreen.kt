@@ -11,16 +11,15 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.afoxplus.uikit.designsystem.foundations.UIKitTheme
 import com.afoxplus.uikit.designsystem.molecules.UIKitTabItem
 import com.afoxplus.uikit.designsystem.molecules.UIKitTabs
-import com.afoxplus.yalistoadmin.delivery.routers.BottomBarHomeRouter
-import com.afoxplus.yalistoadmin.delivery.screens.OrderScreen
+import com.afoxplus.yalistoadmin.delivery.screens.ShareTabOrdersScreen
 import com.afoxplus.yalistoadmin.delivery.viewmodels.HomeViewModel
 import com.afoxplus.yalistoadmin.domain.entities.Order
 
 @Composable
 fun KitchenHomeScreen(
-    route: BottomBarHomeRouter = BottomBarHomeRouter.Kitchen,
     viewModel: HomeViewModel,
-    navigateTo: (Order) -> Unit
+    navigateToOrderDetail: (Order) -> Unit,
+    navigateToOrderDetailAdmin: (Order) -> Unit
 ) {
     LaunchedEffect(key1 = Unit) { viewModel.getStatesTabSale() }
     val states by viewModel.statesTabKitchen.collectAsStateWithLifecycle()
@@ -30,11 +29,11 @@ fun KitchenHomeScreen(
                 UIKitTabItem(
                     title = state.name,
                     screen = {
-                        OrderScreen(
+                        ShareTabOrdersScreen(
                             viewModel = viewModel,
-                            route = route,
                             stateId = state.id,
-                            navigateTo = navigateTo
+                            navigateToOrderDetail = navigateToOrderDetail,
+                            navigateToOrderDetailAdmin = navigateToOrderDetailAdmin
                         )
                     }
                 )

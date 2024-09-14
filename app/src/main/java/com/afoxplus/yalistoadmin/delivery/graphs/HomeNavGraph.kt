@@ -10,13 +10,14 @@ import androidx.navigation.compose.navigation
 import androidx.navigation.navArgument
 import com.afoxplus.yalistoadmin.cross.extensions.sharedViewModel
 import com.afoxplus.yalistoadmin.delivery.routers.BottomBarHomeRouter
-import com.afoxplus.yalistoadmin.delivery.screens.OrderStatusScreen
+import com.afoxplus.yalistoadmin.delivery.screens.OrderDetailScreen
 import com.afoxplus.yalistoadmin.delivery.screens.home.navbar.KitchenHomeScreen
 import com.afoxplus.yalistoadmin.delivery.screens.home.navbar.OrdersHomeScreen
 import com.afoxplus.yalistoadmin.delivery.screens.home.navbar.ProductScreen
 import com.afoxplus.yalistoadmin.delivery.screens.home.navbar.TablesScreen
 import com.afoxplus.yalistoadmin.delivery.viewmodels.HomeViewModel
 import com.afoxplus.yalistoadmin.domain.entities.OrderNavType
+import timber.log.Timber
 
 @Composable
 fun HomeNavGraph(navController: NavHostController, modifier: Modifier = Modifier) {
@@ -29,9 +30,11 @@ fun HomeNavGraph(navController: NavHostController, modifier: Modifier = Modifier
         composable(route = BottomBarHomeRouter.Orders.route) {
             val viewModel = it.sharedViewModel<HomeViewModel>(navController = navController)
             OrdersHomeScreen(
-                route = BottomBarHomeRouter.Orders,
                 viewModel = viewModel,
-                navigateTo = { order ->
+                navigateToOrderDetail = { order ->
+                    navController.navigate(Graph.OrderDetails.createRoute(order = order))
+                },
+                navigateToOrderDetailAdmin = { order ->
                     navController.navigate(Graph.OrderDetails.createRoute(order = order))
                 }
             )
@@ -40,10 +43,12 @@ fun HomeNavGraph(navController: NavHostController, modifier: Modifier = Modifier
         composable(route = BottomBarHomeRouter.Kitchen.route) {
             val viewModel = it.sharedViewModel<HomeViewModel>(navController = navController)
             KitchenHomeScreen(
-                route = BottomBarHomeRouter.Kitchen,
                 viewModel = viewModel,
-                navigateTo = { order ->
+                navigateToOrderDetail = { order ->
                     navController.navigate(Graph.OrderDetails.createRoute(order = order))
+                },
+                navigateToOrderDetailAdmin = { order ->
+                    Timber.d("navigateToOrderDetailAdmin ->  ${order.number}")
                 }
             )
         }
@@ -56,18 +61,18 @@ fun HomeNavGraph(navController: NavHostController, modifier: Modifier = Modifier
             ProductScreen()
         }
 
-        homeScreensNavGraph(navController)
+        orderDetailNavGraph(navController)
     }
 }
 
-fun NavGraphBuilder.homeScreensNavGraph(navController: NavHostController) {
+fun NavGraphBuilder.orderDetailNavGraph(navController: NavHostController) {
     navigation(
         route = Graph.OrderDetails.route,
         startDestination = HomeScreensRouter.OrderDetail.route,
         arguments = listOf(navArgument(NavArgs.Order.key) { type = OrderNavType })
     ) {
         composable(route = HomeScreensRouter.OrderDetail.route) {
-            OrderStatusScreen(navigateBack = {
+            OrderDetailScreen(navigateBack = {
                 navController.popBackStack()
             })
         }

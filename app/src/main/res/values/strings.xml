@@ -22,4 +22,7 @@
     <string name="order_process_state">En Proceso</string>
     <string name="order_archive">Archivar</string>
     <string name="order_details_notes">Indicaciones</string>
+    <string name="order_details_button_confirm">Confirmar Pedido</string>
+    <string name="order_details_button_finish">Finalizar</string>
+    <string name="order_details_button_reject">Rechazar</string>
 </resources>
