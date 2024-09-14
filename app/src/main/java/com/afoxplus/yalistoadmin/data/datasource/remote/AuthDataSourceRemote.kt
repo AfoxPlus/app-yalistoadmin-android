@@ -1,6 +1,6 @@
 package com.afoxplus.yalistoadmin.data.datasource.remote
 
-import com.afoxplus.yalistoadmin.commons.utils.ResultState
+import com.afoxplus.yalistoadmin.cross.utils.ResultState
 import com.afoxplus.yalistoadmin.data.api.AdminApiRestaurantNetwork
 import com.afoxplus.yalistoadmin.data.datasource.AuthRemote
 import com.afoxplus.yalistoadmin.data.datasource.remote.model.request.toRequest

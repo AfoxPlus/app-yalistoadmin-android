@@ -8,7 +8,7 @@
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
 
     <application
-        android:name=".ui.main.YaListoAdminApplication"
+        android:name=".delivery.main.YaListoAdminApplication"
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
@@ -19,7 +19,7 @@
         android:theme="@style/Theme.YaListo.Splash"
         tools:targetApi="31">
         <activity
-            android:name=".ui.main.MainActivity"
+            android:name=".delivery.main.MainActivity"
             android:exported="true"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.YaListo.Splash"
@@ -31,7 +31,7 @@
         </activity>
 
         <provider
-            android:name=".commons.utils.GenericFileProvider"
+            android:name=".cross.utils.GenericFileProvider"
             android:authorities="${applicationId}.provider.share.document"
             android:exported="false"
             android:grantUriPermissions="true">

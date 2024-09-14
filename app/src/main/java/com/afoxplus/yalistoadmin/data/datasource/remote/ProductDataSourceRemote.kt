@@ -1,6 +1,6 @@
 package com.afoxplus.yalistoadmin.data.datasource.remote
 
-import com.afoxplus.yalistoadmin.commons.utils.ResultState
+import com.afoxplus.yalistoadmin.cross.utils.ResultState
 import com.afoxplus.yalistoadmin.data.api.AdminApiProductNetwork
 import com.afoxplus.yalistoadmin.data.datasource.remote.model.request.ProductUpdateRequestModel
 import com.afoxplus.yalistoadmin.data.datasource.remote.model.response.toEntity

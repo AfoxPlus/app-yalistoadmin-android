@@ -4,7 +4,7 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
-import com.afoxplus.yalistoadmin.commons.constants.ConstantsDB.DB_TABLE_STATES
+import com.afoxplus.yalistoadmin.cross.constants.ConstantsDB.DB_TABLE_STATES
 import com.afoxplus.yalistoadmin.data.datasource.local.db.model.StatesDB
 
 @Dao

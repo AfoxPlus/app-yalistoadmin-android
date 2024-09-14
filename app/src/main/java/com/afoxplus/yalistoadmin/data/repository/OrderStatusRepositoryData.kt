@@ -1,6 +1,6 @@
 package com.afoxplus.yalistoadmin.data.repository
 
-import com.afoxplus.yalistoadmin.commons.utils.ResultState
+import com.afoxplus.yalistoadmin.cross.utils.ResultState
 import com.afoxplus.yalistoadmin.data.datasource.OrderStatusRemote
 import com.afoxplus.yalistoadmin.domain.entities.Order
 import com.afoxplus.yalistoadmin.domain.repository.OrderStatusRepository

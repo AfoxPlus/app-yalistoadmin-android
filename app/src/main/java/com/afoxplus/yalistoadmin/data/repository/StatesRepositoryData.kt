@@ -1,6 +1,6 @@
 package com.afoxplus.yalistoadmin.data.repository
 
-import com.afoxplus.yalistoadmin.commons.utils.ResultState
+import com.afoxplus.yalistoadmin.cross.utils.ResultState
 import com.afoxplus.yalistoadmin.data.datasource.StatesDbLocal
 import com.afoxplus.yalistoadmin.data.datasource.StatesRemote
 import com.afoxplus.yalistoadmin.domain.entities.States

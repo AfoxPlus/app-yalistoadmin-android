@@ -1,6 +1,6 @@
 package com.afoxplus.yalistoadmin.domain.usecase
 
-import com.afoxplus.yalistoadmin.commons.utils.ResultState
+import com.afoxplus.yalistoadmin.cross.utils.ResultState
 import com.afoxplus.yalistoadmin.domain.entities.States
 import com.afoxplus.yalistoadmin.domain.repository.StatesRepository
 import com.afoxplus.yalistoadmin.mock.data.listStates

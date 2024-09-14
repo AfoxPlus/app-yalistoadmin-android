@@ -1,6 +1,6 @@
 package com.afoxplus.yalistoadmin.data.datasource.local.db
 
-import com.afoxplus.yalistoadmin.commons.utils.ResultState
+import com.afoxplus.yalistoadmin.cross.utils.ResultState
 import com.afoxplus.yalistoadmin.data.datasource.local.db.dao.StatesDAO
 import com.afoxplus.yalistoadmin.data.datasource.local.db.model.toDB
 import com.afoxplus.yalistoadmin.mock.data.listStates

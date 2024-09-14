@@ -21,7 +21,7 @@ android {
     compileSdk = 34
 
     defaultConfig {
-        applicationId =  ConfigureApp.applicationId
+        applicationId = ConfigureApp.applicationId
         minSdk = 24
         targetSdk = 34
         versionCode = ConfigureApp.versionCode
@@ -145,12 +145,6 @@ android {
 }
 
 dependencies {
-    // Core
-    // implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.7.1")
-    // implementation(platform("org.jetbrains.kotlin:kotlin-bom:1.9.10"))
-    // implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk7")
-    // implementation("org.jetbrains.kotlin:kotlin-stdlib")
-    // implementation("org.jetbrains.kotlin:kotlin-stdlib-common")
     implementation("androidx.core:core-ktx:1.12.0")
     implementation("androidx.core:core-splashscreen:1.0.1")
     implementation("com.google.android.material:material:1.10.0")
@@ -164,6 +158,7 @@ dependencies {
     implementation("androidx.compose.ui:ui")
     implementation("androidx.compose.ui:ui-graphics")
     implementation("androidx.compose.ui:ui-tooling-preview")
+    debugImplementation("androidx.compose.ui:ui-tooling")
     implementation("androidx.compose.material3:material3")
     implementation("androidx.compose.material:material-icons-extended")
 
@@ -219,7 +214,6 @@ dependencies {
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
     androidTestImplementation(platform("androidx.compose:compose-bom:2023.06.01"))
     androidTestImplementation("androidx.compose.ui:ui-test-junit4")
-    debugImplementation("androidx.compose.ui:ui-tooling")
     debugImplementation("androidx.compose.ui:ui-test-manifest")
     testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.7.3")
     testImplementation("androidx.arch.core:core-testing:2.2.0")
