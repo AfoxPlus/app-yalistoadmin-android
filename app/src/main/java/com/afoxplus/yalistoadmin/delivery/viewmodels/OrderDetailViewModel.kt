@@ -52,12 +52,12 @@ class OrderDetailViewModel @Inject constructor(
     init {
         order?.let {
             mOrderState.value = OrderStateView.Success(it)
-            setupButton(it)
+            setupButtons(it)
         }
         getStates()
     }
 
-    private fun setupButton(order: Order) {
+    private fun setupButtons(order: Order) {
         when (order.stateCode) {
             OrderStateCode.TODO -> mOrderButtonState.value = OrderStateButtonView.Confirm
             OrderStateCode.PROGRESS -> mOrderButtonState.value = OrderStateButtonView.Finish
@@ -70,7 +70,7 @@ class OrderDetailViewModel @Inject constructor(
     fun sendOrderState(state: String) {
         viewModelScope.launch(dispatcher.getIODispatcher()) {
             order?.let {
-                when (val result = orderStateUseCase.updateState(it, state)) {
+                when (val result = orderStateUseCase(it, state)) {
                     is ResultState.Error -> {}
 
                     is ResultState.Success -> {
@@ -79,6 +79,30 @@ class OrderDetailViewModel @Inject constructor(
                 }
             }
         }
+    }
+
+    private suspend fun updateOrderState(orderStateCode: OrderStateCode) {
+        order?.let {
+            when (val result = orderStateUseCase(it, orderStateCode)) {
+                is ResultState.Error -> {}
+
+                is ResultState.Success -> {
+                    mOrderState.value = OrderStateView.Success(result.data)
+                }
+            }
+        }
+    }
+
+    fun updateOrderStateToDone() {
+        viewModelScope.launch(dispatcher.getIODispatcher()) { updateOrderState(OrderStateCode.DONE) }
+    }
+
+    fun updateOrderStateToReject() {
+        viewModelScope.launch(dispatcher.getIODispatcher()) { updateOrderState(OrderStateCode.REJECTED) }
+    }
+
+    fun updateOrderStateToProgress() {
+        viewModelScope.launch(dispatcher.getIODispatcher()) { updateOrderState(OrderStateCode.PROGRESS) }
     }
 
     fun getStates(): Job {
@@ -97,7 +121,7 @@ class OrderDetailViewModel @Inject constructor(
                     }
                 }
             } catch (ex: Exception) {
-                //Nothing
+                // Nothing
             }
         }
     }
@@ -121,7 +145,6 @@ class OrderDetailViewModel @Inject constructor(
                         getStatesUseCase.getStateByCode(OrderStateCode.PROGRESS.name)
                 ) {
                     is ResultState.Error -> {
-
                     }
 
                     is ResultState.Success -> {

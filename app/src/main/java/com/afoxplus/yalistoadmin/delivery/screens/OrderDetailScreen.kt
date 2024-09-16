@@ -54,14 +54,25 @@ fun OrderDetailScreen(orderDetailViewModel: OrderDetailViewModel = hiltViewModel
         topBar = {
             UIKitTopBar(
                 modifier = Modifier.background(color = UIKitTheme.colors.light01),
-                title = "Client",
+                title = stringResource(id = R.string.order_status_client),
                 description = order.client.name
             ) {
                 navigateBack()
             }
         },
         bottomBar = {
-            OrderDetailButtons(orderButtonSate)
+            OrderDetailButtons(
+                orderButtonSate,
+                onConfirm = {
+                    orderDetailViewModel.updateOrderStateToProgress()
+                },
+                onReject = {
+                    orderDetailViewModel.updateOrderStateToReject()
+                },
+                onDone = {
+                    orderDetailViewModel.updateOrderStateToDone()
+                }
+            )
         }
     ) { paddingValues ->
         Box(
@@ -131,30 +142,33 @@ fun OrderDetailContent(order: Order) {
 }
 
 @Composable
-fun OrderDetailButtons(buttonState: OrderStateButtonView) {
+fun OrderDetailButtons(
+    buttonState: OrderStateButtonView,
+    onConfirm: () -> Unit,
+    onReject: () -> Unit,
+    onDone: () -> Unit
+) {
     when (buttonState) {
         OrderStateButtonView.Confirm -> OrderBottomContent {
             UIKitButtonPrimaryLarge(
                 text = stringResource(id = R.string.order_details_button_confirm),
-                onClick = {
-                }
+                onClick = onConfirm
             )
             UIKitButtonOutlineLarge(
-                text = stringResource(id = R.string.order_details_button_reject)
-            ) {
-            }
+                text = stringResource(id = R.string.order_details_button_reject),
+                onClick = onReject
+            )
         }
 
         OrderStateButtonView.Finish -> OrderBottomContent {
             UIKitButtonPrimaryLarge(
                 text = stringResource(id = R.string.order_details_button_finish),
-                onClick = {
-                }
+                onClick = onDone
             )
             UIKitButtonOutlineLarge(
-                text = stringResource(id = R.string.order_details_button_reject)
-            ) {
-            }
+                text = stringResource(id = R.string.order_details_button_reject),
+                onClick = onDone
+            )
         }
 
         OrderStateButtonView.None -> {}
