@@ -22,7 +22,6 @@ import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
-import timber.log.Timber
 
 @HiltViewModel
 class OrderDetailViewModel @Inject constructor(
@@ -72,9 +71,7 @@ class OrderDetailViewModel @Inject constructor(
         viewModelScope.launch(dispatcher.getIODispatcher()) {
             order?.let {
                 when (val result = orderStateUseCase.updateState(it, state)) {
-                    is ResultState.Error -> {
-                        Timber.d("Here - OrderViewModel - Error: ${result.exception}")
-                    }
+                    is ResultState.Error -> {}
 
                     is ResultState.Success -> {
                         mOrderState.value = OrderStateView.Success(result.data)
@@ -89,7 +86,6 @@ class OrderDetailViewModel @Inject constructor(
             try {
                 when (val result = getStatesUseCase.getStates()) {
                     is ResultState.Error -> {
-                        Timber.d("Here - OrderViewModel - Error: ${result.exception}")
                     }
 
                     is ResultState.Success -> {
@@ -101,7 +97,7 @@ class OrderDetailViewModel @Inject constructor(
                     }
                 }
             } catch (ex: Exception) {
-                Timber.d("Here - OrderViewModel: $ex")
+                //Nothing
             }
         }
     }
@@ -125,7 +121,7 @@ class OrderDetailViewModel @Inject constructor(
                         getStatesUseCase.getStateByCode(OrderStateCode.PROGRESS.name)
                 ) {
                     is ResultState.Error -> {
-                        Timber.d("Here - OrderViewModel - Error: ${result.exception}")
+
                     }
 
                     is ResultState.Success -> {
@@ -143,9 +139,8 @@ class OrderDetailViewModel @Inject constructor(
     fun archiveOrder() {
         viewModelScope.launch(dispatcher.getIODispatcher()) {
             order?.let {
-                when (val result = archiveOrderUseCase.archiveOrder(order)) {
+                when (archiveOrderUseCase.archiveOrder(order)) {
                     is ResultState.Error -> {
-                        Timber.d("Here - OrderViewModel - Error: ${result.exception}")
                     }
 
                     is ResultState.Success -> {

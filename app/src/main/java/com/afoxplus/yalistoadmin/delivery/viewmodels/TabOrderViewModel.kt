@@ -5,8 +5,8 @@ import androidx.lifecycle.viewModelScope
 import com.afoxplus.uikit.di.UIKitCoroutineDispatcher
 import com.afoxplus.yalistoadmin.cross.utils.ResultState
 import com.afoxplus.yalistoadmin.domain.entities.Order
+import com.afoxplus.yalistoadmin.domain.entities.OrderStateCode
 import com.afoxplus.yalistoadmin.domain.usecase.GetOrderStatusUseCase
-import com.afoxplus.yalistoadmin.domain.usecase.params.RestaurantParams
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 import kotlinx.coroutines.Job
@@ -24,18 +24,28 @@ class TabOrderViewModel @Inject constructor(
     private val mOrdersState: MutableStateFlow<OrderState> = MutableStateFlow(OrderState.Loading)
     val ordersState: StateFlow<OrderState> = mOrdersState.asStateFlow()
 
-    fun getStatus(restaurantCode: String, stateId: String): Job {
+    fun getOrdersByState(orderState: OrderStateCode): Job {
         return viewModelScope.launch(dispatcher.getIODispatcher()) {
             try {
-                when (
-                    val result =
-                        getOrderStatusUseCase.getStatus(
-                            RestaurantParams(
-                                code = restaurantCode,
-                                stateId = stateId
-                            )
-                        )
-                ) {
+                when (val result = getOrderStatusUseCase(orderState)) {
+                    is ResultState.Error -> {
+                        mOrdersState.value = OrderState.Failure
+                    }
+
+                    is ResultState.Success -> {
+                        mOrdersState.value = OrderState.Success(result.data)
+                    }
+                }
+            } catch (e: Exception) {
+                mOrdersState.value = OrderState.Failure
+            }
+        }
+    }
+
+    fun getOrdersByStateId(orderStateId: String): Job {
+        return viewModelScope.launch(dispatcher.getIODispatcher()) {
+            try {
+                when (val result = getOrderStatusUseCase(orderStateId)) {
                     is ResultState.Error -> {
                         mOrdersState.value = OrderState.Failure
                     }

@@ -12,7 +12,6 @@ import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
-import timber.log.Timber
 
 @HiltViewModel
 class SplashViewModel @Inject constructor(
@@ -32,13 +31,8 @@ class SplashViewModel @Inject constructor(
         return viewModelScope.launch(dispatcher.getIODispatcher()) {
             try {
                 when (val result = getStatesUseCase.getStates()) {
-                    is ResultState.Error -> {
-                        Timber.d("Here - SplashViewModel - Error: ${result.exception.message}")
-                        Timber.d("Here - SplashViewModel - Error: ${result.exception}")
-                    }
-
+                    is ResultState.Error -> {}
                     is ResultState.Success -> {
-                        Timber.d("Here - SplashViewModel - Success: ${result.data}")
                         saveStatesUseCase.saveStates(result.data)
                     }
                 }

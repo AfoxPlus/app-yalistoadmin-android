@@ -28,9 +28,7 @@ fun HomeNavGraph(navController: NavHostController, modifier: Modifier = Modifier
         startDestination = BottomBarHomeRouter.Orders.route
     ) {
         composable(route = BottomBarHomeRouter.Orders.route) {
-            val viewModel = it.sharedViewModel<HomeViewModel>(navController = navController)
             OrdersHomeScreen(
-                viewModel = viewModel,
                 navigateToOrderDetail = { order ->
                     navController.navigate(Graph.OrderDetails.createRoute(order = order))
                 },

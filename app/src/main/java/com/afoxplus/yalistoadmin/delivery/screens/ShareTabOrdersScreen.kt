@@ -16,19 +16,16 @@ import timber.log.Timber
 fun ShareTabOrdersScreen(
     viewModel: HomeViewModel,
     tabOrderViewModel: TabOrderViewModel = hiltViewModel(),
-    stateId: String? = "",
+    stateId: String,
     navigateToOrderDetail: (Order) -> Unit,
     navigateToOrderDetailAdmin: (Order) -> Unit
 ) {
-    Timber.d("VIEWMODEL TAB: $tabOrderViewModel")
     val auth by viewModel.auth.collectAsStateWithLifecycle()
     val ordersState by tabOrderViewModel.ordersState.collectAsStateWithLifecycle()
 
     LaunchedEffect(key1 = Unit) { viewModel.getAuth() }
     LaunchedEffect(key1 = auth) {
-        if (auth.code != "" && stateId != null) {
-            tabOrderViewModel.getStatus(restaurantCode = auth.code, stateId = stateId)
-        }
+        tabOrderViewModel.getOrdersByStateId(orderStateId = stateId)
     }
     when (ordersState) {
         TabOrderViewModel.OrderState.Failure -> {}

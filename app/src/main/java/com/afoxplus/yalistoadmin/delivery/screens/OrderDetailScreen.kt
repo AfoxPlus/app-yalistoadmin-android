@@ -91,6 +91,7 @@ fun OrderDetailContent(order: Order) {
                 context.sharePDF(filePath)
             }
             if (order.client.cel.isNotEmpty() || order.client.addressReference.isNotEmpty()) {
+                Spacer(modifier = Modifier.height(8.dp))
                 OrderWhatsappContactComponent(
                     phoneNumber = order.client.cel,
                     description = order.client.addressReference
