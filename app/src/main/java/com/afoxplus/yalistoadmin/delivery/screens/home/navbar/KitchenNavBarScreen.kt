@@ -30,7 +30,6 @@ fun KitchenHomeScreen(
                     title = state.name,
                     screen = {
                         ShareTabOrdersScreen(
-                            viewModel = viewModel,
                             stateId = state.id,
                             navigateToOrderDetail = navigateToOrderDetail,
                             navigateToOrderDetailAdmin = navigateToOrderDetailAdmin
@@ -44,7 +43,5 @@ fun KitchenHomeScreen(
     UIKitTabs(
         modifier = Modifier.padding(horizontal = UIKitTheme.spacing.spacing16),
         tabItems = tabItems.value
-    ) { _, tabItem ->
-        tabItem.screen()
-    }
+    ) { _, tabItem -> tabItem.screen() }
 }
