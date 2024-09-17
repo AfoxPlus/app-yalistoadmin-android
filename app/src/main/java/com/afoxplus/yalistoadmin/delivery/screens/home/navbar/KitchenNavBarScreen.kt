@@ -44,7 +44,7 @@ fun KitchenHomeScreen(
     UIKitTabs(
         modifier = Modifier.padding(horizontal = UIKitTheme.spacing.spacing16),
         tabItems = tabItems.value
-    ) { index ->
-        tabItems.value[index].screen()
+    ) { _, tabItem ->
+        tabItem.screen()
     }
 }

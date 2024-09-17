@@ -14,7 +14,7 @@ allprojects {
     configurations.all {
         resolutionStrategy {
             dependencySubstitution {
-                substitute(module("com.afoxplus.android:uikit:6.0.2")).using(project(":uikit"))
+                substitute(module("com.afoxplus.android:uikit:6.2.1")).using(project(":uikit"))
             }
         }
     }
