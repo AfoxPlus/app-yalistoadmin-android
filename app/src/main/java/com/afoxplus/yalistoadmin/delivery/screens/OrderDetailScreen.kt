@@ -71,6 +71,9 @@ fun OrderDetailScreen(orderDetailViewModel: OrderDetailViewModel = hiltViewModel
                 },
                 onDone = {
                     orderDetailViewModel.updateOrderStateToDone()
+                },
+                onArchive = {
+                    orderDetailViewModel.archiveOrder()
                 }
             )
         }
@@ -146,16 +149,19 @@ fun OrderDetailButtons(
     buttonState: OrderStateButtonView,
     onConfirm: () -> Unit,
     onReject: () -> Unit,
-    onDone: () -> Unit
+    onDone: () -> Unit,
+    onArchive: () -> Unit
 ) {
     when (buttonState) {
         OrderStateButtonView.Confirm -> OrderBottomContent {
             UIKitButtonPrimaryLarge(
                 text = stringResource(id = R.string.order_details_button_confirm),
+                enabled = buttonState.enable,
                 onClick = onConfirm
             )
             UIKitButtonOutlineLarge(
                 text = stringResource(id = R.string.order_details_button_reject),
+                enabled = buttonState.enable,
                 onClick = onReject
             )
         }
@@ -163,11 +169,21 @@ fun OrderDetailButtons(
         OrderStateButtonView.Finish -> OrderBottomContent {
             UIKitButtonPrimaryLarge(
                 text = stringResource(id = R.string.order_details_button_finish),
+                enabled = buttonState.enable,
                 onClick = onDone
             )
             UIKitButtonOutlineLarge(
                 text = stringResource(id = R.string.order_details_button_reject),
-                onClick = onDone
+                enabled = buttonState.enable,
+                onClick = onReject
+            )
+        }
+
+        OrderStateButtonView.Reject -> OrderBottomContent {
+            UIKitButtonPrimaryLarge(
+                text = stringResource(id = R.string.order_archive),
+                enabled = buttonState.enable,
+                onClick = onArchive
             )
         }
 

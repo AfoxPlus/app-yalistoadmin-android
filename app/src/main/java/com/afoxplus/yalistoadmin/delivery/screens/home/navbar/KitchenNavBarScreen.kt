@@ -21,7 +21,7 @@ fun KitchenHomeScreen(
     navigateToOrderDetail: (Order) -> Unit,
     navigateToOrderDetailAdmin: (Order) -> Unit
 ) {
-    LaunchedEffect(key1 = Unit) { viewModel.getStatesTabSale() }
+    LaunchedEffect(key1 = Unit) { viewModel.getKitchenOrderStates() }
     val states by viewModel.statesTabKitchen.collectAsStateWithLifecycle()
     val tabItems = remember {
         derivedStateOf {

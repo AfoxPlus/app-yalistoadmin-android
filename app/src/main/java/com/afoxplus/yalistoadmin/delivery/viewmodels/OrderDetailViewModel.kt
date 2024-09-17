@@ -61,8 +61,8 @@ class OrderDetailViewModel @Inject constructor(
         when (order.stateCode) {
             OrderStateCode.TODO -> mOrderButtonState.value = OrderStateButtonView.Confirm
             OrderStateCode.PROGRESS -> mOrderButtonState.value = OrderStateButtonView.Finish
+            OrderStateCode.REJECTED -> mOrderButtonState.value = OrderStateButtonView.Reject
             OrderStateCode.DONE,
-            OrderStateCode.REJECTED,
             OrderStateCode.DELIVERY -> mOrderButtonState.value = OrderStateButtonView.None
         }
     }
@@ -81,28 +81,54 @@ class OrderDetailViewModel @Inject constructor(
         }
     }
 
-    private suspend fun updateOrderState(orderStateCode: OrderStateCode) {
+    private suspend fun updateOrderState(orderStateCode: OrderStateCode, onSuccess: suspend () -> Unit = {}, onFailure: () -> Unit = {}) {
         order?.let {
             when (val result = orderStateUseCase(it, orderStateCode)) {
-                is ResultState.Error -> {}
+                is ResultState.Error -> onFailure()
 
                 is ResultState.Success -> {
                     mOrderState.value = OrderStateView.Success(result.data)
+                    onSuccess()
                 }
             }
         }
     }
 
     fun updateOrderStateToDone() {
-        viewModelScope.launch(dispatcher.getIODispatcher()) { updateOrderState(OrderStateCode.DONE) }
+        viewModelScope.launch(dispatcher.getIODispatcher()) {
+            mOrderButtonState.value = OrderStateButtonView.Finish.apply { enable = false }
+            updateOrderState(OrderStateCode.DONE, onSuccess = {
+                mOrderButtonState.value = OrderStateButtonView.None
+            }, onFailure = {
+                    mOrderButtonState.value = OrderStateButtonView.Finish
+                })
+        }
     }
 
     fun updateOrderStateToReject() {
-        viewModelScope.launch(dispatcher.getIODispatcher()) { updateOrderState(OrderStateCode.REJECTED) }
+        viewModelScope.launch(dispatcher.getIODispatcher()) {
+            mOrderButtonState.value = OrderStateButtonView.Reject.apply { enable = false }
+            updateOrderState(OrderStateCode.REJECTED, onSuccess = {
+                _orderArchived.emit(true)
+            }, onFailure = {
+                    mOrderButtonState.value = OrderStateButtonView.Reject
+                })
+        }
     }
 
     fun updateOrderStateToProgress() {
-        viewModelScope.launch(dispatcher.getIODispatcher()) { updateOrderState(OrderStateCode.PROGRESS) }
+        viewModelScope.launch(dispatcher.getIODispatcher()) {
+            mOrderButtonState.value = OrderStateButtonView.Confirm.apply { enable = false }
+            updateOrderState(
+                OrderStateCode.PROGRESS,
+                onSuccess = {
+                    mOrderButtonState.value = OrderStateButtonView.Finish
+                },
+                onFailure = {
+                    mOrderButtonState.value = OrderStateButtonView.Confirm
+                }
+            )
+        }
     }
 
     fun getStates(): Job {
@@ -179,9 +205,10 @@ class OrderDetailViewModel @Inject constructor(
         data class Success(val data: Order) : OrderStateView
     }
 
-    sealed interface OrderStateButtonView {
-        object None : OrderStateButtonView
-        object Confirm : OrderStateButtonView
-        object Finish : OrderStateButtonView
+    enum class OrderStateButtonView(var enable: Boolean = true) {
+        None,
+        Confirm,
+        Finish,
+        Reject
     }
 }

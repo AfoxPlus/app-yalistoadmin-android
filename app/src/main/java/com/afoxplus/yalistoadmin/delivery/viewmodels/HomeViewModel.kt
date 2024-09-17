@@ -24,29 +24,12 @@ class HomeViewModel @Inject constructor(
     private val dispatcher: UIKitCoroutineDispatcher
 ) : ViewModel() {
 
-    private val _auth: MutableStateFlow<Auth> = MutableStateFlow(Auth("", "", "", ""))
-    val auth: StateFlow<Auth> = _auth.asStateFlow()
-
-    private val mOrdersPendingState: MutableStateFlow<String> by lazy { MutableStateFlow("") }
-    val ordersPendingState = mOrdersPendingState.asStateFlow()
-
+    private val _auth: MutableStateFlow<AuthStateView> = MutableStateFlow(AuthStateView.Loading)
+    val auth: StateFlow<AuthStateView> = _auth.asStateFlow()
     private val mStatesTabKitchen: MutableStateFlow<List<States>> by lazy { MutableStateFlow(emptyList()) }
     val statesTabKitchen = mStatesTabKitchen.asStateFlow()
 
-    fun getStatesTabOrder() = viewModelScope.launch(dispatcher.getIODispatcher()) {
-        when (val statesResult = stateUseCase.getStates()) {
-            is ResultState.Success -> {
-                val statePending = statesResult.data.find { item -> item.code == OrderStateCode.TODO.name }
-                mOrdersPendingState.value = statePending?.id ?: ""
-            }
-
-            else -> {
-                // Nothing
-            }
-        }
-    }
-
-    fun getStatesTabSale() = viewModelScope.launch(dispatcher.getIODispatcher()) {
+    fun getKitchenOrderStates() = viewModelScope.launch(dispatcher.getIODispatcher()) {
         when (val statesResult = stateUseCase.getStates()) {
             is ResultState.Success -> {
                 val states = mutableListOf<States>()
@@ -64,7 +47,12 @@ class HomeViewModel @Inject constructor(
 
     fun getAuth(): Job {
         return viewModelScope.launch(dispatcher.getIODispatcher()) {
-            _auth.value = getAuthUseCase.authPreferences()
+            _auth.value = AuthStateView.Success(data = getAuthUseCase.authPreferences())
         }
+    }
+
+    sealed interface AuthStateView {
+        object Loading : AuthStateView
+        data class Success(val data: Auth) : AuthStateView
     }
 }

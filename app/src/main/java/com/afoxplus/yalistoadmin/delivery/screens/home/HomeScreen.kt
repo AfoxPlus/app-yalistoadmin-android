@@ -22,13 +22,19 @@ fun HomeScreen(
     appState: YaListoHomeState = rememberYaListoHomeState(),
     viewModel: HomeViewModel = hiltViewModel()
 ) {
-    val auth by viewModel.auth.collectAsStateWithLifecycle()
+    val authState by viewModel.auth.collectAsStateWithLifecycle()
+
     Scaffold(
         topBar = {
             AnimatedVisibility(
                 visible = appState.shouldShowBar
             ) {
-                TopBarYaListo(auth)
+                when (authState) {
+                    HomeViewModel.AuthStateView.Loading -> {}
+                    is HomeViewModel.AuthStateView.Success -> {
+                        TopBarYaListo((authState as HomeViewModel.AuthStateView.Success).data)
+                    }
+                }
             }
         },
         bottomBar = {
