@@ -90,15 +90,15 @@ class OrderDetailViewModel @Inject constructor(
         onFailure: suspend () -> Unit = {}
     ) {
         order?.let {
-            mOrderState.value = OrderStateView.Loading
+            mOrderState.emit(OrderStateView.Loading)
             when (val result = orderStateUseCase(it, orderStateCode)) {
                 is ResultState.Error -> {
-                    mOrderState.value = OrderStateView.Success(it)
+                    mOrderState.emit(OrderStateView.Success(it))
                     onFailure()
                 }
 
                 is ResultState.Success -> {
-                    mOrderState.value = OrderStateView.Success(result.data)
+                    mOrderState.emit(OrderStateView.Success(result.data))
                     onSuccess()
                 }
             }
@@ -108,7 +108,7 @@ class OrderDetailViewModel @Inject constructor(
     fun updateOrderStateToDone() {
         viewModelScope.launch(dispatcher.getIODispatcher()) {
             updateOrderState(OrderStateCode.DONE, onSuccess = {
-                mOrderButtonState.value = OrderStateButtonView.None
+                mOrderButtonState.emit(OrderStateButtonView.None)
             })
         }
     }
@@ -189,8 +189,10 @@ class OrderDetailViewModel @Inject constructor(
     fun archiveOrder() {
         viewModelScope.launch(dispatcher.getIODispatcher()) {
             order?.let {
-                when (archiveOrderUseCase.archiveOrder(order)) {
+                mOrderState.emit(OrderStateView.Loading)
+                when (archiveOrderUseCase.archiveOrder(it)) {
                     is ResultState.Error -> {
+                        mOrderState.emit(OrderStateView.Success(it))
                     }
 
                     is ResultState.Success -> {
