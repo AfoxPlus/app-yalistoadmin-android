@@ -1,5 +1,6 @@
 package com.afoxplus.yalistoadmin.data.datasource.remote
 
+import com.afoxplus.network.extensions.body
 import com.afoxplus.yalistoadmin.cross.utils.ResultState
 import com.afoxplus.yalistoadmin.data.api.AdminApiOrdersNetwork
 import com.afoxplus.yalistoadmin.data.datasource.OrderStatusRemote
@@ -26,11 +27,12 @@ class OrderStatusDataSourceRemote @Inject constructor(
     }
 
     override suspend fun updateState(order: Order, state: String): ResultState<Order> {
-        val response = try {
-            api.sendOrderState(OrderStateRequestModel(order.id, state)).body()?.payload?.toEntity()
-        } catch (e: Exception) {
-            return ResultState.Error(e)
-        }
-        return if (response != null) ResultState.Success(response) else ResultState.Error(NullPointerException())
+        var orderResult: Order? = null
+        api.sendOrderState(OrderStateRequestModel(order.id, state)).body(onSuccess = {
+            orderResult = it.payload.toEntity()
+        }, onFailed = {
+            })
+
+        return orderResult?.let { ResultState.Success(it) } ?: ResultState.Error(NullPointerException())
     }
 }
