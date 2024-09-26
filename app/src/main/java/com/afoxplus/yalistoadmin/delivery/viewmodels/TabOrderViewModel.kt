@@ -45,6 +45,7 @@ class TabOrderViewModel @Inject constructor(
     fun getOrdersByStateId(orderStateId: String): Job {
         return viewModelScope.launch(dispatcher.getIODispatcher()) {
             try {
+                mOrdersState.value = OrderState.Loading
                 when (val result = getOrderStatusUseCase(orderStateId)) {
                     is ResultState.Error -> {
                         mOrdersState.value = OrderState.Failure

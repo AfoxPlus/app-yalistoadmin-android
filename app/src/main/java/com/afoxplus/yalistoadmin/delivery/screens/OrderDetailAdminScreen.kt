@@ -149,7 +149,7 @@ fun OrderDetailAdminScreen(
                     width = Dimension.fillToConstraints
                 }
         ) {
-            val (buttonUpdate, buttonPrint) = createRefs()
+            val (buttonUpdate) = createRefs()
 
             UIKitButtonPrimaryLarge(
                 modifier = Modifier.constrainAs(buttonUpdate) {

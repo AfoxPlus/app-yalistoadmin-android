@@ -1,12 +1,13 @@
 plugins {
-    id("com.android.application")
-    id("org.jetbrains.kotlin.android")
-    id("org.jetbrains.kotlin.kapt")
-    id("org.jetbrains.kotlin.plugin.parcelize")
-    id("com.google.dagger.hilt.android")
-    id("org.jlleitschuh.gradle.ktlint")
-    id("com.google.gms.google-services")
-    id("com.google.firebase.crashlytics")
+    alias(libs.plugins.android.application)
+    alias(libs.plugins.jetbrains.kotlin.android)
+    alias(libs.plugins.jetbrains.kotlin.plugin.parcelize)
+    alias(libs.plugins.dagger.hilt.android)
+    alias(libs.plugins.jlleitschuh.gradle.ktlint)
+    alias(libs.plugins.gms.google.services)
+    alias(libs.plugins.firebase.crashlytics)
+    alias(libs.plugins.devtools.ksp)
+    alias(libs.plugins.androidx.room)
     id("org.sonarqube") version "3.3"
     id("jacoco")
 }
@@ -30,12 +31,6 @@ android {
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables {
             useSupportLibrary = true
-        }
-
-        kapt {
-            arguments {
-                arg("room.schemaLocation", "$projectDir/schemas")
-            }
         }
     }
 
@@ -125,7 +120,13 @@ android {
     }
 
     composeOptions {
-        kotlinCompilerExtensionVersion = "1.4.8"
+        kotlinCompilerExtensionVersion = "1.5.1"
+    }
+
+    room {
+        schemaDirectory("staging", "$projectDir/schemas/staging")
+        schemaDirectory("debug", "$projectDir/schemas/debug")
+        schemaDirectory("$projectDir/schemas")
     }
 
     /*packaging {
@@ -145,83 +146,83 @@ android {
 }
 
 dependencies {
-    implementation("androidx.core:core-ktx:1.12.0")
-    implementation("androidx.core:core-splashscreen:1.0.1")
-    implementation("com.google.android.material:material:1.10.0")
-    implementation("androidx.constraintlayout:constraintlayout:2.1.4")
+    implementation(libs.androidx.core.ktx)
+    implementation(libs.androidx.core.splashscreen)
+    implementation(libs.material)
+    implementation(libs.androidx.constraintlayout)
 
     // Compose
-    implementation("androidx.activity:activity-compose:1.8.0")
-    implementation("androidx.constraintlayout:constraintlayout-compose:1.0.1")
-    implementation("androidx.navigation:navigation-compose:2.7.4")
-    implementation(platform("androidx.compose:compose-bom:2024.03.00"))
-    implementation("androidx.compose.ui:ui")
-    implementation("androidx.compose.ui:ui-graphics")
-    implementation("androidx.compose.ui:ui-tooling-preview")
-    debugImplementation("androidx.compose.ui:ui-tooling")
-    implementation("androidx.compose.material3:material3")
-    implementation("androidx.compose.material:material-icons-extended")
+    implementation(libs.androidx.activity.compose)
+    implementation(libs.androidx.constraintlayout.compose)
+    implementation(platform(libs.androidx.compose.bom))
+    implementation(libs.androidx.navigation.compose)
+    implementation(libs.androidx.ui)
+    implementation(libs.androidx.ui.graphics)
+    implementation(libs.androidx.ui.tooling.preview)
+    implementation(libs.androidx.material3)
+    debugImplementation(libs.androidx.ui.tooling)
+    implementation(libs.androidx.material.icons.extended)
 
     // Coroutines
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.3")
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.3")
+    implementation(libs.kotlinx.coroutines.core)
+    implementation(libs.kotlinx.coroutines.android)
 
     // Lifecycle Scopes
-    implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.6.2")
-    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.6.2")
-    implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.6.2")
-    implementation("androidx.lifecycle:lifecycle-runtime-compose:2.6.2")
+    implementation(libs.androidx.lifecycle.runtime.ktx)
+    implementation(libs.androidx.lifecycle.viewmodel.ktx)
+    implementation(libs.androidx.lifecycle.viewmodel.compose)
+    implementation(libs.androidx.lifecycle.runtime.compose)
 
     // Retrofit
-    implementation("com.squareup.retrofit2:retrofit:2.9.0")
-    implementation("com.squareup.retrofit2:converter-gson:2.9.0")
-    implementation("com.squareup.okhttp3:logging-interceptor:4.11.0")
+    implementation(libs.retrofit)
+    implementation(libs.converter.gson)
+    implementation(libs.logging.interceptor)
 
     // Dagger - Hilt
-    implementation("com.google.dagger:hilt-android:2.46")
-    kapt("com.google.dagger:hilt-android-compiler:2.46")
-    implementation("androidx.hilt:hilt-navigation-compose:1.1.0")
-    kapt("androidx.hilt:hilt-compiler:1.1.0")
+    implementation(libs.hilt.android)
+    ksp(libs.hilt.android.compiler)
+    implementation(libs.androidx.hilt.navigation.compose)
+    ksp(libs.androidx.hilt.compiler)
 
     // Room
-    implementation("androidx.room:room-runtime:2.6.0")
-    kapt("androidx.room:room-compiler:2.6.0")
-    implementation("androidx.room:room-ktx:2.6.0")
+    implementation(libs.androidx.room.runtime)
+    ksp(libs.androidx.room.compiler)
+    implementation(libs.androidx.room.ktx)
 
     // DataStore
-    implementation("androidx.datastore:datastore-preferences:1.0.0")
-    implementation("androidx.datastore:datastore-preferences-core:1.0.0")
+    implementation(libs.androidx.datastore.preferences)
+    implementation(libs.androidx.datastore.preferences.core)
 
     // Timber
-    implementation("com.jakewharton.timber:timber:5.0.1")
+    implementation(libs.timber)
 
     // Coil
-    implementation("io.coil-kt:coil-compose:2.4.0")
+    implementation(libs.coil.compose)
 
     // Chucker
-    debugImplementation("com.github.chuckerteam.chucker:library:4.0.0")
-    "stagingImplementation"("com.github.chuckerteam.chucker:library-no-op:4.0.0")
-    releaseImplementation("com.github.chuckerteam.chucker:library-no-op:4.0.0")
+    debugImplementation(libs.chucker.library)
+    "stagingImplementation"(libs.chucker.library.no.op)
+    releaseImplementation(libs.chucker.library.no.op)
 
     // Firebase
-    implementation(platform("com.google.firebase:firebase-bom:32.6.0"))
-    implementation("com.google.firebase:firebase-analytics")
-    implementation("com.google.firebase:firebase-crashlytics")
+    implementation(platform(libs.firebase.bom))
+    implementation(libs.firebase.analytics)
+    implementation(libs.firebase.crashlytics)
 
     // Test
-    testImplementation("junit:junit:4.13.2")
-    androidTestImplementation("androidx.test.ext:junit:1.1.5")
-    androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
-    androidTestImplementation(platform("androidx.compose:compose-bom:2023.06.01"))
-    androidTestImplementation("androidx.compose.ui:ui-test-junit4")
-    debugImplementation("androidx.compose.ui:ui-test-manifest")
-    testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.7.3")
-    testImplementation("androidx.arch.core:core-testing:2.2.0")
-    testImplementation("org.mockito:mockito-core:5.3.1")
-    testImplementation("org.mockito.kotlin:mockito-kotlin:5.1.0")
-    testImplementation("org.mockito:mockito-inline:5.2.0")
+    testImplementation(libs.junit)
+    androidTestImplementation(libs.androidx.junit)
+    androidTestImplementation(libs.androidx.espresso.core)
+    androidTestImplementation(platform(libs.androidx.compose.bom))
+    androidTestImplementation(libs.androidx.ui.test.junit4)
+    debugImplementation(libs.androidx.ui.test.manifest)
+    testImplementation(libs.kotlinx.coroutines.test)
+    testImplementation(libs.androidx.core.testing)
+    testImplementation(libs.mockito.core)
+    testImplementation(libs.mockito.kotlin)
+    testImplementation(libs.mockito.inline)
 
     // Business
-    implementation("com.afoxplus.android:network:6.2.1")
-    implementation("com.afoxplus.android:uikit:6.2.2")
+    implementation(libs.yalisto.network)
+    implementation(libs.yalisto.uikit)
 }
