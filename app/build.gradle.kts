@@ -1,12 +1,13 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.jetbrains.kotlin.android)
-    alias(libs.plugins.jetbrains.kotlin.kapt)
     alias(libs.plugins.jetbrains.kotlin.plugin.parcelize)
     alias(libs.plugins.dagger.hilt.android)
     alias(libs.plugins.jlleitschuh.gradle.ktlint)
     alias(libs.plugins.gms.google.services)
     alias(libs.plugins.firebase.crashlytics)
+    alias(libs.plugins.devtools.ksp)
+    alias(libs.plugins.androidx.room)
     id("org.sonarqube") version "3.3"
     id("jacoco")
 }
@@ -30,12 +31,6 @@ android {
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables {
             useSupportLibrary = true
-        }
-
-        kapt {
-            arguments {
-                arg("room.schemaLocation", "$projectDir/schemas")
-            }
         }
     }
 
@@ -128,6 +123,12 @@ android {
         kotlinCompilerExtensionVersion = "1.5.1"
     }
 
+    room {
+        schemaDirectory("staging", "$projectDir/schemas/staging")
+        schemaDirectory("debug", "$projectDir/schemas/debug")
+        schemaDirectory("$projectDir/schemas")
+    }
+
     /*packaging {
         resources.excludes.add("/META-INF/{AL2.0,LGPL2.1}")
     }*/
@@ -179,13 +180,13 @@ dependencies {
 
     // Dagger - Hilt
     implementation(libs.hilt.android)
-    kapt(libs.hilt.android.compiler)
+    ksp(libs.hilt.android.compiler)
     implementation(libs.androidx.hilt.navigation.compose)
-    kapt(libs.androidx.hilt.compiler)
+    ksp(libs.androidx.hilt.compiler)
 
     // Room
     implementation(libs.androidx.room.runtime)
-    kapt("androidx.room:room-compiler:2.6.0")
+    ksp(libs.androidx.room.compiler)
     implementation(libs.androidx.room.ktx)
 
     // DataStore

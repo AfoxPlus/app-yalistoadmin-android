@@ -19,3 +19,4 @@ local.properties
 .iml
 /buildSrc/build/
 /app/google-services.json
+*schemas
