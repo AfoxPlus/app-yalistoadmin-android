@@ -1,5 +1,6 @@
 package com.afoxplus.yalistoadmin.delivery.components.restaurant
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -16,12 +17,13 @@ import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
+import com.afoxplus.uikit.designsystem.foundations.UIKitColorTheme
 import com.afoxplus.uikit.designsystem.foundations.UIKitTheme
 import com.afoxplus.yalistoadmin.domain.entities.Restaurant
 
 @Composable
 fun InfoBusinessComponent(restaurant: Restaurant) {
-    Column {
+    Column(modifier = Modifier.background(UIKitColorTheme.light01)) {
         Row(
             modifier = Modifier
                 .fillMaxWidth()
@@ -33,7 +35,7 @@ fun InfoBusinessComponent(restaurant: Restaurant) {
                     .width(80.dp)
                     .height(80.dp)
                     .shadow(
-                        elevation = 5.dp,
+                        elevation = UIKitTheme.spacing.spacing04,
                         shape = UIKitTheme.shapes.small,
                         clip = true
                     ),
