@@ -35,12 +35,15 @@ fun RootNavigationGraph(navController: NavHostController) {
 }
 
 sealed class Graph(val route: String) {
-    object Root : Graph("root_graph")
-    object CheckIn : Graph("check_in_graph")
-    object Authentication : Graph("auth_graph")
-    object Home : Graph("home_graph")
-    object OrderDetails : Graph("order_screen/{${NavArgs.Order.key}}") {
+    data object Root : Graph("root_graph")
+    data object CheckIn : Graph("check_in_graph")
+    data object Authentication : Graph("auth_graph")
+    data object Home : Graph("home_graph")
+    data object OrderDetails : Graph("order_screen/{${NavArgs.Order.key}}") {
         fun createRoute(order: Order) = "order_screen/${Uri.encode(Gson().toJson(order))}"
+    }
+    data object OrderDetailsADM : Graph("order_screen_adm/{${NavArgs.Order.key}}") {
+        fun createRoute(order: Order) = "order_screen_adm/${Uri.encode(Gson().toJson(order))}"
     }
 }
 

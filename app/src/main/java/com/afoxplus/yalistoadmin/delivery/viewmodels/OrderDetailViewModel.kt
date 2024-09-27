@@ -73,6 +73,7 @@ class OrderDetailViewModel @Inject constructor(
     fun sendOrderState(state: String) {
         viewModelScope.launch(dispatcher.getIODispatcher()) {
             order?.let {
+                mOrderState.emit(OrderStateView.Loading)
                 when (val result = orderStateUseCase(it, state)) {
                     is ResultState.Error -> {}
 

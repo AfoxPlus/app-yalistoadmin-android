@@ -13,10 +13,8 @@ import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
@@ -38,29 +36,38 @@ import com.afoxplus.yalistoadmin.delivery.components.status.OrderDetailTotalItem
 import com.afoxplus.yalistoadmin.delivery.components.status.OrderStatusPrint
 import com.afoxplus.yalistoadmin.delivery.components.status.OrderTypeComponent
 import com.afoxplus.yalistoadmin.delivery.components.status.OrderWhatsappContactComponent
+import com.afoxplus.yalistoadmin.delivery.screens.home.navbar.HandleShowLoading
 import com.afoxplus.yalistoadmin.delivery.viewmodels.OrderDetailViewModel
+import com.afoxplus.yalistoadmin.domain.entities.Order
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun OrderDetailAdminScreen(
     orderDetailViewModel: OrderDetailViewModel = hiltViewModel(),
     navigateBack: () -> Unit
 ) {
     val orderState by orderDetailViewModel.orderState.collectAsState()
-    val order by remember {
-        derivedStateOf { (orderState as OrderDetailViewModel.OrderStateView.Success).data }
+    when (orderState) {
+        OrderDetailViewModel.OrderStateView.Loading -> HandleShowLoading()
+        is OrderDetailViewModel.OrderStateView.Success -> {
+            val order = (orderState as OrderDetailViewModel.OrderStateView.Success).data
+            OrderDetailAdminContent(order, orderDetailViewModel, navigateBack)
+        }
     }
-    val context = LocalContext.current
-
-    val statesOrder = orderDetailViewModel.states.collectAsState().value
-    val sheetState = rememberModalBottomSheetState()
-    var isSheetOpen by rememberSaveable { mutableStateOf(false) }
+    LaunchedEffect(Unit) { orderDetailViewModel.setupOrderDetail() }
     LaunchedEffect(key1 = Unit) {
         orderDetailViewModel.orderArchived.collect {
             navigateBack()
         }
     }
+}
 
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun OrderDetailAdminContent(order: Order, orderDetailViewModel: OrderDetailViewModel, navigateBack: () -> Unit) {
+    val context = LocalContext.current
+    val statesOrder = orderDetailViewModel.states.collectAsState().value
+    val sheetState = rememberModalBottomSheetState()
+    var isSheetOpen by rememberSaveable { mutableStateOf(false) }
     ConstraintLayout(
         modifier = Modifier
             .fillMaxSize()
@@ -159,20 +166,8 @@ fun OrderDetailAdminScreen(
                     bottom.linkTo(parent.bottom, margin = 16.dp)
                     width = Dimension.fillToConstraints
                 },
-                text = if (orderDetailViewModel.isUpdateButton()) {
-                    stringResource(id = R.string.order_update_state)
-                } else {
-                    stringResource(
-                        id = R.string.order_archive
-                    )
-                },
-                onClick = {
-                    if (orderDetailViewModel.isUpdateButton()) {
-                        isSheetOpen = true
-                    } else {
-                        orderDetailViewModel.archiveOrder()
-                    }
-                }
+                text = stringResource(id = R.string.order_update_state),
+                onClick = { isSheetOpen = true }
             )
 
             if (isSheetOpen) {
