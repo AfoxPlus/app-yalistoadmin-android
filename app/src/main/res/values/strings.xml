@@ -6,7 +6,7 @@
     <string name="login_card_subtitle">Gestiona tus pedidos</string>
     <string name="login_card_input_title">Identificador del establecimiento</string>
     <string name="ingresar">Ingresar</string>
-    <string name="order_status_client">Cliente:</string>
+    <string name="order_status_client">Cliente</string>
     <string name="order_status_total">Total</string>
     <string name="order_status_id">ID: %1$s</string>
     <string name="order_restaurant_description">Establecimiento</string>

@@ -83,7 +83,7 @@ fun OrderDetailAdminContent(order: Order, orderDetailViewModel: OrderDetailViewM
                     start.linkTo(parent.start)
                     end.linkTo(parent.end)
                 },
-            title = "Client",
+            title = stringResource(id = R.string.order_status_client),
             description = order.client.name
         ) {
             navigateBack()
