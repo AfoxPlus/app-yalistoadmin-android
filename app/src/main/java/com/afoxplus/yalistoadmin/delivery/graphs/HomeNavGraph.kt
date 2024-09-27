@@ -8,14 +8,12 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.navigation
 import androidx.navigation.navArgument
-import com.afoxplus.yalistoadmin.cross.extensions.sharedViewModel
 import com.afoxplus.yalistoadmin.delivery.routers.BottomBarHomeRouter
 import com.afoxplus.yalistoadmin.delivery.screens.OrderDetailScreen
 import com.afoxplus.yalistoadmin.delivery.screens.home.navbar.KitchenHomeScreen
 import com.afoxplus.yalistoadmin.delivery.screens.home.navbar.OrdersHomeScreen
 import com.afoxplus.yalistoadmin.delivery.screens.home.navbar.ProductScreen
 import com.afoxplus.yalistoadmin.delivery.screens.home.navbar.TablesScreen
-import com.afoxplus.yalistoadmin.delivery.viewmodels.HomeViewModel
 import com.afoxplus.yalistoadmin.domain.entities.OrderNavType
 import timber.log.Timber
 
@@ -39,9 +37,7 @@ fun HomeNavGraph(navController: NavHostController, modifier: Modifier = Modifier
         }
 
         composable(route = BottomBarHomeRouter.Kitchen.route) {
-            val viewModel = it.sharedViewModel<HomeViewModel>(navController = navController)
             KitchenHomeScreen(
-                viewModel = viewModel,
                 navigateToOrderDetail = { order ->
                     navController.navigate(Graph.OrderDetails.createRoute(order = order))
                 },
